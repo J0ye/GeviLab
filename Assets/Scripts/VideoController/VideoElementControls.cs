@@ -15,6 +15,8 @@ public class VideoElementControls : MonoBehaviour
     public GameObject videoScreen;
     [Tooltip("This is a reference of the video player, which is displayed via the render texture on the virtual video screen. Name: 'videoPlayer'")]
     public VideoPlayer videoPlayer;
+    [Tooltip("This is a reference to the main camera or player camera. The object with the camera component: 'playerCamera'")]
+    public GameObject playerCamera;
     [Tooltip("This is a reference to the elements of the UI that are used to control video playback, i.e. Play, Pause, Forward, Backwards. Name: 'videoPlayerUI'")]
     public GameObject videoPlayerUI;
     // Start is called before the first frame update
@@ -39,6 +41,9 @@ public class VideoElementControls : MonoBehaviour
                 break;
             case "videoPlayer":
                 videoPlayer.enabled = !videoPlayer.enabled;
+                break;
+            case "playerCamera":
+                playerCamera.SetActive(!playerCamera.activeSelf);
                 break;
             case "videoPlayerUI":
                 videoPlayerUI.SetActive(!videoPlayerUI.activeSelf);

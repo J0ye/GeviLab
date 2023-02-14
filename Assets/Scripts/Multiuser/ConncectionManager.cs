@@ -74,8 +74,11 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
             WriteStatus(i.ToString());
             yield return new WaitForSeconds(1f);
         }
-
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        if(GameState.instance != null)
+        {
+            yield return new WaitWhile(() => !GameState.instance.setStateByPlayer);
+            PhotonNetwork.JoinRandomOrCreateRoom();
+        }
     }
 
     private void WriteStatus(string text)
