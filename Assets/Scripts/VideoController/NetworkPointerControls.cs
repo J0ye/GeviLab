@@ -13,9 +13,9 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
     [Header("Point of Interest Settings")]
     public GameObject poiPrefab;
 
-    private LineRenderer line;
-    private RaycastHit hit;
-    private GameObject lastCreatedPOI;
+    protected LineRenderer line;
+    protected RaycastHit hit;
+    protected GameObject lastCreatedPOI;
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,7 +23,7 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if(PhotonNetwork.InRoom)
         {
@@ -48,14 +48,14 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
         }
     }
 
-    private void AddPointOfInterest(RaycastHit target)
+    protected void AddPointOfInterest(RaycastHit target)
     {
         // Add Point Of Interest
         GameObject poi = PhotonNetwork.Instantiate(poiPrefab.name, target.point, Quaternion.identity);
         lastCreatedPOI = poi;
     }
 
-    private void ScalePointOfIntereset(float val)
+    protected void ScalePointOfIntereset(float val)
     {
         if(lastCreatedPOI != null)
         {
@@ -64,7 +64,7 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
         }
     }
 
-    private void SetLineEnd(Vector3 position)
+    protected virtual void SetLineEnd(Vector3 position)
     {
         line.positionCount = 2;
 
@@ -74,7 +74,7 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
         this.BroadcastRPC("SetLineEnd", NetworkAvatarControls.instance.avatarID, position);
     }
 
-    private void ResetLineRenderer()
+    protected void ResetLineRenderer()
     {
         if(line.positionCount > 0)
         {
