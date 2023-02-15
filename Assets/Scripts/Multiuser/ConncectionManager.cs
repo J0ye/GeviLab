@@ -29,12 +29,12 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if(PhotonNetwork.InRoom)
+        if (PhotonNetwork.InRoom)
         {
             players.Clear();
             Player[] tempPlayerArray = new Player[PhotonNetwork.CurrentRoom.Players.Count];
             playerIDs = PhotonNetwork.CurrentRoom.Players.Keys.ToList<int>();
-            foreach(Player p in PhotonNetwork.CurrentRoom.Players.Values)
+            foreach (Player p in PhotonNetwork.CurrentRoom.Players.Values)
             {
                 players.Add(p.NickName);
             }
@@ -74,8 +74,11 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
             WriteStatus(i.ToString());
             yield return new WaitForSeconds(1f);
         }
-
-        PhotonNetwork.JoinRandomOrCreateRoom();
+        if (GameState.instance != null)
+        {
+            yield return new WaitWhile(() => !GameState.instance.setStateByPlayer);
+            PhotonNetwork.JoinRandomOrCreateRoom();
+        }
     }
 
     private void WriteStatus(string text)
