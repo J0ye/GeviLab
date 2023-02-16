@@ -64,6 +64,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         OnOtherPlayerEnterRoom.Invoke();
+        print("Enter room");
     }
 
     private IEnumerator JoinStandardRoom()

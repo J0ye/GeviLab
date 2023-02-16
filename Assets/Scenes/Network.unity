@@ -1286,6 +1286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: 360 Video Element
       objectReference: {fileID: 0}
+    - target: {fileID: 5568037435855831589, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5568037435855831590, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1367,9 +1371,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1675622616729520536, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 5086867592325669657, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
       propertyPath: m_Name
       value: CameraRig
+      objectReference: {fileID: 0}
+    - target: {fileID: 5086867592325669657, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5562717851290858177, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
       propertyPath: m_RootOrder

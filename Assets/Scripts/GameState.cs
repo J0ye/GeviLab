@@ -23,6 +23,11 @@ public class GameState : MonoBehaviour
             Destroy(this);
         }
 
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            SetStateToVR();
+        }
+
         UpdateDisplay();
     }
 

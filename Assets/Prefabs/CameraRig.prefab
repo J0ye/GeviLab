@@ -337,6 +337,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   poiPrefab: {fileID: 8980304335582832733, guid: c950b6ca579e8f64d8f5e3314170b19d, type: 3}
+  inputPos: {x: 0, y: 0, z: 0}
+  worldPos: {x: 0, y: 0, z: 0}
   activationTrigger: {fileID: 1224626716186909359}
   actionTrigger: {fileID: 7054694498317517281}
 --- !u!1 &988380140295943095
@@ -872,7 +874,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &134310199692226629
 Transform:
   m_ObjectHideFlags: 0
@@ -1289,6 +1291,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   poiPrefab: {fileID: 8980304335582832733, guid: c950b6ca579e8f64d8f5e3314170b19d, type: 3}
+  inputPos: {x: 0, y: 0, z: 0}
+  worldPos: {x: 0, y: 0, z: 0}
   activationTrigger: {fileID: 5745259364133169937}
   actionTrigger: {fileID: 1881404958631175812}
 --- !u!1 &3444374962994458948
@@ -2090,7 +2094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &978540984917686359
 Transform:
   m_ObjectHideFlags: 0
