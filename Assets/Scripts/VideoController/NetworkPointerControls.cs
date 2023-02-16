@@ -78,7 +78,7 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
     {
         line.positionCount = 2;
 
-        line.SetPosition(0, transform.position); //- new Vector3(0f, 0.5f, 0f));
+        line.SetPosition(0, transform.position - new Vector3(0f, 0.5f, 0f));
         line.SetPosition(1, position);
 
         this.BroadcastRPC("SetLineEnd", NetworkAvatarControls.instance.avatarID, position);
