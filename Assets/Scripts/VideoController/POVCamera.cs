@@ -10,6 +10,7 @@ public class POVCamera : MonoBehaviour
     [Range(1f, 10f)]
     public float smooth = 2f;
     public bool simulateTouch = false;
+    public bool inverted = false;
 
     private Vector2 mouseOrientation;
     private Vector2 touchOrientation;
@@ -41,6 +42,18 @@ public class POVCamera : MonoBehaviour
             lookVector.y = Mathf.Clamp(lookVector.y, -90, 90);
         }
         // Translation of camera orientation
-        transform.rotation = Quaternion.Euler(-lookVector.y, lookVector.x, 0);
+        if(!inverted)
+        {
+            transform.rotation = Quaternion.Euler(-lookVector.y, lookVector.x, 0);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(lookVector.y, -lookVector.x, 0);
+        }
+    }
+
+    public void InvertControls(bool inver)
+    {
+        inverted = inver;
     }
 }

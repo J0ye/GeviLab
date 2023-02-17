@@ -20,22 +20,7 @@ public class MenuManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void PressPlay()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void AdjustQuality(int val)
-    {
-        QualitySettings.SetQualityLevel(val);
-    }
-
-    public void ToggleFullScreen(bool screen)
-    {
-        Screen.fullScreen = screen;
-    }
-
-    public void SetMenuState()
+    public void SwitchMenuState()
     {
         _ = state == MenuState.Setting ? state = MenuState.Main : state = MenuState.Setting;
         Debug.Log(state);
