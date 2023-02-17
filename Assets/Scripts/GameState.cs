@@ -23,9 +23,11 @@ public class GameState : MonoBehaviour
             Destroy(this);
         }
 
-        if(Application.platform == RuntimePlatform.Android)
+        if(Application.platform == RuntimePlatform.Android || true)
         {
             SetStateToVR();
+            Destroy(vec.playerCamera);
+            print("is anroid");
         }
 
         UpdateDisplay();

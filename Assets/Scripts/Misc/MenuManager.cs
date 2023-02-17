@@ -23,7 +23,6 @@ public class MenuManager : MonoBehaviour
     public void SwitchMenuState()
     {
         _ = state == MenuState.Setting ? state = MenuState.Main : state = MenuState.Setting;
-        Debug.Log(state);
         UpdateUI();
     }
 

@@ -791,7 +791,7 @@ GameObject:
   - component: {fileID: 3949357203704206039}
   m_Layer: 6
   m_Name: VideoScreen
-  m_TagString: Untagged
+  m_TagString: Screen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967294

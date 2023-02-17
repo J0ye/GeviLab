@@ -55,6 +55,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        print("in room");
         OnEnterRoom.Invoke();
         WritePlayerCount();
     }
@@ -62,7 +63,6 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         OnOtherPlayerEnterRoom.Invoke();
-        print("Enter room");
         WritePlayerCount();
     }
 
@@ -82,10 +82,11 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
         if (GameState.instance != null)
         {
             yield return new WaitWhile(() => !GameState.instance.setStateByPlayer);
-            PhotonNetwork.JoinRandomOrCreateRoom();
         }
+        print("joining");
+        PhotonNetwork.JoinRandomOrCreateRoom();
     }
-
+     
     private void WritePlayerCount()
     {
         string temp = "Room name: " + PhotonNetwork.CurrentRoom.Name;

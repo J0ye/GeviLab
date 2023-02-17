@@ -24,7 +24,6 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
     {
         if(!TryGetComponent<Camera>(out cam))
         {
-            print("cam");
             cam = Camera.main;
         }
         line = GetComponent<LineRenderer>();
@@ -58,7 +57,7 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
         }
     }
     #region points and line functions
-    protected void AddPointOfInterest(RaycastHit target)
+    protected virtual void AddPointOfInterest(RaycastHit target)
     {
         // Add Point Of Interest
         GameObject poi = PhotonNetwork.Instantiate(poiPrefab.name, target.point, Quaternion.identity);
@@ -84,7 +83,7 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
         this.BroadcastRPC("SetLineEnd", NetworkAvatarControls.instance.avatarID, position);
     }
 
-    protected void ResetLineRenderer()
+    protected virtual void ResetLineRenderer()
     {
         if(line.positionCount > 0)
         {
