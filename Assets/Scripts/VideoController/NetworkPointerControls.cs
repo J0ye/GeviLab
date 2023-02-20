@@ -12,8 +12,11 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
     public LayerMask layers = new LayerMask();
     [Header("Point of Interest Settings")]
     public GameObject poiPrefab;
-    public Vector3 inputPos;
-    public Vector3 worldPos;
+    public bool spawnNoteInstead;
+
+    //Debug Parameter. Only used for displaying info in inspector
+    private Vector3 inputPos;
+    private Vector3 worldPos;
 
     protected LineRenderer line;
     protected Camera cam;
@@ -59,9 +62,17 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
     #region points and line functions
     protected virtual void AddPointOfInterest(RaycastHit target)
     {
-        // Add Point Of Interest
-        GameObject poi = PhotonNetwork.Instantiate(poiPrefab.name, target.point, Quaternion.identity);
-        lastCreatedPOI = poi;
+        if (spawnNoteInstead)
+        {
+            // Add Note
+            Note.CreateNote("Test 1", target.point, cam.transform.position);
+        }
+        else
+        {
+            // Add Point Of Interest
+            GameObject poi = PhotonNetwork.Instantiate(poiPrefab.name, target.point, Quaternion.identity);
+            lastCreatedPOI = poi;
+        }
     }
 
     protected void ScalePointOfIntereset(float val)

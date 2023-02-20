@@ -26,6 +26,16 @@ public class MenuManager : MonoBehaviour
         UpdateUI();
     }
 
+    public void ToggleFullScreen(bool screen)
+    {
+        Screen.fullScreen = screen;
+    }
+
+    public void CloseApplication()
+    {
+        Application.Quit();
+    }
+
     protected void UpdateUI()
     {
         switch (state)
