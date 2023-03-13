@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using ExitGames.Client.Photon;
 using UnityEngine.Events;
 using TMPro;
 using System.Linq;
@@ -20,6 +19,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     public List<int> playerIDs = new List<int>();
     public List<string> players = new List<string>();
 
+    public PhotonView view;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,12 +56,17 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         print("in room");
-        OnEnterRoom.Invoke();
+        OnEnterRoom.Invoke();       
         WritePlayerCount();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            // muss  zu einem objekt mit view
+            view.RPC("ChangeRole", newPlayer, Student.roleName);
+        }
         OnOtherPlayerEnterRoom.Invoke();
         WritePlayerCount();
     }
@@ -69,6 +74,29 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         WritePlayerCount();
+    }
+
+    [PunRPC]
+    public void ChangeRole(Role newRole)
+    {
+        GameState.instance.SetRole(newRole);
+    }
+
+    [PunRPC]
+    public void ChangeRole(string roleName)
+    {
+        switch (roleName)
+        {
+            case Student.roleName:
+                GameState.instance.SetRole( new Student());
+                break;
+            case GroupMember.roleName:
+                GameState.instance.SetRole(new GroupMember());
+                break;
+            case Educator.roleName:
+                GameState.instance.SetRole(new Educator());
+                break;
+        }
     }
 
     private IEnumerator JoinStandardRoom()

@@ -6,15 +6,24 @@ using TMPro;
 
 public class Note : MonoBehaviour
 {
-    public static void CreateNote(string titel, Vector3 position, Vector3 lookAt)
+
+    public GameObject fullscreenPrefab;
+    public TMP_Text titel;
+
+    private string text;
+
+    public static Note CreateNote(string noteTitel, string content, Vector3 position, Vector3 lookAt)
     {
         GameObject notePrefab = Resources.Load<GameObject>("NoteObject");
         GameObject newNote = Instantiate(notePrefab, position, Quaternion.identity);
-        newNote.transform.LookAt(2* position - lookAt);
-        newNote.GetComponent<Note>().titel.text = titel;
-    }
+        newNote.transform.LookAt(2 * position - lookAt);
+        Note noteComponent = newNote.GetComponent<Note>();
+        noteComponent.titel.text = noteTitel;
+        noteComponent.text = content;
+        print("Content set to: " + noteComponent.text);
 
-    public TMP_Text titel;
+        return noteComponent;
+    }
 
     public void OnMouseDown()
     {
@@ -23,6 +32,15 @@ public class Note : MonoBehaviour
 
     public void OpenNote()
     {
-        print("open note");
+        GameObject newFullscreenNote = Instantiate(fullscreenPrefab, Vector3.zero, Quaternion.identity);
+        FullscreenNote fn = newFullscreenNote.GetComponent<FullscreenNote>();
+        fn.content.text = titel.text + "\n" + text;
+        print("Text: " + titel.text + "\n" + text);
+        fn.origin = this;
+    }
+
+    public void SetDisplay(bool state)
+    {
+        gameObject.SetActive(state);
     }
 }

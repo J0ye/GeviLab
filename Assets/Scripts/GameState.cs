@@ -14,6 +14,7 @@ public class GameState : MonoBehaviour
     [Tooltip("This member is not used as a parameter, but rather to display speical informations about the State")]
     public string logOutput = "";
 
+    public Role roleState { get; private set; }
     public bool setStateByPlayer { get; private set; }
     private bool isVR = false;
     // Start is called before the first frame update
@@ -40,6 +41,7 @@ public class GameState : MonoBehaviour
         }
 
         UpdateDisplay();
+        SetRole(new Educator());
     }
 
     public void SetStateToVR()
@@ -73,4 +75,18 @@ public class GameState : MonoBehaviour
     {
         logOutput = txt;
     }
+
+    #region Role logic
+    /// <summary>
+    /// The rpc for this function is in the connection manager script
+    /// </summary>
+    /// <param name="newRole"></param>
+    public void SetRole(Role newRole)
+    {
+        if(roleState != null) roleState.RemoveRole();
+        roleState = newRole;
+        roleState.SetRole();
+        WriteToLogOutput("Role: " + roleState.ToString());
+    }
+    #endregion
 }
