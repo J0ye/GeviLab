@@ -20,7 +20,6 @@ public class Note : MonoBehaviour
         Note noteComponent = newNote.GetComponent<Note>();
         noteComponent.titel.text = noteTitel;
         noteComponent.text = content;
-        print("Content set to: " + noteComponent.text);
 
         return noteComponent;
     }
@@ -42,5 +41,10 @@ public class Note : MonoBehaviour
     public void SetDisplay(bool state)
     {
         gameObject.SetActive(state);
+    }
+
+    public void DeleteNote()
+    {
+        Destroy(gameObject);
     }
 }

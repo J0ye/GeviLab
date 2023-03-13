@@ -9,11 +9,14 @@ public class FullscreenNote : MonoBehaviour
 
     [HideInInspector]
     public Note origin;
+    /// <summary>
+    /// Used for a delay, so the input for opening the note does not close it again.
+    /// </summary>
     private bool delayed = true;
 
     private void Start()
     {
-        Invoke("Ready", 1f);
+        StartCoroutine(OpenProtocol());
         if (origin != null) origin.SetDisplay(false);
     }
 
@@ -32,8 +35,20 @@ public class FullscreenNote : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Ready()
+    public void DeleteNote()
     {
+        if (origin != null) origin.DeleteNote();
+        CloseFullscreenNote();
+    }
+
+    public void SetDelay(bool val)
+    {
+        delayed = val;
+    }
+
+    private IEnumerator OpenProtocol()
+    {
+        yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Mouse0));
         delayed = false;
     }
 }
