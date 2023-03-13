@@ -18,8 +18,6 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI statusOutput;
     public List<int> playerIDs = new List<int>();
     public List<string> players = new List<string>();
-
-    public PhotonView view;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,8 +62,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     {
         if(PhotonNetwork.IsMasterClient)
         {
-            // muss  zu einem objekt mit view
-            view.RPC("ChangeRole", newPlayer, Student.roleName);
+            photonView.RPC("ChangeRole", newPlayer, Student.roleName);
         }
         OnOtherPlayerEnterRoom.Invoke();
         WritePlayerCount();

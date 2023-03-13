@@ -17,6 +17,7 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     void Start()
     {
         vp = GetComponent<VideoPlayer>();
+        GameState.instance.roleState.OnSwitchRole += UpdateAccess;
     }
 
     public override void OnConnectedToMaster()
@@ -31,11 +32,7 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            videoPlayerUI.SetActive(false);
-            photonView.RPC("GetPlayerState", PhotonNetwork.MasterClient, PhotonNetwork.LocalPlayer);
-        }
+        photonView.RPC("GetPlayerState", PhotonNetwork.MasterClient, PhotonNetwork.LocalPlayer);
     }
 
     [PunRPC]
@@ -57,6 +54,11 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
             if (!playing) vp.Pause();
             else vp.Play();
         }
+    }
+
+    private void UpdateAccess(object sender, System.EventArgs e)
+    {
+        videoPlayerUI.SetActive(GameState.instance.roleState.playerAuthority);
     }
 
     #region Player Controls

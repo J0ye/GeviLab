@@ -9,6 +9,7 @@ public class GroupMember : Role
     public override void SetRole()
     {
         playerAuthority = true;
+        base.SetRole();
         // Load group session room
     }
 }
