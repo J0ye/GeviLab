@@ -14,6 +14,7 @@ public class NoteInput : MonoBehaviour
     {
         headerInput.onValueChanged.AddListener(UpdateHeader);
         textInput.onValueChanged.AddListener(UpdateContent);
+        origin.isEditing = true;
     }
 
     public void SetOrigin(Note val)

@@ -103,7 +103,7 @@ MonoBehaviour:
   noteInputPrefab: {fileID: 3677656754642685187, guid: cfb6443922eacca4e99327f094610aab, type: 3}
   fullscreenPrefab: {fileID: 4339085700829243649, guid: 446a66c5351b41241abfb321b5d020ca, type: 3}
   titel: {fileID: 3585722629551326485}
-  isEditing: 1
+  isEditing: 0
 --- !u!65 &1689291300123640794
 BoxCollider:
   m_ObjectHideFlags: 0

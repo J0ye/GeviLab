@@ -11,7 +11,7 @@ public class Note : MonoBehaviourPunCallbacks
     public TMP_Text titel;
 
     [HideInInspector]
-    public bool isEditing = true;
+    public bool isEditing = false;
 
     private string text;
 
@@ -30,13 +30,13 @@ public class Note : MonoBehaviourPunCallbacks
 
     public static Note CreateNetworkedNote(string noteTitel, string content, Vector3 position, Vector3 lookAt)
     {
-        GameObject notePrefab = Resources.Load<GameObject>("NoteObject");
         GameObject newNote = PhotonNetwork.Instantiate("NoteObject", position, Quaternion.identity);
         newNote.transform.LookAt(2 * position - lookAt);
         Note noteComponent = newNote.GetComponent<Note>();
         noteComponent.titel.text = noteTitel;
         noteComponent.text = content;
         noteComponent.OpenContentEdit();
+        print(noteComponent.isEditing);
 
         return noteComponent;
 
@@ -44,6 +44,7 @@ public class Note : MonoBehaviourPunCallbacks
 
     public void OnMouseDown()
     {
+        print(isEditing);
         if(!isEditing)
         {
             OpenNote();
@@ -86,6 +87,7 @@ public class Note : MonoBehaviourPunCallbacks
 
     public void DeleteNote()
     {
+        photonView.RPC("DeleteNoteRemote", RpcTarget.Others);
         Destroy(gameObject);
     }
 
@@ -101,6 +103,12 @@ public class Note : MonoBehaviourPunCallbacks
     public void UpdateContentRemote(string val)
     {
         text = val;
+    }
+
+    [PunRPC]
+    public void DeleteNoteRemote()
+    {
+        Destroy(gameObject);
     }
     #endregion
 }
