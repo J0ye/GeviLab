@@ -9,8 +9,6 @@ public class Educator : Role
     public override void SetRole()
     {
         playerAuthority = true;
-        base.SetRole();
-
         // manage session
     }
 }

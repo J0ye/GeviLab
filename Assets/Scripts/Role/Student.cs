@@ -8,7 +8,6 @@ public class Student : Role
     public override void SetRole()
     {
         playerAuthority = false;
-        base.SetRole();
         // Allow single user session
     }
 }

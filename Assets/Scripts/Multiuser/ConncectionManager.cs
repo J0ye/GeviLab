@@ -85,7 +85,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
         switch (roleName)
         {
             case Student.roleName:
-                GameState.instance.SetRole( new Student());
+                GameState.instance.SetRole(new Student());
                 break;
             case GroupMember.roleName:
                 GameState.instance.SetRole(new GroupMember());

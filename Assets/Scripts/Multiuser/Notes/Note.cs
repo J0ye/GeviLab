@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using Photon.Pun;
 using TMPro;
 
-public class Note : MonoBehaviour
+public class Note : MonoBehaviourPunCallbacks
 {
-
+    public GameObject noteInputPrefab;
     public GameObject fullscreenPrefab;
     public TMP_Text titel;
+
+    [HideInInspector]
+    public bool isEditing = true;
 
     private string text;
 
@@ -20,13 +23,31 @@ public class Note : MonoBehaviour
         Note noteComponent = newNote.GetComponent<Note>();
         noteComponent.titel.text = noteTitel;
         noteComponent.text = content;
+        noteComponent.OpenContentEdit();
 
         return noteComponent;
     }
 
+    public static Note CreateNetworkedNote(string noteTitel, string content, Vector3 position, Vector3 lookAt)
+    {
+        GameObject notePrefab = Resources.Load<GameObject>("NoteObject");
+        GameObject newNote = PhotonNetwork.Instantiate("NoteObject", position, Quaternion.identity);
+        newNote.transform.LookAt(2 * position - lookAt);
+        Note noteComponent = newNote.GetComponent<Note>();
+        noteComponent.titel.text = noteTitel;
+        noteComponent.text = content;
+        noteComponent.OpenContentEdit();
+
+        return noteComponent;
+
+    }
+
     public void OnMouseDown()
     {
-        OpenNote();
+        if(!isEditing)
+        {
+            OpenNote();
+        }
     }
 
     public void OpenNote()
@@ -34,8 +55,16 @@ public class Note : MonoBehaviour
         GameObject newFullscreenNote = Instantiate(fullscreenPrefab, Vector3.zero, Quaternion.identity);
         FullscreenNote fn = newFullscreenNote.GetComponent<FullscreenNote>();
         fn.content.text = titel.text + "\n" + text;
-        print("Text: " + titel.text + "\n" + text);
         fn.origin = this;
+        GameState.instance.SetActivePlayerControls(false);
+    }
+
+    public void OpenContentEdit()
+    {
+        GameObject newNoteInput= Instantiate(noteInputPrefab, Vector3.zero, Quaternion.identity);
+        NoteInput ni = newNoteInput.GetComponent<NoteInput>();
+        ni.SetOrigin(this);
+        GameState.instance.SetActivePlayerControls(false);
     }
 
     public void SetDisplay(bool state)
@@ -43,8 +72,35 @@ public class Note : MonoBehaviour
         gameObject.SetActive(state);
     }
 
+    public void SetHeader(string val)
+    {
+        titel.text = val;
+        photonView.RPC("UpdateHeaderRemote", RpcTarget.Others, val);
+    }
+
+    public void SetContent(string val)
+    {
+        text = val;
+        photonView.RPC("UpdateContentRemote", RpcTarget.Others, val);
+    }
+
     public void DeleteNote()
     {
         Destroy(gameObject);
     }
+
+    #region PUNs
+
+    [PunRPC]
+    public void UpdateHeaderRemote(string val)
+    {
+        titel.text = val;
+    }
+
+    [PunRPC]
+    public void UpdateContentRemote(string val)
+    {
+        text = val;
+    }
+    #endregion
 }

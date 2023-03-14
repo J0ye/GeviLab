@@ -31,7 +31,7 @@ public class FullscreenNote : MonoBehaviour
     public void CloseFullscreenNote()
     {
         if (origin != null) origin.SetDisplay(true);
-        print("Destroy fullscreen note " + gameObject.name);
+        GameState.instance.SetActivePlayerControls(true);
         Destroy(gameObject);
     }
 

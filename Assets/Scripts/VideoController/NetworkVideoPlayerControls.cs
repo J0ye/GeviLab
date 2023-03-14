@@ -17,7 +17,7 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     void Start()
     {
         vp = GetComponent<VideoPlayer>();
-        GameState.instance.roleState.OnSwitchRole += UpdateAccess;
+        GameState.instance.AddListenerToOnSwitchRole(UpdateAccess);
     }
 
     public override void OnConnectedToMaster()
@@ -56,7 +56,7 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
         }
     }
 
-    private void UpdateAccess(object sender, System.EventArgs e)
+    private void UpdateAccess()
     {
         videoPlayerUI.SetActive(GameState.instance.roleState.playerAuthority);
     }

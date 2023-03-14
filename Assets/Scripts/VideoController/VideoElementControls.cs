@@ -19,6 +19,9 @@ public class VideoElementControls : MonoBehaviour
     public GameObject playerCamera;
     [Tooltip("This is a reference to the elements of the UI that are used to control video playback, i.e. Play, Pause, Forward, Backwards. Name: 'videoPlayerUI'")]
     public GameObject videoPlayerUI;
+
+    private POVCamera pov;
+    private NetworkPointerControls pointerControls;
     // Start is called before the first frame update
     void Awake()
     {
@@ -30,6 +33,9 @@ public class VideoElementControls : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        pov = playerCamera.GetComponent<POVCamera>();
+        pointerControls = playerCamera.GetComponent<NetworkPointerControls>();
     }
 
     public void SwitchActiveStateOf(string name)
@@ -48,6 +54,22 @@ public class VideoElementControls : MonoBehaviour
             case "videoPlayerUI":
                 videoPlayerUI.SetActive(!videoPlayerUI.activeSelf);
                 break;
+        }
+    }
+
+    /// <summary>
+    /// Will enable or disable the user controls of the video player, the ray pointer and the camera controls.
+    /// </summary>
+    /// <param name="val"> True = enable. False = disable all</param>
+    public void AblePlayerControls(bool val)
+    {
+        pov.enabled = val;
+        pointerControls.enabled = val;
+
+        if(GameState.instance.roleState.playerAuthority)
+        {
+            // Do only change the video player ui if the user has the right role
+            videoPlayerUI.SetActive(val);
         }
     }
 }

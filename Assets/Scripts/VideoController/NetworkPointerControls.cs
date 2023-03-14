@@ -65,7 +65,8 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
         if (spawnNoteInstead)
         {
             // Add Note
-            Note.CreateNote("Test 1", "The contents of this note called Test1", target.point, cam.transform.position);
+            /*Note.CreateNote("Test 1", "The contents of this note called Test1", target.point, cam.transform.position);*/
+            Note.CreateNetworkedNote("Test 1", "The contents of this note called Test1", target.point, cam.transform.position);
         }
         else
         {
