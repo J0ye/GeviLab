@@ -41,7 +41,7 @@ public class LoginManager : MonoBehaviour
         }
         BinaryFormatter bf = new BinaryFormatter();
         string filename = newNameInput.text + "LoginData";
-        filename = Session.MakeValidFileName(filename);
+        filename = Session_Thermo.MakeValidFileName(filename);
         filename = "/" + filename + ".dat";
         FileStream file = File.Create(Application.persistentDataPath + filename);
         User newUser = new User(newNameInput.text, newPasswordInput.text);
@@ -84,10 +84,10 @@ public class LoginManager : MonoBehaviour
             if(u.Compare(temp))
             {
                 // There exists a user for this name and password. U represents the user data coresponding to user input
-                Session.SetUser(u);
+                Session_Thermo.SetUser(u);
                 OnLoginSuccsessfull.Invoke();
                 WritePopUpMessage("Logged in to " + u.name, Color.green);
-                WritePopUpMessage("Data: " + Session.Instance().ToJSON(), Color.green);
+                WritePopUpMessage("Data: " + Session_Thermo.Instance().ToJSON(), Color.green);
                 return;
             }
         }
@@ -99,23 +99,23 @@ public class LoginManager : MonoBehaviour
 
     public void Logout()
     {
-        WritePopUpMessage("Loggin out from " + Session.Instance().user, Color.green);
-        WritePopUpMessage("Saving " + Session.Instance().ToJSON());
-        Session.Instance().OnLogin += MessageEvent;
+        WritePopUpMessage("Loggin out from " + Session_Thermo.Instance().user, Color.green);
+        WritePopUpMessage("Saving " + Session_Thermo.Instance().ToJSON());
+        Session_Thermo.Instance().OnLogin += MessageEvent;
         SaveSessionData();
-        if(Session.Instance().user == null)
+        if(Session_Thermo.Instance().user == null)
         {
             Debug.LogWarning("No user is logged in. Wont run logout.");
             return;
         }
 
-        Session.Instance().Clear();
+        Session_Thermo.Instance().Clear();
         OnLogout.Invoke();
     }
 
     public void SaveSessionData()
     {
-        Session.SaveSessionData();
+        Session_Thermo.SaveSessionData();
     }
 
     protected void MessageEvent(object sender, EventArgs e)

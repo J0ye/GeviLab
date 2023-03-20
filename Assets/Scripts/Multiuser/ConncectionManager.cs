@@ -13,16 +13,37 @@ using System.Linq;
 /// </summary>
 public class ConncectionManager : MonoBehaviourPunCallbacks
 {
+    public static ConncectionManager instance;
+    public bool writeStatusToConsole;
+
     public UnityEvent OnEnterRoom = new UnityEvent();
     public UnityEvent OnOtherPlayerEnterRoom = new UnityEvent();
     public TextMeshProUGUI statusOutput;
     public List<int> playerIDs = new List<int>();
     public List<string> players = new List<string>();
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        PhotonNetwork.ConnectUsingSettings();
         WriteStatus("Connecting...");
+        if (!PhotonNetwork.ConnectUsingSettings())
+        {
+            WriteStatus("Not able to connect");
+            Debug.LogError("Not able to connect");
+
+        }
     }
 
     private void Update()
@@ -42,7 +63,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         PhotonNetwork.NickName = RandomValues.INSTANCE().GetRandomString();
-        print("Nickname: " + PhotonNetwork.NickName);
+        WriteStatus("Nickname: " + PhotonNetwork.NickName);
         PhotonNetwork.JoinLobby();
     }
 
@@ -53,7 +74,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        print("in room");
+        WriteStatus("in room");
         OnEnterRoom.Invoke();       
         WritePlayerCount();
     }
@@ -125,6 +146,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
         {
             statusOutput.text = text;
         }
+        if(writeStatusToConsole)Debug.Log(text);
     }
 }
 

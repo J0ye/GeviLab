@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -58,7 +58,9 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
 
     private void UpdateAccess()
     {
-        videoPlayerUI.SetActive(GameState.instance.roleState.playerAuthority);
+        // Only update the UI if the user has player authority and isnt in VR
+        videoPlayerUI.SetActive(GameState.instance.roleState.playerAuthority && GameState.instance.isVR);
+        // The UI will not be displayed, if the user is in VR or does not have authority (is not master client)
     }
 
     #region Player Controls

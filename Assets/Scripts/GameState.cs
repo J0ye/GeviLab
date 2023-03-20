@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class GameState : MonoBehaviour
 {
     public VideoElementControls vec;
+    public VideoElementControls xRVec;
     public GameObject cameraRig;
     public bool forceVRState = false;
 
@@ -23,7 +24,7 @@ public class GameState : MonoBehaviour
     /// Event for changing acording to new role. Will be called after new role has been set. I.E. Change player UI because access has changed.
     /// </summary>
     private UnityEvent OnSwitchRole = new UnityEvent();
-    private bool isVR = false;
+    public bool isVR { get; private set; }
     // Start is called before the first frame update
     void Awake()
     {
@@ -35,8 +36,9 @@ public class GameState : MonoBehaviour
         {
             Destroy(this);
         }
+        SetRole(new Educator());
 
-        if(Application.platform == RuntimePlatform.Android || forceVRState)
+        if (Application.platform == RuntimePlatform.Android || forceVRState)
         {
             SetStateToVR();
             Destroy(vec.playerCamera);
@@ -46,9 +48,11 @@ public class GameState : MonoBehaviour
         {
             SetStateToDesktop();
         }
+    }
 
-        UpdateDisplay();
-        SetRole(new Educator());
+    private void Start()
+    {
+        ConncectionManager.instance.OnEnterRoom.AddListener(() => SetActivePlayerControls());
     }
 
     public void SetStateToVR()
@@ -70,10 +74,24 @@ public class GameState : MonoBehaviour
         isVR = !isVR;
         UpdateDisplay();
     }
+    public void SetActivePlayerControls()
+    {
+        xRVec.AblePlayerControls(isVR);
+        vec.AblePlayerControls(!isVR);
+    }
 
     public void SetActivePlayerControls(bool val)
     {
-        vec.AblePlayerControls(val);
+        if(isVR)
+        {
+            xRVec.AblePlayerControls(val);
+            vec.AblePlayerControls(false);
+        }
+        else
+        {
+            vec.AblePlayerControls(val);
+            xRVec.AblePlayerControls(false);
+        }
     }
 
     public void AddListenerToOnSwitchRole(UnityAction call)
@@ -85,6 +103,7 @@ public class GameState : MonoBehaviour
     {
         vec.playerCamera.SetActive(!isVR);
         cameraRig.SetActive(isVR);
+        SetActivePlayerControls(true);
         WriteToLogOutput("Programm is displayed in VR: " + isVR);
     }
 
@@ -104,6 +123,7 @@ public class GameState : MonoBehaviour
         roleState = newRole;
         roleState.SetRole();
         OnSwitchRole.Invoke();
+        SetActivePlayerControls(true);
         WriteToLogOutput("Role: " + roleState.ToString());
     }
     #endregion

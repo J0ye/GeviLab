@@ -29,6 +29,12 @@ public class NoteInput : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void DeleteNote()
+    {
+        CloseInput();
+        origin.DeleteNoteRemote();
+    }
+
     private void UpdateHeader(string val)
     {
         origin.SetHeader(val);

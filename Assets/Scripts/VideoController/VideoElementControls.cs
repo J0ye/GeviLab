@@ -9,7 +9,6 @@ using UnityEngine.Video;
 /// </summary>
 public class VideoElementControls : MonoBehaviour
 {
-    public static VideoElementControls instance;
 
     [Tooltip("This object is a reference to the object displaying the video/the object that has the render texture as part of its material. The object that is the virtual screen. Name: 'videoScreen'")]
     public GameObject videoScreen;
@@ -25,17 +24,9 @@ public class VideoElementControls : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        pov = playerCamera.GetComponent<POVCamera>();
-        pointerControls = playerCamera.GetComponent<NetworkPointerControls>();
+        
+        playerCamera.TryGetComponent<POVCamera>(out pov);
+        playerCamera.TryGetComponent<NetworkPointerControls>(out pointerControls);
     }
 
     public void SwitchActiveStateOf(string name)
@@ -63,13 +54,9 @@ public class VideoElementControls : MonoBehaviour
     /// <param name="val"> True = enable. False = disable all</param>
     public void AblePlayerControls(bool val)
     {
-        pov.enabled = val;
-        pointerControls.enabled = val;
-
-        if(GameState.instance.roleState.playerAuthority)
-        {
-            // Do only change the video player ui if the user has the right role
-            videoPlayerUI.SetActive(val);
-        }
+        if(pov != null) pov.enabled = val;
+        if(pointerControls != null) pointerControls.enabled = val;
+        // Do only change the video player ui if the user has the right role
+        videoPlayerUI.SetActive(val && GameState.instance.roleState.playerAuthority);
     }
 }
