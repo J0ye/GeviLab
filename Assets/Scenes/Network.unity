@@ -710,6 +710,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: XRUIInteractable (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8415210150356430517, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c11d28f27971804b98828cd7e0f4ea7, type: 2}
+    - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: highlightDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: highlightStrength
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -1183,7 +1195,7 @@ MonoBehaviour:
   vec: {fileID: 2112564814}
   xRVec: {fileID: 1562417042}
   cameraRig: {fileID: 1002811130646344684}
-  forceVRState: 0
+  forceVRState: 1
   logOutput: 
 --- !u!4 &790300381
 Transform:
@@ -2003,6 +2015,18 @@ PrefabInstance:
     - target: {fileID: 8415210150356430505, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
       propertyPath: m_Name
       value: XRUIInteractable (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8415210150356430517, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c11d28f27971804b98828cd7e0f4ea7, type: 2}
+    - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: highlightDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: highlightStrength
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size
@@ -3881,6 +3905,18 @@ PrefabInstance:
     - target: {fileID: 8415210150356430505, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
       propertyPath: m_Name
       value: XRUIInteractable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8415210150356430517, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3c11d28f27971804b98828cd7e0f4ea7, type: 2}
+    - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: highlightDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
+      propertyPath: highlightStrength
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8415210150356430519, guid: 57d8d5f5b4457e54b86b69be87649fed, type: 3}
       propertyPath: OnInteract.m_PersistentCalls.m_Calls.Array.size

@@ -16,6 +16,7 @@ public class XRController : MonoBehaviour
     protected LineRenderer lr;
     protected XRUIInteractable target; 
     protected RaycastHit hit;
+    protected bool actionTriggered;
 
     protected void Awake()
     {
@@ -36,9 +37,14 @@ public class XRController : MonoBehaviour
             {
                 PaintConnectionToTarget();
 
-                if (actionTrigger.IsActivated)
+                if (actionTrigger.IsActivated && !actionTriggered)
                 {
+                    actionTriggered = true;
                     target.SendMessage("Interact");
+                }
+                else if (!actionTrigger.IsActivated && actionTriggered)
+                {
+                    actionTriggered = false;
                 }
             }
             else
