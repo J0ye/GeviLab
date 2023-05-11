@@ -23,7 +23,7 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
     protected RaycastHit hit;
     protected GameObject lastCreatedPOI;
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         if(!TryGetComponent<Camera>(out cam))
         {

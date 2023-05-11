@@ -9,6 +9,15 @@ public class NetworkPointerControlsXR : NetworkPointerControls
 {
     public BooleanAction activationTrigger;
     public BooleanAction actionTrigger;
+
+    protected XRController xRController;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        TryGetComponent<XRController>(out xRController);
+    }
+
     // Update is called once per frame
     protected override void Update()
     {
@@ -28,7 +37,7 @@ public class NetworkPointerControlsXR : NetworkPointerControls
                     ScalePointOfIntereset(Input.mouseScrollDelta.y);
                 }
             }
-            else
+            else if(xRController == null)
             {
                 ResetLineRenderer();
             }

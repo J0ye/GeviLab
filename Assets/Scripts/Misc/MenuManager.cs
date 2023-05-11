@@ -13,6 +13,8 @@ public class MenuManager : MonoBehaviour
     public GameObject main;
     public GameObject settings;
 
+    public List<Button> buttons = new List<Button>();
+
     public MenuState state = MenuState.Main;
 
     public virtual void Start()

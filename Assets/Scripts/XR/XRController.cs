@@ -33,7 +33,7 @@ public class XRController : MonoBehaviour
         Ray ray = new Ray(transform.position, transform.forward);
         if (Physics.Raycast(ray, out hit, layers))
         {
-            if(hit.collider.gameObject.TryGetComponent<XRUIInteractable>(out target))
+            if (hit.collider.gameObject.TryGetComponent<XRUIInteractable>(out target))
             {
                 PaintConnectionToTarget();
 
@@ -71,7 +71,6 @@ public class XRController : MonoBehaviour
             {
                 newPos = directionToTarget * lineCurve[i].time;
                 newPos += transform.up * lineCurve[i].value;
-
             }
             else
             {
@@ -94,12 +93,9 @@ public class XRController : MonoBehaviour
 
     protected virtual void ResetLineRenderer()
     {
-        if (lr.positionCount > 2)
-        {
-            lr.positionCount = 2;
-            lr.SetPosition(0, transform.position);
-            lr.SetPosition(1, transform.position + transform.forward * cursorLength);
-        }
+        lr.positionCount = 2;
+        lr.SetPosition(0, transform.position);
+        lr.SetPosition(1, transform.position + transform.forward * cursorLength);
     }
 
     protected void SetTargetNull()

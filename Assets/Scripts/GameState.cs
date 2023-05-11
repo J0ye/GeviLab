@@ -5,9 +5,13 @@ using UnityEngine.Events;
 
 public class GameState : MonoBehaviour
 {
-    public VideoElementControls vec;
-    public VideoElementControls xRVec;
+    [Tooltip("This is a reference to the main camera or player camera. The object with the camera component: 'playerCamera'")]
+    public GameObject playerCamera;
+    [Tooltip("This is a reference to the elements of the UI that are used to control video playback, i.e. Play, Pause, Forward, Backwards. Name: 'videoPlayerUI'")]
+    public GameObject videoPlayerUIDesktop;
+    public GameObject videoPlayerUIXR;
     public GameObject cameraRig;
+    public MenuManager menu;
     public bool forceVRState = false;
 
     public static GameState instance;
@@ -18,13 +22,15 @@ public class GameState : MonoBehaviour
 
     public Role roleState { get; private set; }
     public bool setStateByPlayer { get; private set; }
-
+    public bool isVR { get; private set; }
 
     /// <summary>
     /// Event for changing acording to new role. Will be called after new role has been set. I.E. Change player UI because access has changed.
     /// </summary>
     private UnityEvent OnSwitchRole = new UnityEvent();
-    public bool isVR { get; private set; }
+
+    private POVCamera pov;
+    private NetworkPointerControls pointerControls;
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,16 +44,20 @@ public class GameState : MonoBehaviour
         }
         SetRole(new Educator());
 
+        playerCamera.TryGetComponent<POVCamera>(out pov);
+        playerCamera.TryGetComponent<NetworkPointerControls>(out pointerControls);
         if (Application.platform == RuntimePlatform.Android || forceVRState)
         {
             SetStateToVR();
-            Destroy(vec.playerCamera);
-            print("is anroid");
+            print("is android");
         }
         else
         {
             SetStateToDesktop();
         }
+        // Deactivate controls because no connection yet
+        videoPlayerUIDesktop.SetActive(false);
+        videoPlayerUIXR.SetActive(false);
     }
 
     private void Start()
@@ -76,21 +86,25 @@ public class GameState : MonoBehaviour
     }
     public void SetActivePlayerControls()
     {
-        xRVec.AblePlayerControls(isVR);
-        vec.AblePlayerControls(!isVR);
+        videoPlayerUIDesktop.SetActive(!isVR);
+        videoPlayerUIXR.SetActive(isVR);
     }
 
     public void SetActivePlayerControls(bool val)
     {
+        val = val && roleState.playerAuthority; // Only activate player ui if user has authority
         if(isVR)
         {
-            xRVec.AblePlayerControls(val);
-            vec.AblePlayerControls(false);
+            videoPlayerUIXR.SetActive(val); // enable Player controls in VR 
+            videoPlayerUIDesktop.SetActive(false);
         }
         else
         {
-            vec.AblePlayerControls(val);
-            xRVec.AblePlayerControls(false);
+            videoPlayerUIDesktop.SetActive(val); // enable Player controls in Desktop
+            // Enable pov camera script and desktop pointer
+            if (pov != null) pov.enabled = val;
+            if (pointerControls != null) pointerControls.enabled = val;
+            videoPlayerUIXR.SetActive(false);
         }
     }
 
@@ -99,9 +113,42 @@ public class GameState : MonoBehaviour
         OnSwitchRole.AddListener(call);
     }
 
+    /// <summary>
+    /// This function removes every listener from the first 3 buttons in the menu list calld 'buttons' and assignes new function based on their index number.
+    /// The first three buttons should be:
+    /// 0 = backwards button
+    /// 1 = Play/Pause
+    /// 2 = Forward
+    /// Note: This needs to be changed once video player controls change
+    /// </summary>
+    /// <param name="target">Target video player that is supposed to be controlled</param>
+    public void SwitchButtonFunctionsInMenu(NetworkVideoPlayerControls? target)
+    {
+
+        // Iterate through the list
+        for(int i = 0; i < 3; i++)
+        {
+            menu.buttons[i].onClick.RemoveAllListeners();
+            if(target != null)
+            {
+                switch (i)
+                {
+                    case 0:
+                        menu.buttons[i].onClick.AddListener(target.JumpBackward);
+                        break;
+                    case 1:
+                        menu.buttons[i].onClick.AddListener(target.Pause);
+                        break;
+                    case 2:
+                        menu.buttons[i].onClick.AddListener(target.JumpForward);
+                        break;
+                }
+            }
+        }
+    }
+
     private void UpdateDisplay()
     {
-        vec.playerCamera.SetActive(!isVR);
         cameraRig.SetActive(isVR);
         SetActivePlayerControls(true);
         WriteToLogOutput("Programm is displayed in VR: " + isVR);
