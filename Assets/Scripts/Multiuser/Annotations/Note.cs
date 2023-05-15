@@ -4,14 +4,10 @@ using UnityEngine;
 using Photon.Pun;
 using TMPro;
 
-public class Note : MonoBehaviourPunCallbacks
+public class Note : Annotation
 {
     public GameObject noteInputPrefab;
-    public GameObject fullscreenPrefab;
     public TMP_Text titel;
-
-    [HideInInspector]
-    public bool isEditing = false;
 
     private string text;
 
@@ -36,22 +32,11 @@ public class Note : MonoBehaviourPunCallbacks
         noteComponent.titel.text = noteTitel;
         noteComponent.text = content;
         noteComponent.OpenContentEdit();
-        print(noteComponent.isEditing);
 
         return noteComponent;
-
     }
 
-    public void OnMouseDown()
-    {
-        print(isEditing);
-        if(!isEditing)
-        {
-            OpenNote();
-        }
-    }
-
-    public void OpenNote()
+    public override void Open()
     {
         GameObject newFullscreenNote = Instantiate(fullscreenPrefab, Vector3.zero, Quaternion.identity);
         FullscreenNote fn = newFullscreenNote.GetComponent<FullscreenNote>();
@@ -68,11 +53,6 @@ public class Note : MonoBehaviourPunCallbacks
         GameState.instance.SetActivePlayerControls(false);
     }
 
-    public void SetDisplay(bool state)
-    {
-        gameObject.SetActive(state);
-    }
-
     public void SetHeader(string val)
     {
         titel.text = val;
@@ -83,12 +63,6 @@ public class Note : MonoBehaviourPunCallbacks
     {
         text = val;
         photonView.RPC("UpdateContentRemote", RpcTarget.Others, val);
-    }
-
-    public void DeleteNote()
-    {
-        photonView.RPC("DeleteNoteRemote", RpcTarget.Others);
-        Destroy(gameObject);
     }
 
     #region PUNs
@@ -103,12 +77,6 @@ public class Note : MonoBehaviourPunCallbacks
     public void UpdateContentRemote(string val)
     {
         text = val;
-    }
-
-    [PunRPC]
-    public void DeleteNoteRemote()
-    {
-        Destroy(gameObject);
     }
     #endregion
 }

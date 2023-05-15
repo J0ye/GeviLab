@@ -167,8 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25918009f9aaffb40a4e54dd4dae1086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ImagePrefab: {fileID: 1159664568021023573, guid: b4c76af56ad9cb84b90c2b939b216c62, type: 3}
-  imageSizeFactor: 0.1
 --- !u!1 &42314146
 GameObject:
   m_ObjectHideFlags: 0

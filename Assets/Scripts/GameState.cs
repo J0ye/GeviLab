@@ -92,15 +92,15 @@ public class GameState : MonoBehaviour
 
     public void SetActivePlayerControls(bool val)
     {
-        val = val && roleState.playerAuthority; // Only activate player ui if user has authority
+        bool withAuthority = val && roleState.playerAuthority; // Only activate player ui if user has authority
         if(isVR)
         {
-            videoPlayerUIXR.SetActive(val); // enable Player controls in VR 
+            videoPlayerUIXR.SetActive(withAuthority); // enable Player controls in VR 
             videoPlayerUIDesktop.SetActive(false);
         }
         else
         {
-            videoPlayerUIDesktop.SetActive(val); // enable Player controls in Desktop
+            videoPlayerUIDesktop.SetActive(withAuthority); // enable Player controls in Desktop
             // Enable pov camera script and desktop pointer
             if (pov != null) pov.enabled = val;
             if (pointerControls != null) pointerControls.enabled = val;

@@ -55,6 +55,7 @@ MonoBehaviour:
   - UpdateContentRemote
   - UpdateHeaderRemote
   - DeleteNoteRemote
+  - DeleteAnnotationRemote
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

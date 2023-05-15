@@ -32,7 +32,7 @@ public class NoteInput : MonoBehaviour
     public void DeleteNote()
     {
         CloseInput();
-        origin.DeleteNoteRemote();
+        origin.DeleteAnnotation();
     }
 
     private void UpdateHeader(string val)

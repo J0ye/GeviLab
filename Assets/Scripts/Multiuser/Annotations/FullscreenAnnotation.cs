@@ -1,20 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
-public class FullscreenNote : MonoBehaviour
+public class FullscreenAnnotation : MonoBehaviour
 {
-    public TMP_Text content;
-
     [HideInInspector]
-    public Note origin;
+    public Annotation origin;
     /// <summary>
     /// Used for a delay, so the input for opening the note does not close it again.
     /// </summary>
-    private bool delayed = true;
+    protected bool delayed = true;
 
-    private void Start()
+    protected void Start()
     {
         StartCoroutine(OpenProtocol());
         if (origin != null) origin.SetDisplay(false);
@@ -22,23 +19,23 @@ public class FullscreenNote : MonoBehaviour
 
     public void Update()
     {
-        if(Input.anyKey && !delayed)
+        if (Input.anyKey && !delayed)
         {
-            CloseFullscreenNote();
+            CloseFullscreen();
         }
     }
 
-    public void CloseFullscreenNote()
+    public void CloseFullscreen()
     {
         if (origin != null) origin.SetDisplay(true);
         GameState.instance.SetActivePlayerControls(true);
         Destroy(gameObject);
     }
 
-    public void DeleteNote()
+    public void DeleteAnnotation()
     {
-        if (origin != null) origin.DeleteNote();
-        CloseFullscreenNote();
+        if (origin != null) origin.DeleteAnnotation();
+        CloseFullscreen();
     }
 
     public void SetDelay(bool val)
@@ -46,7 +43,11 @@ public class FullscreenNote : MonoBehaviour
         delayed = val;
     }
 
-    private IEnumerator OpenProtocol()
+    /// <summary>
+    /// Delays any interaction with the pop up until the left mosue button is released.
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerator OpenProtocol()
     {
         yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Mouse0));
         delayed = false;
