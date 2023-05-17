@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 40090509}
   - component: {fileID: 40090511}
+  - component: {fileID: 40090512}
   m_Layer: 0
   m_Name: File Manager
   m_TagString: Untagged
@@ -167,6 +168,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25918009f9aaffb40a4e54dd4dae1086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &40090512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 40090508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73e7362acc54164ea2b1d1d2816c2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPressR:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressE:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressI:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressU:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressJ:
+    m_PersistentCalls:
+      m_Calls: []
+  onPressReturn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 40090511}
+        m_TargetAssemblyTypeName: FileAnnotationCreator, Assembly-CSharp
+        m_MethodName: UseInjectedSpawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPressSpace:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &42314146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,7 +1414,7 @@ GameObject:
   - component: {fileID: 327773067}
   - component: {fileID: 327773071}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1637,7 +1683,7 @@ PrefabInstance:
     - target: {fileID: 1069944175050384030, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: destination
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5568037437288524907}
     - target: {fileID: 1069944175050384030, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: playerAvatar
       value: 
@@ -1649,7 +1695,7 @@ PrefabInstance:
     - target: {fileID: 1069944175050384030, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: destinationNVPC
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4882032499036284412}
     - target: {fileID: 2131859334582391348, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1733,7 +1779,7 @@ PrefabInstance:
     - target: {fileID: 5555544456833565184, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: videoPlayerUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1332202820}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
 --- !u!114 &344264226 stripped
@@ -5509,7 +5555,7 @@ PrefabInstance:
     - target: {fileID: 5555544456833565184, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: videoPlayerUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1332202820}
     - target: {fileID: 6543963677093240640, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: m_Color.b
       value: 0.18899345

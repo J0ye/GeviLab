@@ -40,12 +40,26 @@ public class FileAnnotationCreator : MonoBehaviour
                 byte[] imageData = File.ReadAllBytes(path);
                 ImageAnnotation.SpawnImageWithStaticPosition(imageData);
             }
+
+
+            if (extension == ".mp4")
+            {
+                print("Loading video");
+                log.Add("Loading video");
+                byte[] videoData = File.ReadAllBytes(path);
+                VideoAnnotation.SpawnVideo(videoData);
+            }
         }
         else
         {
             Debug.LogError("File not found at: " + path);
             log.Add("File not found at: " + path);
         }
+    }
+
+    public void UseInjectedSpawn()
+    {
+        ImageAnnotation.InjectedSpawn();
     }
 
     private void OnGUI()

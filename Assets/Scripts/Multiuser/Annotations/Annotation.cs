@@ -35,6 +35,18 @@ public class Annotation : MonoBehaviourPunCallbacks
         Destroy(gameObject);
     }
 
+    public static Vector3 GetPositionInFront()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            return hit.point;
+        }
+
+        return Vector3.one;
+    }
+
     [PunRPC]
     public void DeleteAnnotationRemote()
     {

@@ -6,6 +6,7 @@ public class LookAtPlayer : MonoBehaviour
 {
     public string lookFor = "Player";
     public GameObject player;
+    public bool lookAway = false;
 
     // Start is called before the first frame update
     protected void Awake()
@@ -26,6 +27,12 @@ public class LookAtPlayer : MonoBehaviour
             {
                 player = GameObject.FindGameObjectWithTag(lookFor);
             }
+        }
+        else if(lookAway)
+        {
+            Vector3 directionToPlayer = player.transform.position - transform.position;
+            Vector3 directionAwayFromPlayer = -directionToPlayer;
+            transform.rotation = Quaternion.LookRotation(directionAwayFromPlayer);
         }
         else
         {

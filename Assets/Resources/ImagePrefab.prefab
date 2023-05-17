@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookFor: MainCamera
   player: {fileID: 0}
+  lookAway: 1
 --- !u!114 &2767837893308891058
 MonoBehaviour:
   m_ObjectHideFlags: 0
