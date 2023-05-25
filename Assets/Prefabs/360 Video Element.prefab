@@ -482,7 +482,6 @@ GameObject:
   - component: {fileID: 6264611437114578187}
   - component: {fileID: 5555544456833565184}
   - component: {fileID: 620418891940610612}
-  - component: {fileID: 1069944174067617661}
   m_Layer: 6
   m_Name: Network Video Player
   m_TagString: Untagged
@@ -672,20 +671,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1069944174067617661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4041941071374467085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d303a79ad12b0d489137304b75bf109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 7015183005746444614, guid: 33b2d2141a167f14db71084161a4af58, type: 3}
-  avatarID: -1
 --- !u!1 &4084815787305308722
 GameObject:
   m_ObjectHideFlags: 0

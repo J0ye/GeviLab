@@ -31,7 +31,7 @@ public class EnvironmentBridge : MonoBehaviour
     public void MoveToDestination()
     {
         MoveAvatars(destination.position);
-        if(originNVPC != null) originNVPC.Pause();
+        if(originNVPC != null) originNVPC.Pause(true);
         GameState.instance.SwitchButtonFunctionsInMenu(destinationNVPC);
     }
 
@@ -41,7 +41,7 @@ public class EnvironmentBridge : MonoBehaviour
     public void MoveToOrigin()
     {
         MoveAvatars(originPosition);
-        if (destinationNVPC != null) destinationNVPC.Pause();
+        if (destinationNVPC != null) destinationNVPC.Pause(true);
         GameState.instance.SwitchButtonFunctionsInMenu(originNVPC);
     }
 

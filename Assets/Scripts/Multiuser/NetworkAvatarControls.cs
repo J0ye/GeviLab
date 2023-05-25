@@ -30,18 +30,30 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         }
     }
 
+    /// <summary>
+    /// This method is responsible for spawning the player avatar. If the current client is not the master
+    /// client, it requests the position from the master client using an RPC call. If it is the master 
+    /// client, it calls the InstantiateAvatar method to create the avatar at a random position.
+    /// </summary>
     public void SpawnPlayer()
     {
         if(!PhotonNetwork.IsMasterClient)
         {
+            // Request the position from the master client. Master client will answer with InstantiateAvatar RPC
             photonView.RPC("GetPosition", PhotonNetwork.MasterClient, PhotonNetwork.LocalPlayer);
         }
         else
         {
+            // If this is the master client, instantiate the avatar at a random position
             InstantiateAvatar(positions.GetRandomPosition());
         }
     }
 
+    /// <summary>
+    /// This RPC method is used by the master client to send the random position to the target player. It 
+    /// calls the InstantiateAvatar method on the target player's client.
+    /// </summary>
+    /// <param name="target"></param>
     [PunRPC]
     public void GetPosition(Player target)
     {
@@ -51,6 +63,12 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         }
     }
 
+    /// <summary>
+    /// This RPC method instantiates the player avatar using PhotonNetwork.Instantiate. It creates the 
+    /// avatar GameObject at the specified position and sets it as inactive initially. It also retrieves 
+    /// the ViewID of the avatar's PhotonView and stores it in the avatarID variable.
+    /// </summary>
+    /// <param name="position"></param>
     [PunRPC]
     public void InstantiateAvatar(Vector3 position)
     {

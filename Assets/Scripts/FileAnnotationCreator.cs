@@ -47,7 +47,7 @@ public class FileAnnotationCreator : MonoBehaviour
                 print("Loading video");
                 log.Add("Loading video");
                 byte[] videoData = File.ReadAllBytes(path);
-                VideoAnnotation.SpawnVideo(videoData);
+                VideoAnnotation.SpawnVideoAndSend(videoData);
             }
         }
         else
@@ -59,7 +59,7 @@ public class FileAnnotationCreator : MonoBehaviour
 
     public void UseInjectedSpawn()
     {
-        ImageAnnotation.InjectedSpawn();
+        VideoAnnotation.InjectedSpawn();
     }
 
     private void OnGUI()

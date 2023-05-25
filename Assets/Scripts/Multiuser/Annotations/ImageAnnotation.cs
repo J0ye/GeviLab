@@ -167,7 +167,7 @@ public class ImageAnnotation : Annotation, IOnEventCallback
     /// <param name="imageData"></param>
     public static void SendImageFile(byte[] imageData)
     {
-        // Define a custom event code (choose a number between 1 and 199)
+        // Define a custom event code
         const byte customEventCode = 69;
         if (imageData != null)
         {
@@ -185,7 +185,7 @@ public class ImageAnnotation : Annotation, IOnEventCallback
     /// <param name="eventData">Should be an array. first is image and second should be vector data.</param>
     public static void SendImageFileAndVector(object[] eventData)
     {
-        // Define a custom event code (choose a number between 1 and 199)
+        // Define a custom event code
         const byte customEventCode = 70;
         // Send the custom event to all players in the room
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
@@ -199,10 +199,26 @@ public class ImageAnnotation : Annotation, IOnEventCallback
     public override void Open()
     {
         GameObject newFullscreenImage = Instantiate(fullscreenPrefab, Vector3.zero, Quaternion.identity);
-        FullscreenImage fn = newFullscreenImage.GetComponent<FullscreenImage>();
-        fn.content.sprite = content;
-        fn.content.GetComponent<AspectRatioFitter>().aspectRatio = content.texture.width / content.texture.height;
-        fn.origin = this;
+        FullscreenImage fi = newFullscreenImage.GetComponent<FullscreenImage>();
+        fi.content.sprite = content;
+        // convert int values to float
+        float tempWidth = content.texture.width;
+        float tempHeigth = content.texture.height;
+        fi.content.GetComponent<AspectRatioFitter>().aspectRatio = tempWidth / tempHeigth;
+        fi.origin = this;
+        GameState.instance.SetActivePlayerControls(false);
+    }
+
+    public override void OpenXR()
+    {
+        GameObject newFullscreenImage = Instantiate(fullscreenPrefabXR, GetPositionInFront(), Quaternion.identity);
+        FullscreenImage fi = newFullscreenImage.GetComponent<FullscreenImage>();
+        fi.content.sprite = content;
+        // convert int values to float
+        float tempWidth = content.texture.width;
+        float tempHeigth = content.texture.height;
+        fi.content.GetComponent<AspectRatioFitter>().aspectRatio = tempWidth / tempHeigth;
+        fi.origin = this;
         GameState.instance.SetActivePlayerControls(false);
     }
 

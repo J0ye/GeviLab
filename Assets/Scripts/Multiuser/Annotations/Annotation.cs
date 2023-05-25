@@ -6,6 +6,7 @@ using UnityEngine;
 public class Annotation : MonoBehaviourPunCallbacks
 {
     public GameObject fullscreenPrefab;
+    public GameObject fullscreenPrefabXR;
 
     [HideInInspector]
     public bool isEditing = false;
@@ -26,6 +27,12 @@ public class Annotation : MonoBehaviourPunCallbacks
     public virtual void Open()
     {
         GameObject newFullscreenAnnotation = Instantiate(fullscreenPrefab, Vector3.zero, Quaternion.identity);
+        GameState.instance.SetActivePlayerControls(false);
+    }
+
+    public virtual void OpenXR()
+    {
+        GameObject newFullscreenAnnotation = Instantiate(fullscreenPrefabXR, GetPositionInFront(), Quaternion.identity);
         GameState.instance.SetActivePlayerControls(false);
     }
 

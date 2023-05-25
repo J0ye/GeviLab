@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class FullscreenAnnotation : MonoBehaviour
 {
@@ -53,3 +55,4 @@ public class FullscreenAnnotation : MonoBehaviour
         delayed = false;
     }
 }
+
