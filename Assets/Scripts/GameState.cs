@@ -147,6 +147,35 @@ public class GameState : MonoBehaviour
         }
     }
 
+    public void SwitchButtonFunctionsXR(NetworkVideoPlayerControls? target)
+    {
+        int index = 0;
+        foreach(Transform child in videoPlayerUIXR.transform)
+        {
+            XRUIInteractable temp;
+            if(child.TryGetComponent<XRUIInteractable>(out temp))
+            {
+                temp.OnInteract.RemoveAllListeners();
+                switch (index)
+                {
+                    case 0:
+                        temp.OnInteract.AddListener(target.JumpBackward);
+                        break;
+                    case 1:
+                        temp.OnInteract.AddListener(target.Pause);
+                        break;
+                    case 2:
+                        temp.OnInteract.AddListener(target.JumpForward);
+                        break;
+                    default:
+                        // Do nothing?
+                        break;
+                }
+                index++;
+            }
+        }
+    }
+
     private void UpdateDisplay()
     {
         cameraRig.SetActive(isVR);
@@ -160,6 +189,17 @@ public class GameState : MonoBehaviour
     }
 
     #region Role logic
+
+    protected void UpdateAccess()
+    {
+        if (videoPlayerUIDesktop != null)
+        {
+            // Only update the UI if the user has player authority and isnt in VR
+            videoPlayerUIDesktop.SetActive(roleState.playerAuthority && !isVR);
+            videoPlayerUIXR.SetActive(roleState.playerAuthority && !isVR);
+            // The UI will not be displayed, if the user is in VR or does not have authority (is not master client)
+        }
+    }
     /// <summary>
     /// The rpc for this function is in the connection manager script
     /// </summary>
@@ -170,6 +210,7 @@ public class GameState : MonoBehaviour
         roleState = newRole;
         roleState.SetRole();
         OnSwitchRole.Invoke();
+        UpdateAccess();
         SetActivePlayerControls(true);
         WriteToLogOutput("Role: " + roleState.ToString());
     }

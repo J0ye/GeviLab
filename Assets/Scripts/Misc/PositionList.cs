@@ -16,7 +16,17 @@ public class PositionList
             for(float j = zRange.x; j <= zRange.y; j +=margin)
             {
                 positions.Add(new Vector3(i, 0, j));
-                //Debug.Log("Position (" + i + ",0," + j +") added.");
+            }
+        }
+    }
+
+    private void FillList(Vector3 area)
+    {
+        for (float i = xRange.x; i <= xRange.y; i += margin)
+        {
+            for (float j = zRange.x; j <= zRange.y; j += margin)
+            {
+                positions.Add(area + new Vector3(i, 0, j));
             }
         }
     }
@@ -28,6 +38,15 @@ public class PositionList
         zRange = newZRange;
 
         FillList();
+    }
+
+    public PositionList(int newMargin, Vector3 area, Vector2 newXRange, Vector2 newZRange)
+    {
+        margin = newMargin;
+        xRange = newXRange;
+        zRange = newZRange;
+
+        FillList(area);
     }
 
     public List<Vector3> GetCopyPositionList()
@@ -51,5 +70,10 @@ public class PositionList
     public int GetPositionCount()
     {
         return positions.Count;
+    }
+
+    public void RemovePositionsCloseTo(Vector3 position, int rows)
+    {
+        positions.RemoveAll(pos => Vector3.Distance(pos, position) < margin * rows);
     }
 }

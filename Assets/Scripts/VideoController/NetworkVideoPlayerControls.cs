@@ -9,7 +9,6 @@ using UnityEngine.Video;
 public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
 {
     public float timeToPrepare = 1f;
-    public GameObject videoPlayerUI;
 
     private VideoPlayer vp;
     private new AudioSource audio;
@@ -17,7 +16,6 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     void Start()
     {
         vp = GetComponent<VideoPlayer>();
-        GameState.instance.AddListenerToOnSwitchRole(UpdateAccess);
     }
 
     public override void OnConnectedToMaster()
@@ -56,18 +54,11 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
         }
     }
 
-    private void UpdateAccess()
-    {
-        // Only update the UI if the user has player authority and isnt in VR
-        videoPlayerUI.SetActive(GameState.instance.roleState.playerAuthority && GameState.instance.isVR);
-        // The UI will not be displayed, if the user is in VR or does not have authority (is not master client)
-    }
-
     #region Player Controls
     [PunRPC]
     public void Pause()
     {
-        if(PhotonNetwork.IsMasterClient) this.BroadcastRPC("Pause");
+        if(PhotonNetwork.IsMasterClient) photonView.RPC("Pause", RpcTarget.OthersBuffered);
 
         if (vp.isPlaying)
         {
@@ -82,7 +73,8 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Pause(bool state)
     {
-        if (PhotonNetwork.IsMasterClient) this.BroadcastRPC("Pause", state);
+        if (PhotonNetwork.IsMasterClient) photonView.RPC("Pause", RpcTarget.OthersBuffered); 
+                //this.BroadcastRPC("Pause", state);
 
         if (state)
         {
@@ -97,7 +89,7 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void JumpForward()
     {
-        if (PhotonNetwork.IsMasterClient) this.BroadcastRPC("JumpForward");
+        if (PhotonNetwork.IsMasterClient) photonView.RPC("JumpForward", RpcTarget.OthersBuffered);
 
         float t = (float)vp.time;
         t += 10f;
@@ -108,7 +100,7 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void JumpBackward()
     {
-        if (PhotonNetwork.IsMasterClient) this.BroadcastRPC("JumpBackward");
+        if (PhotonNetwork.IsMasterClient) photonView.RPC("JumpBackward", RpcTarget.OthersBuffered);
 
         float t = (float)vp.time;
         t -= 10f;
@@ -120,7 +112,7 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SwitchMuteAudio()
     {
-        if (PhotonNetwork.IsMasterClient) this.BroadcastRPC("SwitchAudioMute");
+        if (PhotonNetwork.IsMasterClient) photonView.RPC("SwitchAudioMute", RpcTarget.OthersBuffered);
         audio.mute = !audio.mute;
     }
     #endregion

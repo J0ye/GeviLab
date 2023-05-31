@@ -92,7 +92,8 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
         line.SetPosition(0, transform.position - new Vector3(0f, 0.5f, 0f));
         line.SetPosition(1, position);
 
-        this.BroadcastRPC("SetLineEnd", NetworkAvatarControls.instance.avatarID, position);
+        //this.BroadcastRPC("SetLineEnd", NetworkAvatarControls.instance.avatarID, position);
+        photonView.RPC("SetLineEnd", RpcTarget.All, NetworkAvatarControls.instance.avatarID, position);
     }
 
     protected virtual void ResetLineRenderer()
@@ -100,7 +101,8 @@ public class NetworkPointerControls : MonoBehaviourPunCallbacks
         if(line.positionCount > 0)
         {
             line.positionCount = 0;
-            this.BroadcastRPC("ResetLineRenderer", NetworkAvatarControls.instance.avatarID);
+            photonView.RPC("ResetLineRenderer", RpcTarget.All, NetworkAvatarControls.instance.avatarID);
+            //this.BroadcastRPC("ResetLineRenderer", NetworkAvatarControls.instance.avatarID);
         }
     }
     #endregion

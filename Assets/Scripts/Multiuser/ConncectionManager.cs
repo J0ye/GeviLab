@@ -62,7 +62,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        PhotonNetwork.NickName = RandomValues.INSTANCE().GetRandomString();
+        PhotonNetwork.NickName = PlayerPrefsName.GetPlayerName();
         WriteStatus("Nickname: " + PhotonNetwork.NickName);
         PhotonNetwork.JoinLobby();
     }
@@ -136,6 +136,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     private void WritePlayerCount()
     {
         string temp = "Room name: " + PhotonNetwork.CurrentRoom.Name;
+        temp += "; Nickname: " + PhotonNetwork.NickName;
         temp += "; Players: " + PhotonNetwork.CurrentRoom.PlayerCount;
         WriteStatus(temp);
     }
