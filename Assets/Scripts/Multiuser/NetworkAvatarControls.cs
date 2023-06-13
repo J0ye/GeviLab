@@ -82,6 +82,7 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, position - Vector3.up, Quaternion.identity); // Instantiate networked avatar at the specified position, one unit below, with no rotation.
         // Deactivate the LOCAL avatar instance renderer. Client does not have to see own avatar.
         myAvatar.GetComponent<Renderer>().enabled = false;
+        myAvatar.GetComponent<LineRenderer>().enabled = false;
         foreach(Transform child in myAvatar.transform)
         {
             if(child.TryGetComponent<Renderer>(out Renderer renderer))
@@ -150,7 +151,6 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void MoveAvatarToEnvironment(Vector3 pos)
     {
-        print("Moving avatar to: " + pos );
         myAvatar.transform.position = pos;
     }
     #endregion

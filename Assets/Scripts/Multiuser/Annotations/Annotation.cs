@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Annotation : MonoBehaviourPunCallbacks
 {
+    public bool permanent = false;
     public GameObject fullscreenPrefab;
     public GameObject fullscreenPrefabXR;
 

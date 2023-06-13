@@ -27,12 +27,24 @@ public class FileAnnotationCreator : MonoBehaviour
         // mouse position within the window where the files has been dropped.
         string str = "Dropped " + aFiles.Count + " files at: " + aPos + "\n\t" +
             aFiles.Aggregate((a, b) => a + "\n\t" + b);
-        Debug.Log(str);
 
         string path = aFiles[0];
         // Check if the file exists
         if (File.Exists(path))
         {
+            // Get the file size in bytes
+            FileInfo fileInfo = new FileInfo(path);
+            long fileSizeInBytes = fileInfo.Length;
+            double fileSizeInMB = fileSizeInBytes / (1024.0 * 1024.0); // Convert bytes to MB
+
+            // Check if the file is smaller than 1.1 MB
+            if (fileSizeInMB > 1.1)
+            {
+                log.Add("File is: " + fileSizeInMB + " Mb. The file size limit is 1.1 Mb");
+                return;
+            }
+
+
             // Check if the file is an image by looking at its extension
             string extension = Path.GetExtension(path).ToLower();
             if (extension == ".png" || extension == ".jpg" || extension == ".jpeg")

@@ -62,7 +62,7 @@ public class GameState : MonoBehaviour
 
     private void Start()
     {
-        ConncectionManager.instance.OnEnterRoom.AddListener(() => SetActivePlayerControls());
+        //ConncectionManager.instance.OnEnterRoom.AddListener(() => SetActivePlayerControls());
     }
 
     public void SetStateToVR()
@@ -88,6 +88,20 @@ public class GameState : MonoBehaviour
     {
         videoPlayerUIDesktop.SetActive(!isVR);
         videoPlayerUIXR.SetActive(isVR);
+    }
+    public void SetActiveVideoPlayerControls(bool val)
+    {
+        bool withAuthority = val && roleState.playerAuthority; // Only activate player ui if user has authority
+        if (isVR)
+        {
+            videoPlayerUIXR.SetActive(withAuthority); // enable Player controls in VR 
+            videoPlayerUIDesktop.SetActive(false);
+        }
+        else
+        {
+            videoPlayerUIDesktop.SetActive(withAuthority); // enable Player controls in Desktop
+            videoPlayerUIXR.SetActive(false);
+        }
     }
 
     public void SetActivePlayerControls(bool val)

@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class EnvironmentBridge : MonoBehaviour
 {
-    public Transform destination;
+    public EnvironmentBridge destination;
     [Tooltip("Used to change ui buttons to new video player. leave empty if new environment does not have a player")]
     public NetworkVideoPlayerControls destinationNVPC;
+    public bool usePlayerUIInOrigin = true;
 
     [Header("Avatars")]
     public GameObject playerAvatar;
     public GameObject playerXRAvatar;
 
 
-    [Header("Origin location")]
+    [Header("Origin locations")]
     public Vector2 xBounds = Vector2.zero;
     public Vector2 zBounds = Vector2.zero;
     public int margin = 1;
@@ -34,8 +35,7 @@ public class EnvironmentBridge : MonoBehaviour
             environments = new Dictionary<string, EnvironmentBridge>();
         }
 
-        environments.Add(gameObject.name, this);
-
+        environments.Add(gameObject.name + GetInstanceID(), this);
         originPosition = transform.position;
         foreach(Transform child in transform)
         {
@@ -57,9 +57,10 @@ public class EnvironmentBridge : MonoBehaviour
     /// </summary>
     public void MoveToDestination()
     {
-        MoveUser(destination.position);
-        MoveAvatarTo(destination.name);
+        MoveUser(destination.originPosition); // Move to origin position of destination
+        MoveAvatarTo(destination.name + destination.GetInstanceID());
         if(originNVPC != null) originNVPC.Pause(true);
+        GameState.instance.SetActiveVideoPlayerControls(destination.usePlayerUIInOrigin); // Activate player controls if needed
         GameState.instance.SwitchButtonFunctionsInMenu(destinationNVPC);
         GameState.instance.SwitchButtonFunctionsXR(destinationNVPC);
     }
@@ -70,8 +71,9 @@ public class EnvironmentBridge : MonoBehaviour
     public void MoveToOrigin()
     {
         MoveUser(originPosition);
-        MoveAvatarTo(gameObject.name);
+        MoveAvatarTo(gameObject.name + GetInstanceID());
         if (destinationNVPC != null) destinationNVPC.Pause(true);
+        GameState.instance.SetActiveVideoPlayerControls(usePlayerUIInOrigin); // Activate player controls if needed
         GameState.instance.SwitchButtonFunctionsInMenu(originNVPC);
         GameState.instance.SwitchButtonFunctionsXR(originNVPC);
     }

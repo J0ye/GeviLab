@@ -7,18 +7,18 @@ using TMPro;
 public class Note : Annotation
 {
     public GameObject noteInputPrefab;
-    public TMP_Text titel;
-
-    private string text;
+    public TMP_Text titelUIObject;
+    [Header("Content")]
+    public string titel = "";
+    [TextArea]
+    public string text = "";
 
     public static Note CreateNote(string noteTitel, string content, Vector3 position, Vector3 lookAt)
     {
         GameObject notePrefab = Resources.Load<GameObject>("NoteObject");
         GameObject newNote = Instantiate(notePrefab, position, Quaternion.identity);
-        newNote.transform.LookAt(2 * position - lookAt);
         Note noteComponent = newNote.GetComponent<Note>();
-        noteComponent.titel.text = noteTitel;
-        noteComponent.text = content;
+        noteComponent.SetNoteContent(noteTitel, content, position, lookAt);
         noteComponent.OpenContentEdit();
 
         return noteComponent;
@@ -27,20 +27,34 @@ public class Note : Annotation
     public static Note CreateNetworkedNote(string noteTitel, string content, Vector3 position, Vector3 lookAt)
     {
         GameObject newNote = PhotonNetwork.Instantiate("NoteObject", position, Quaternion.identity);
-        newNote.transform.LookAt(2 * position - lookAt);
         Note noteComponent = newNote.GetComponent<Note>();
-        noteComponent.titel.text = noteTitel;
-        noteComponent.text = content;
+        noteComponent.SetNoteContent(noteTitel, content, position, lookAt);
         noteComponent.OpenContentEdit();
 
         return noteComponent;
+    }
+
+    public void SetNoteContent(string noteTitel, string content, Vector3 position, Vector3 lookAt)
+    {
+        transform.LookAt(2 * position - lookAt);
+        titelUIObject.text = noteTitel;
+        titel = noteTitel;
+        text = content;
+    }
+
+    private void Awake()
+    {
+        if(permanent)
+        {
+            SetNoteContent(titel, text, transform.position, Vector3.zero);
+        }
     }
 
     public override void Open()
     {
         GameObject newFullscreenNote = Instantiate(fullscreenPrefab, Vector3.zero, Quaternion.identity);
         FullscreenNote fn = newFullscreenNote.GetComponent<FullscreenNote>();
-        fn.content.text = titel.text + "\n" + text;
+        fn.content.text = titel + "\n" + text;
         fn.origin = this;
         GameState.instance.SetActivePlayerControls(false);
     }
@@ -55,7 +69,8 @@ public class Note : Annotation
 
     public void SetHeader(string val)
     {
-        titel.text = val;
+        titelUIObject.text = val;
+        titel = val;
         photonView.RPC("UpdateHeaderRemote", RpcTarget.Others, val);
     }
 
@@ -70,7 +85,8 @@ public class Note : Annotation
     [PunRPC]
     public void UpdateHeaderRemote(string val)
     {
-        titel.text = val;
+        titelUIObject.text = val;
+        titel = val;
     }
 
     [PunRPC]

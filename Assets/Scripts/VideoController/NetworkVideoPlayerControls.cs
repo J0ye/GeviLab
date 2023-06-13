@@ -58,6 +58,9 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Pause()
     {
+
+        if (vp == null) return;
+
         if(PhotonNetwork.IsMasterClient) photonView.RPC("Pause", RpcTarget.OthersBuffered);
 
         if (vp.isPlaying)
@@ -73,6 +76,8 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void Pause(bool state)
     {
+        if (vp == null) return;
+
         if (PhotonNetwork.IsMasterClient) photonView.RPC("Pause", RpcTarget.OthersBuffered); 
                 //this.BroadcastRPC("Pause", state);
 

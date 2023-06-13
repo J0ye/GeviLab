@@ -9,6 +9,8 @@ using ExitGames.Client.Photon;
 public class ImageAnnotation : Annotation, IOnEventCallback
 {
     public Sprite content;
+    [Range(0.01f, 2f)]
+    public float permanentImageSizeFactor = 0.1f;
     public static float imageSizeFactor = 0.1f;
     #region PUN Event
     public override void OnEnable()
@@ -43,6 +45,18 @@ public class ImageAnnotation : Annotation, IOnEventCallback
         }
     }
     #endregion
+
+    private void Awake()
+    {
+        if(permanent)
+        {
+            ChangeImage(content, transform.position);
+            transform.localScale *= permanentImageSizeFactor;
+
+            SetColliderSizeToSpriteSize(gameObject);
+        }
+    }
+
     public static void SpawnImageWithStaticPosition(byte[] imageData)
     {
         SpawnImageAndSend(imageData, GetPositionInFront());
@@ -75,14 +89,7 @@ public class ImageAnnotation : Annotation, IOnEventCallback
         ChangeImage(imageData, newImage);
         newImage.transform.localScale *= imageSizeFactor;
 
-        // Get the BoxCollider and MeshFilter components
-        BoxCollider boxCollider = newImage.GetComponent<BoxCollider>();
-        SpriteRenderer spriteRenderer = newImage.GetComponent<SpriteRenderer>();
-        if (boxCollider && spriteRenderer)
-        {
-            // Set the size equal to the sprite
-            boxCollider.size = spriteRenderer.sprite.bounds.size;
-        }
+        SetColliderSizeToSpriteSize(newImage);
     }
 
     /// <summary>
@@ -98,16 +105,7 @@ public class ImageAnnotation : Annotation, IOnEventCallback
         ChangeImage(imageData, newImage);
         newImage.transform.localScale *= imageSizeFactor;
 
-
-
-        // Get the BoxCollider and MeshFilter components
-        BoxCollider boxCollider = newImage.GetComponent<BoxCollider>();
-        SpriteRenderer spriteRenderer = newImage.GetComponent<SpriteRenderer>();
-        if (boxCollider && spriteRenderer)
-        {
-            // Set the size equal to the sprite
-            boxCollider.size = spriteRenderer.sprite.bounds.size;
-        }
+        SetColliderSizeToSpriteSize(newImage);
     }
 
     /// <summary>
@@ -148,16 +146,24 @@ public class ImageAnnotation : Annotation, IOnEventCallback
         PhotonNetwork.RemoveCallbackTarget(targetAnno);
     }
 
-    public void ChangeImage(byte[] imageData, Vector3 position)
+    public void ChangeImage(Sprite sprite, Vector3 position)
     {
-        // Load the image file as a texture
-        Texture2D texture = new Texture2D(2, 2);
-        texture.LoadImage(imageData);
-        // Create a sprite from the texture
-        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         GetComponent<SpriteRenderer>().sprite = sprite;
         GetComponent<ImageAnnotation>().content = sprite;
         transform.position = position;
+    }
+
+    public static void SetColliderSizeToSpriteSize(GameObject target)
+    {
+        // Get the BoxCollider and MeshFilter components
+        BoxCollider boxCollider = target.GetComponent<BoxCollider>();
+        SpriteRenderer spriteRenderer = target.GetComponent<SpriteRenderer>();
+        if (boxCollider && spriteRenderer)
+        {
+            // Set the size equal to the sprite
+            boxCollider.size = spriteRenderer.sprite.bounds.size;
+        }
+
     }
 
 
