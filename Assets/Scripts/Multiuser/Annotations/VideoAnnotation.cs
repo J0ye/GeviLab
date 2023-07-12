@@ -46,7 +46,7 @@ public class VideoAnnotation : Annotation, IOnEventCallback
     {
         SpawnNetworkVideo(data);
 
-        Vector3 vectorData = GetPositionInFront();
+        Vector3 vectorData = GetPositionInFrontOfCamera();
         object[] eventData = new object[] { data, vectorData };
         SendVideoFileAndVector(eventData);
     }
@@ -55,14 +55,14 @@ public class VideoAnnotation : Annotation, IOnEventCallback
     {
         GameObject videoPlayerPrefab = Resources.Load<GameObject>("VideoPrefab");
         // Instantiate a new video player GameObject
-        GameObject videoPlayerObject = Instantiate(videoPlayerPrefab, GetPositionInFront(), Quaternion.identity);
+        GameObject videoPlayerObject = Instantiate(videoPlayerPrefab, GetPositionInFrontOfCamera(), Quaternion.identity);
         ChangeVideo(data, videoPlayerObject);
     }
 
     public static void SpawnNetworkVideo(byte[] data)
     {
         // Create new video via network
-        GameObject newVideo = PhotonNetwork.Instantiate("VideoPrefab", GetPositionInFront(), Quaternion.identity);
+        GameObject newVideo = PhotonNetwork.Instantiate("VideoPrefab", GetPositionInFrontOfCamera(), Quaternion.identity);
         ChangeVideo(data, newVideo);
     }
 
@@ -127,7 +127,7 @@ public class VideoAnnotation : Annotation, IOnEventCallback
     {
         GameObject videoPlayerPrefab = Resources.Load<GameObject>("VideoPrefab");
         // Instantiate a new video player GameObject
-        GameObject videoPlayerObject = Instantiate(videoPlayerPrefab, GetPositionInFront(), Quaternion.identity);
+        GameObject videoPlayerObject = Instantiate(videoPlayerPrefab, GetPositionInFrontOfCamera(), Quaternion.identity);
         // Get VideoPlayer component to the new GameObject
         VideoPlayer videoPlayer = videoPlayerObject.GetComponent<VideoPlayer>();
 

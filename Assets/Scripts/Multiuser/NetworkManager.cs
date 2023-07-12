@@ -8,13 +8,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        print("Player entered");
-        print(newPlayer);
+        LogCreator.instance.AddLog("Player entered");
+        LogCreator.instance.AddLog(newPlayer.ToString());
 
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        print(otherPlayer.NickName + " left");
+        LogCreator.instance.AddLog(otherPlayer.NickName + " left");
     }
 }

@@ -129,7 +129,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
         {
             yield return new WaitWhile(() => !GameState.instance.setStateByPlayer);
         }
-        print("joining");
+        LogCreator.instance.AddLog("joining");
         PhotonNetwork.JoinRandomOrCreateRoom();
     }
      

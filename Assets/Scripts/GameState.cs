@@ -49,7 +49,7 @@ public class GameState : MonoBehaviour
         if (Application.platform == RuntimePlatform.Android || forceVRState)
         {
             SetStateToVR();
-            print("is android");
+            LogCreator.instance.AddLog("is android");
         }
         else
         {
@@ -192,6 +192,7 @@ public class GameState : MonoBehaviour
 
     private void UpdateDisplay()
     {
+        playerCamera.SetActive(!isVR);
         cameraRig.SetActive(isVR);
         SetActivePlayerControls(true);
         WriteToLogOutput("Programm is displayed in VR: " + isVR);

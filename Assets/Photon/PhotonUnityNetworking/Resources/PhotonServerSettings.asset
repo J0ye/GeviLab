@@ -16,10 +16,10 @@ MonoBehaviour:
     AppIdRealtime: 71671e6c-53c8-4039-9bbe-0ac81d6d8ad4
     AppIdFusion: 
     AppIdChat: 
-    AppIdVoice: 
+    AppIdVoice: 8103528f-4ff0-4a2d-b353-2408ef241ffe
     AppVersion: 
     UseNameServer: 1
-    FixedRegion: eu
+    FixedRegion: 
     Server: 
     Port: 0
     ProxyServer: 
@@ -34,31 +34,28 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - CantHearYou
+  - ChangeColour
   - ClickRpc
   - DestroyRpc
-  - DestroySpaceship
-  - Fire
-  - RespawnSpaceship
+  - HeresWhy
+  - ChangeRole
+  - DeleteAnnotationRemote
+  - GetPlayerState
   - GetPosition
   - InstantiateAvatar
-  - GetActiveFrame
   - JumpBackward
   - JumpForward
+  - MoveAvatarToEnvironment
   - Pause
-  - SetActiveFrame
-  - GetPlayerState
+  - RequestMoveAvatar
+  - ResetLineRenderer
+  - SetLineEnd
   - SetPlayerState
   - SwitchMuteAudio
-  - SetLineEnd
-  - ResetLineRenderer
-  - ChangeRole
+  - SyncPlayerName
   - UpdateContentRemote
   - UpdateHeaderRemote
-  - DeleteNoteRemote
-  - DeleteAnnotationRemote
-  - SyncPlayerName
-  - MoveAvatarToEnvironment
-  - RequestMoveAvatar
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

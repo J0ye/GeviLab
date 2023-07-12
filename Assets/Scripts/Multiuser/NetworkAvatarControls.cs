@@ -5,7 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 
 /// <summary>
-/// Controls player specific functions that need the network
+/// Controls avatar specific functions that need the network. Avatars are the representation of player positions and interactions on other users clients. 
 /// </summary>
 public class NetworkAvatarControls : MonoBehaviourPunCallbacks
 {
@@ -15,11 +15,7 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
     public GameObject myAvatar;
     public int avatarID = -1;
     [Header("Spawn location")]
-    public Vector2 xBounds = Vector2.zero;
-    public Vector2 zBounds = Vector2.zero;
-    public int margin = 1;
-
-    private PositionList positions;
+    public EnvironmentBridge startEnvironment;
     // Start is called before the first frame update
     void Awake()
     {
@@ -31,8 +27,6 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         {
             Destroy(this);
         }
-        positions = new PositionList(margin, xBounds, zBounds);
-        positions.RemovePositionsCloseTo(transform.position, 1);
     }
 
     /// <summary>
@@ -45,12 +39,12 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         if(!PhotonNetwork.IsMasterClient)
         {
             // Request the position from the master client. Master client will answer with InstantiateAvatar RPC
-            photonView.RPC("GetPosition", PhotonNetwork.MasterClient, PhotonNetwork.LocalPlayer);
+            photonView.RPC(nameof(GetPosition), PhotonNetwork.MasterClient, PhotonNetwork.LocalPlayer);
         }
         else
         {
             // If this is the master client, instantiate the avatar at a random position
-            InstantiateAvatar(positions.GetRandomPosition());
+            InstantiateAvatar(startEnvironment.GetPositionInEnvironment());
         }
     }
 
@@ -65,7 +59,7 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
     {
         if(PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("InstantiateAvatar", target, positions.GetRandomPosition());
+            photonView.RPC(nameof(InstantiateAvatar), target, startEnvironment.GetPositionInEnvironment());
         }
     }
 
@@ -79,7 +73,8 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void InstantiateAvatar(Vector3 position)
     {
-        myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, position - Vector3.up, Quaternion.identity); // Instantiate networked avatar at the specified position, one unit below, with no rotation.
+        // Instantiate networked avatar at the specified position
+        myAvatar = PhotonNetwork.Instantiate(playerPrefab.name, position, Quaternion.identity); 
         // Deactivate the LOCAL avatar instance renderer. Client does not have to see own avatar.
         myAvatar.GetComponent<Renderer>().enabled = false;
         myAvatar.GetComponent<LineRenderer>().enabled = false;
@@ -109,12 +104,12 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         {
             // Request master to move avatar
             photonView.RPC(nameof(RequestMoveAvatar), RpcTarget.MasterClient, name, PhotonNetwork.LocalPlayer);
-            print("Requested move to " + name);
+            LogCreator.instance.AddLog("Requested move to " + name);
         }
     }
 
     /// <summary>
-    /// Called by clients so the master client can asgin them a free position. Makes RPC for client to move avatar.
+    /// Called by clients so the master client can asgin them a free position. Makes RPC for client to move avatar. The master exclusively controls position assignment to prevent duplicate position assignments.
     /// </summary>
     /// <param name="name">Name of environment</param>
     /// <param name="requestSender"></param>
@@ -134,12 +129,14 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
                 else
                 {
                     Debug.LogError("No environment with name " + name);
+                    LogCreator.instance.AddLog("No environment with name " + name);
                     // environment is missing/wrong
                 }
             }
             else
             {
                 Debug.LogError("No environments");
+                LogCreator.instance.AddLog("No environments");
                 // There are no environments at the moment
             }
         }
@@ -151,6 +148,7 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
     [PunRPC]
     public void MoveAvatarToEnvironment(Vector3 pos)
     {
+        LogCreator.instance.AddLog("Recieved rpc to move avatar to environment");
         myAvatar.transform.position = pos;
     }
     #endregion

@@ -5,13 +5,18 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using ExitGames.Client.Photon;
+using DG.Tweening;
 
 public class ImageAnnotation : Annotation, IOnEventCallback
 {
+    [Header ("Image Settings")]
     public Sprite content;
     [Range(0.01f, 2f)]
     public float permanentImageSizeFactor = 0.1f;
     public static float imageSizeFactor = 0.1f;
+
+    public override AnnotationType annotationType { get => AnnotationType.Image; protected set => base.annotationType = value; }
+
     #region PUN Event
     public override void OnEnable()
     {
@@ -59,7 +64,7 @@ public class ImageAnnotation : Annotation, IOnEventCallback
 
     public static void SpawnImageWithStaticPosition(byte[] imageData)
     {
-        SpawnImageAndSend(imageData, GetPositionInFront());
+        SpawnImageAndSend(imageData, GetPositionInFrontOfCamera());
     }
 
     /// <summary>
@@ -213,11 +218,17 @@ public class ImageAnnotation : Annotation, IOnEventCallback
         fi.content.GetComponent<AspectRatioFitter>().aspectRatio = tempWidth / tempHeigth;
         fi.origin = this;
         GameState.instance.SetActivePlayerControls(false);
+
+        if(permanent)
+        {
+            SetStateForDeleteInteractors(newFullscreenImage, false);
+        }
     }
 
     public override void OpenXR()
     {
-        GameObject newFullscreenImage = Instantiate(fullscreenPrefabXR, GetPositionInFront(), Quaternion.identity);
+        GameObject newFullscreenImage = Instantiate(fullscreenPrefabXR, GetPositionInFrontOfAnnotation(), Quaternion.identity);
+        newFullscreenImage.transform.DOScale(newFullscreenImage.transform.localScale.x * xRPrefabSize, xRPrefabAnimationDuration);
         FullscreenImage fi = newFullscreenImage.GetComponent<FullscreenImage>();
         fi.content.sprite = content;
         // convert int values to float
@@ -232,7 +243,7 @@ public class ImageAnnotation : Annotation, IOnEventCallback
     {
         Sprite sprite = Resources.Load<Sprite>("TestImage");
         // Assign the sprite to the SpriteRenderer component
-        GameObject newImage = PhotonNetwork.Instantiate("ImagePrefab", GetPositionInFront(), Quaternion.identity);
+        GameObject newImage = PhotonNetwork.Instantiate("ImagePrefab", GetPositionInFrontOfCamera(), Quaternion.identity);
         newImage.transform.localScale *= imageSizeFactor;
         ImageAnnotation targetAnno = newImage.GetComponent<ImageAnnotation>();
         targetAnno.content = sprite;

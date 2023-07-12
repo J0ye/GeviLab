@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Video;
 
 public class FullscreenAnnotation : MonoBehaviour
 {
@@ -13,7 +11,7 @@ public class FullscreenAnnotation : MonoBehaviour
     /// </summary>
     protected bool delayed = true;
 
-    protected void Start()
+    protected virtual void Start()
     {
         StartCoroutine(OpenProtocol());
         if (origin != null) origin.SetDisplay(false);

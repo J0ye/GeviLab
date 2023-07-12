@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -17,8 +16,19 @@ public class MenuManager : MonoBehaviour
 
     public MenuState state = MenuState.Main;
 
+    [Header("XR Menu Settings")]
+    public Transform targetAnchor;
+    public Vector3 xrScale = Vector3.zero;
+
+    protected RectTransform rect;
+    protected Canvas canvas;
+    protected Vector3 startScale = Vector3.zero;
+
     public virtual void Start()
     {
+        startScale = transform.localScale;
+        canvas = GetComponent<Canvas>();
+        rect = GetComponent<RectTransform>();
         UpdateUI();
     }
 
@@ -41,6 +51,22 @@ public class MenuManager : MonoBehaviour
     public void CloseApplication()
     {
         Application.Quit();
+    }
+
+    public void ConvertToDesktopUI()
+    {
+        canvas.renderMode = RenderMode.ScreenSpaceCamera;
+        transform.parent = null;
+        transform.localScale = startScale;
+
+    }
+
+    public void ConvertToXRUI()
+    {
+        canvas.renderMode = RenderMode.WorldSpace;
+        transform.parent = targetAnchor;
+        transform.localScale = xrScale;
+        rect.anchoredPosition3D = Vector3.zero;
     }
 
     protected void UpdateUI()

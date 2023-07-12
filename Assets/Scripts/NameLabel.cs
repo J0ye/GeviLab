@@ -10,33 +10,30 @@ public class NameLabel : MonoBehaviourPun
     // Start is called before the first frame update
     void Awake()
     {
-        foreach(Transform child in transform)
-        {
-            child.TryGetComponent<TMP_Text>(out label);
-        }
+        SetLabelReference();
     }
 
     public void SyncName()
     {
         if (photonView.IsMine)
         {
+            LogCreator.instance.AddLog("Name: " + PhotonNetwork.NickName);
             // The local player can set their name directly.
-            label.text = PhotonNetwork.NickName;
+            SetLabelValue(PhotonNetwork.NickName);
             // Synchronize the player name across the network.
-            print("New name");
-            photonView.RPC("SyncPlayerName", RpcTarget.OthersBuffered, PhotonNetwork.NickName);
+            photonView.RPC(nameof(SyncPlayerName), RpcTarget.OthersBuffered, PhotonNetwork.NickName);
         }
     }
 
     [PunRPC]
     public void SyncPlayerName(string playerName)
     {
-        label.text = playerName;
+        SetLabelValue(playerName);
     }
 
 
 
-    public void SetLabel(string newValue)
+    public void SetLabelValue(string newValue)
     {
         if(label)
         {
@@ -44,7 +41,23 @@ public class NameLabel : MonoBehaviourPun
         }
         else
         {
-            Debug.LogError("No label on avatar for " + newValue);
+            int j = 0;
+            while(label == null)
+            {
+                print("Setting label");
+                j++;
+                if (j >= 100)
+                    break;
+                SetLabelReference();
+            }
+        }
+    }
+
+    protected void SetLabelReference()
+    {
+        foreach (Transform child in transform)
+        {
+            child.TryGetComponent<TMP_Text>(out label);
         }
     }
 }

@@ -117,10 +117,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48c7c3d27244a924fb23e6e27a7b6e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  permanent: 0
   fullscreenPrefab: {fileID: 8028800747578127841, guid: c798aaeaa5e561a49971603d9e98a817, type: 3}
   fullscreenPrefabXR: {fileID: 5065810930660534368, guid: 14a9d3ab1d27ea94cac642cbecdc3c77, type: 3}
+  xRPrefabDistance: -0.5
+  xRPrefabSize: 0.5
+  xRPrefabAnimationDuration: 0.5
   isEditing: 0
   content: {fileID: 0}
+  permanentImageSizeFactor: 0.1
 --- !u!65 &4008139068321150751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -204,6 +209,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightDuration: 0.5
   highlightStrength: 0.2
+  OnStartHover:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2767837893308891058}
+        m_TargetAssemblyTypeName: Annotation, Assembly-CSharp
+        m_MethodName: Highlight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnEndHover:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2767837893308891058}
+        m_TargetAssemblyTypeName: Annotation, Assembly-CSharp
+        m_MethodName: UnHighlight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnInteract:
     m_PersistentCalls:
       m_Calls:

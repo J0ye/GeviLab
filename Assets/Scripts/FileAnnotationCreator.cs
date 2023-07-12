@@ -40,7 +40,7 @@ public class FileAnnotationCreator : MonoBehaviour
             // Check if the file is smaller than 1.1 MB
             if (fileSizeInMB > 1.1)
             {
-                log.Add("File is: " + fileSizeInMB + " Mb. The file size limit is 1.1 Mb");
+                LogCreator.instance.AddLog("File is: " + fileSizeInMB + " Mb. The file size limit is 1.1 Mb");
                 return;
             }
 
@@ -56,8 +56,8 @@ public class FileAnnotationCreator : MonoBehaviour
 
             if (extension == ".mp4")
             {
-                print("Loading video");
-                log.Add("Loading video");
+                LogCreator.instance.AddLog("Loading video");
+                LogCreator.instance.AddLog("Loading video");
                 byte[] videoData = File.ReadAllBytes(path);
                 VideoAnnotation.SpawnVideoAndSend(videoData);
             }
@@ -65,20 +65,12 @@ public class FileAnnotationCreator : MonoBehaviour
         else
         {
             Debug.LogError("File not found at: " + path);
-            log.Add("File not found at: " + path);
+            LogCreator.instance.AddLog("File not found at: " + path);
         }
     }
 
     public void UseInjectedSpawn()
     {
         VideoAnnotation.InjectedSpawn();
-    }
-
-    private void OnGUI()
-    {
-        if (GUILayout.Button("clear log"))
-            log.Clear();
-        foreach (var s in log)
-            GUILayout.Label(s);
     }
 }

@@ -100,11 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67e6dea28ff315844856dea10b61892a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  permanent: 0
   fullscreenPrefab: {fileID: 4339085700829243649, guid: 446a66c5351b41241abfb321b5d020ca, type: 3}
-  fullscreenPrefabXR: {fileID: 0}
+  fullscreenPrefabXR: {fileID: 1261340556627859879, guid: dec90f2c2b76f2348b3cd973214de55f, type: 3}
+  xRPrefabDistance: -0.5
   isEditing: 0
   noteInputPrefab: {fileID: 3677656754642685187, guid: cfb6443922eacca4e99327f094610aab, type: 3}
-  titel: {fileID: 3585722629551326485}
+  titelUIObject: {fileID: 3585722629551326485}
+  titel: 
+  text: 
 --- !u!65 &1689291300123640794
 BoxCollider:
   m_ObjectHideFlags: 0

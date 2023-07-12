@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/VROffline.unity
     guid: 22857147c644878438e32ece3a8a03cd
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Name Screen.unity
     guid: 56dfbd02b73846645a1bd8af47a3db99
   - enabled: 0

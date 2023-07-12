@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Zinnia.Action;
+using System;
 
 [RequireComponent(typeof(LineRenderer))]
 public class NetworkPointerControlsXR : NetworkPointerControls
@@ -23,23 +24,30 @@ public class NetworkPointerControlsXR : NetworkPointerControls
     {
         if (PhotonNetwork.InRoom)
         {
-            Ray ray = new Ray(transform.position, transform.forward);
-            if (activationTrigger.IsActivated && Physics.Raycast(ray, out hit, layers))
+            try
             {
-                SetLineEnd(hit.point);
-                if (actionTrigger.IsActivated)
+                Ray ray = new Ray(transform.position, transform.forward);
+                if (activationTrigger.IsActivated && Physics.Raycast(ray, out hit, layers))
                 {
-                    AddPointOfInterest(hit);
-                }
+                    SetLineEnd(hit.point);
+                    if (actionTrigger.IsActivated)
+                    {
+                        AddPointOfInterest(hit);
+                    }
 
-                if (Input.mouseScrollDelta != Vector2.zero)
+                    if (Input.mouseScrollDelta != Vector2.zero)
+                    {
+                        ScalePointOfIntereset(Input.mouseScrollDelta.y);
+                    }
+                }
+                else if (xRController == null)
                 {
-                    ScalePointOfIntereset(Input.mouseScrollDelta.y);
+                    ResetLineRenderer();
                 }
             }
-            else if(xRController == null)
+            catch (Exception e)
             {
-                ResetLineRenderer();
+                Debug.LogWarning("There was an Error in the Pointer Conrol Class. Error: " + e);
             }
         }
     }

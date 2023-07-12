@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using TMPro;
+using DG.Tweening;
 
 public class Note : Annotation
 {
+    [Header("Note Settings")]
     public GameObject noteInputPrefab;
     public TMP_Text titelUIObject;
     [Header("Content")]
     public string titel = "";
     [TextArea]
     public string text = "";
+
+    public override AnnotationType annotationType { get => AnnotationType.Note; protected set => base.annotationType = value; }
 
     public static Note CreateNote(string noteTitel, string content, Vector3 position, Vector3 lookAt)
     {
@@ -57,6 +61,26 @@ public class Note : Annotation
         fn.content.text = titel + "\n" + text;
         fn.origin = this;
         GameState.instance.SetActivePlayerControls(false);
+
+        if (permanent)
+        {
+            SetStateForDeleteInteractors(newFullscreenNote, false);
+        }
+    }
+
+    public override void OpenXR()
+    {
+        GameObject newFullscreenNote = Instantiate(fullscreenPrefabXR, GetPositionInFrontOfAnnotation(), Quaternion.identity);
+        newFullscreenNote.transform.DOScale(newFullscreenNote.transform.localScale.x * xRPrefabSize, xRPrefabAnimationDuration);
+        FullscreenNote fn = newFullscreenNote.GetComponent<FullscreenNote>();
+        fn.content.text = titel + "\n" + text;
+        fn.origin = this;
+        GameState.instance.SetActivePlayerControls(false);
+
+        if (permanent)
+        {
+            SetStateForDeleteInteractors(newFullscreenNote, false);
+        }
     }
 
     public void OpenContentEdit()
