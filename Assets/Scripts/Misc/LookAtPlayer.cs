@@ -28,7 +28,8 @@ public class LookAtPlayer : MonoBehaviour
                 player = GameObject.FindGameObjectWithTag(lookFor);
             }
         }
-        else if(lookAway)
+        
+        if(lookAway)
         {
             Vector3 directionToPlayer = player.transform.position - transform.position;
             Vector3 directionAwayFromPlayer = -directionToPlayer;
