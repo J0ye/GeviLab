@@ -57,7 +57,6 @@ public class FileAnnotationCreator : MonoBehaviour
             if (extension == ".mp4")
             {
                 LogCreator.instance.AddLog("Loading video");
-                LogCreator.instance.AddLog("Loading video");
                 byte[] videoData = File.ReadAllBytes(path);
                 VideoAnnotation.SpawnVideoAndSend(videoData);
             }
