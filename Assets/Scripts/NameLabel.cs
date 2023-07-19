@@ -39,18 +39,6 @@ public class NameLabel : MonoBehaviourPun
         {
             label.text = newValue;
         }
-        else
-        {
-            int j = 0;
-            while(label == null)
-            {
-                print("Setting label");
-                j++;
-                if (j >= 100)
-                    break;
-                SetLabelReference();
-            }
-        }
     }
 
     protected void SetLabelReference()
