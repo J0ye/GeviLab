@@ -23,8 +23,8 @@ namespace GeViLab.Backend
         [SerializeField]
         private int timeout = 10000;
 
-        [SerializeField]
-        private static string storagePath;
+        // [SerializeField]
+        // private static string storagePath;
 
         void Start()
         {
@@ -34,7 +34,7 @@ namespace GeViLab.Backend
             bucketRegion = RegionEndpoint.GetBySystemName(ConfigLoader.config.AWSS3Region);
 
             s3Client = new AmazonS3Client(accessKey, secretKey, bucketRegion);
-            storagePath = Path.Combine(Application.persistentDataPath, ConfigLoader.config.CacheFolder);
+            // storagePath = Path.Combine(Application.persistentDataPath, ConfigLoader.config.CacheFolder);
 
             // ReadObjectData().Wait(timeout);
             // DownloadObjectFromBucketAsync(
@@ -82,7 +82,7 @@ namespace GeViLab.Backend
         //     }
         // }
 
-        public static async Task<bool> DownloadObjectFromBucketAsync(string objectName)
+        public static async Task<bool> DownloadObjectFromBucketAsync(string objectName, string storagePath)
         {
             // Create a GetObject request
             var request = new GetObjectRequest { BucketName = bucketName, Key = objectName, };
@@ -116,7 +116,7 @@ namespace GeViLab.Backend
             }
         }
 
-        public static async Task<bool> UploadFileAsync(string objectName, string contentType)
+        public static async Task<bool> UploadFileAsync(string storagePath, string objectName, string contentType)
         {
             try
             {

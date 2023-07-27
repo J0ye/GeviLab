@@ -15,39 +15,62 @@ namespace GeViLab.Backend
     public class FileCache : MonoBehaviour
     {
         // A dictionary to store the local files' metadata
+        [SerializeField]
         private Dictionary<string, DateTime> metadata;
+
+        [SerializeField]
+        private string cacheDir = "";
+        public Dictionary<string, DateTime> PublicMetadata
+        {
+            get { return metadata; }
+            set { metadata = value; }
+        }
 
         void Start() // The constructor
         {
             metadata = new Dictionary<string, DateTime>();
-            InitializeMetadata();
-        }
-
-        private void InitializeMetadata()
-        {
-            string cacheDir = Path.Combine(
+            cacheDir = Path.Combine(
                 Application.persistentDataPath,
                 ConfigLoader.config.CacheFolder
             );
+            cacheDir = cacheDir.Replace("\\", "/") + "/";
+            Debug.Log($"Cache Dir: {cacheDir}");
             if (!Directory.Exists(cacheDir))
             {
                 Directory.CreateDirectory(cacheDir);
             }
+            SetMetadataFromLocal();
+        }
 
-            foreach (string file in Directory.GetFiles(cacheDir))
+        /// <summary>
+        /// Sets the metadata for all files in the cache directory and its subdirectories.
+        /// </summary>
+        private void SetMetadataFromLocal()
+        {
+            foreach (string file in Directory.GetFiles(cacheDir, "*", SearchOption.AllDirectories))
             {
-                AddToCache(file);
-                // FileInfo fileInfo = new FileInfo(file);
-                // metadata[fileInfo.Name] = fileInfo.LastWriteTimeUtc;
+                AddToMetadata(file);
             }
         }
 
         /// <summary>
         /// Clears the cache.
         /// </summary>
-        public void ClearCache()
+        public void ClearMetadata()
         {
             metadata.Clear();
+        }
+
+        /// <summary>
+        /// Clears the cache including files and metadata.
+        /// </summary>
+        public void ClearCache()
+        {
+            foreach (string file in Directory.GetFiles(cacheDir, "*", SearchOption.AllDirectories))
+            {
+                File.Delete(file);
+            }
+            ClearMetadata();
         }
 
         // /// <summary>
@@ -55,11 +78,12 @@ namespace GeViLab.Backend
         // /// </summary>
         // /// <param name="key">The key (name) of the file to add.</param>
         // /// <param name="value">The modification time.</param>
-        public void AddToCache(string file)
+        public void AddToMetadata(string file)
         {
-            // metadata[key] = date;
             FileInfo fileInfo = new FileInfo(file);
-            metadata[fileInfo.FullName] = fileInfo.LastWriteTimeUtc;
+            string key = fileInfo.FullName.Replace("\\", "/").Replace(cacheDir, "");
+            // Debug.Log($"Key: {key}");
+            metadata[key] = fileInfo.LastWriteTimeUtc;
         }
 
         #region fileHandling
@@ -102,7 +126,8 @@ namespace GeViLab.Backend
         private string GetLocalPath(string key)
         {
             // Return a path that's unique for each key
-            return Path.Combine(Application.persistentDataPath, key);
+            // Debug.Log($"Local Path: {GetLocalPath(key)}");
+            return Path.Combine(cacheDir, key).Replace("\\", "/");
         }
 
         /// <summary>
@@ -244,7 +269,7 @@ namespace GeViLab.Backend
     //                     {
     //                         getResponse.ResponseStream.CopyTo(memoryStream);
     //                         data = memoryStream.ToArray();
-    //                         AddToCache(obj.Key, data);
+    //                         AddToMetadata(obj.Key, data);
     //                     }
     //                 }
     //             }
