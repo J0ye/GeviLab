@@ -5,12 +5,17 @@ using UnityEngine;
 
 public class BackendSceneManager : MonoBehaviour
 {
-    private Scenes scenes;
-    public string sceneFile = "TestScenes.json";
+    public Scenes scenes;
+    public string sceneFilePath = "";
+    public string sceneFileName = "TestScenes.json";
+    public GameObject spherePrefab;
+
     void Start()
     {
+        if (sceneFilePath == "")
+            sceneFilePath = Application.persistentDataPath;
         scenes = Scenes.Instance;
-        scenes.LoadScenesFromResources(sceneFile);
+        scenes.LoadScenes(Path.Combine(sceneFilePath, sceneFileName));
+        scenes.InitializeScenes(spherePrefab);
     }
 }
-

@@ -25,8 +25,28 @@ namespace GeViLab.Backend
             get { return metadata; }
             set { metadata = value; }
         }
+        private static FileCache instance;
 
-        void Start() // The constructor
+        public static FileCache Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<FileCache>();
+                    if (instance == null)
+                    {
+                        GameObject obj = new GameObject();
+                        obj.name = typeof(FileCache).Name;
+                        instance = obj.AddComponent<FileCache>();
+                        DontDestroyOnLoad(obj);
+                    }
+                }
+                return instance;
+            }
+        }
+
+        void Awake() // The constructor
         {
             metadata = new Dictionary<string, DateTime>();
             cacheDir = Path.Combine(
@@ -99,6 +119,7 @@ namespace GeViLab.Backend
             {
                 // Get the last modified date of the file on S3
                 var lastModifiedOnS3 = await GetLastModifiedOnS3(key);
+                Debug.Log($"{key} was last Modified On S3: {lastModifiedOnS3}");
 
                 // Compare the last modified date of the local file and the one on S3
                 if (metadata[key] >= lastModifiedOnS3)

@@ -40,36 +40,56 @@ public class Scenes : MonoBehaviour
         return scenes;
     }
 
-    public void SerializeScenesToJson(string filePath)
+    public void InitializeScenes(GameObject spherePrefab)
     {
-        string json = JsonConvert.SerializeObject(scenes, Formatting.Indented);
-        File.WriteAllText(filePath, json);
-    }
-
-    public void LoadScenesFromResources(string fileName)
-    {
-        string filePath = Path.Combine("Assets", "Resources", fileName);
-        TextAsset textAsset = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(filePath));
-        if (textAsset != null)
+        foreach (Scene scene in scenes)
         {
-            string json = textAsset.text;
+            scene.Initialize(spherePrefab);
+        }
+    }
+    public void SyncScenes()
+    {
+        foreach (Scene scene in scenes)
+        {
+            scene.Sync();
+        }
+    }
+    public void LoadScenes(string filePath)
+    {
+        // string filePath = Path.Combine("Assets", "Resources", fileName);
+        // string filePath = Path.Combine(Application.persistentDataPath, fileName);
+        // TextAsset textAsset = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(filePath));
+        // if (textAsset != null)
+        // {
+        //     string json = textAsset.text;
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
             if (json.StartsWith("{"))
             {
                 // If the JSON string starts with a '{', it is a JSON object and needs to be wrapped in an array
                 json = "[" + json + "]";
             }
-            // scenes = JsonConvert.DeserializeObject<List<Scene>>(json);
             scenes = JsonConvert.DeserializeObject<List<Scene>>(json);
-            Debug.Log("Loaded " + scenes.Count + " scenes from " + fileName);
-            foreach (Scene scene in scenes)
-            {
-                Debug.Log(scene.GetDescription());
-            }
+            // Debug.Log("Loaded " + scenes.Count + " scenes from " + fileName);
+            // foreach (Scene scene in scenes)
+            // {
+            //     Debug.Log(
+            //         $"{scene.id} {scene.name} {scene.description} {scene.position} {scene.rotation} {scene.scale}"
+            //     );
+            // }
         }
         else
         {
-            Debug.LogError("File not found: " + fileName);
+            Debug.LogError("File not found: " + filePath);
         }
     }
-}
 
+    public void SerializeScenesToJson(string filePath)
+    {
+        SyncScenes();
+        // Debug.Log("Serializing " + scenes.Count + " scenes to " + filePath);
+        string json = JsonConvert.SerializeObject(scenes, Formatting.Indented);
+        File.WriteAllText(filePath, json);
+    }
+}

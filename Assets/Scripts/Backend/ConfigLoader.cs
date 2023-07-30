@@ -21,8 +21,8 @@ namespace GeViLab.Backend
         void Awake()
         {
             // Read the JSON file
-            string json = File.ReadAllText(Application.dataPath + "/config.json");
-
+            // string json = File.ReadAllText(Application.dataPath + "/config.json");
+            string json = File.ReadAllText(Path.Combine(Application.persistentDataPath,"BackendConfig.json"));
             // Deserialize it into your Config class
             config = JsonUtility.FromJson<Config>(json);
 

@@ -1,7 +1,0 @@
-{
-    "AWSAccessKey": "AKIAXAH45IAZ62WQ2R4G",
-    "AWSSecretKey": "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",
-    "AWSS3Bucket": "gevilab-dev",
-    "AWSS3Region": "eu-central-1",
-    "CacheFolder": "cache"
-}
