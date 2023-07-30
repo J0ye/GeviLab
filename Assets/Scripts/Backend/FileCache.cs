@@ -46,9 +46,13 @@ namespace GeViLab.Backend
             }
         }
 
-        void Awake() // The constructor
+        public void Awake()
         {
             metadata = new Dictionary<string, DateTime>();
+        }
+
+        public async Task<bool> InitializeCache()
+        {
             cacheDir = Path.Combine(
                 Application.persistentDataPath,
                 ConfigLoader.config.CacheFolder
@@ -60,6 +64,7 @@ namespace GeViLab.Backend
                 Directory.CreateDirectory(cacheDir);
             }
             SetMetadataFromLocal();
+            return true;
         }
 
         /// <summary>
@@ -119,20 +124,23 @@ namespace GeViLab.Backend
             {
                 // Get the last modified date of the file on S3
                 var lastModifiedOnS3 = await GetLastModifiedOnS3(key);
-                Debug.Log($"{key} was last Modified On S3: {lastModifiedOnS3}");
+                Debug.Log($"{key} modified On S3: {lastModifiedOnS3} <> Local: {metadata[key]}");
 
                 // Compare the last modified date of the local file and the one on S3
                 if (metadata[key] >= lastModifiedOnS3)
                 {
                     // If the local file is up-to-date, load it directly
+                    Debug.Log($"Return cached file {key}!");
                     return LoadLocalTextureFile(key);
                 }
             }
 
             // If the file doesn't exist locally or it's out-of-date, download it
+            Debug.Log($"Download more recent version of {key} from S3!");
             var texture = await DownloadTextureFile(key);
 
             // Update the local file and its metadata
+            // Debug.Log($"Save downloaded image to cache!");
             SaveLocalTextureFile(key, texture);
             metadata[key] = DateTime.Now;
 
@@ -181,7 +189,7 @@ namespace GeViLab.Backend
         {
             // Get the last modified date of the file on S3
             var response = await BackendAccess.s3Client.GetObjectMetadataAsync(
-                BackendAccess.bucketName,
+                ConfigLoader.config.AWSS3Bucket,
                 key
             );
             return response.LastModified;
@@ -197,7 +205,7 @@ namespace GeViLab.Backend
             Texture2D texture = null;
             // Download the file from S3
             var response = await BackendAccess.s3Client.GetObjectAsync(
-                BackendAccess.bucketName,
+                ConfigLoader.config.AWSS3Bucket,
                 key
             );
 
@@ -205,11 +213,27 @@ namespace GeViLab.Backend
             {
                 // byte[] imageData = new byte[count];
                 // reader.Read(imageData, 0, count);
-                int count = (int)response.ResponseStream.Length;
+                // int count = (int)response.ResponseStream.Length;
+                int count = (int)response.ContentLength;
                 byte[] imageData = reader.ReadBytes(count);
                 texture = new Texture2D(2, 2);
                 texture.LoadImage(imageData);
             }
+
+            // byte[] b = null;
+            // using (Stream stream = myResp.GetResponseStream())
+            // using (MemoryStream ms = new MemoryStream())
+            // {
+            //     int count = 0;
+            //     do
+            //     {
+            //         byte[] buf = new byte[1024];
+            //         count = stream.Read(buf, 0, 1024);
+            //         ms.Write(buf, 0, count);
+            //     } while (stream.CanRead && count > 0);
+            //     b = ms.ToArray();
+            // }
+
             // var bytes = ReadToEnd(response.ResponseStream);
             // using (var reader = new StreamReader(response.ResponseStream))
             // {
@@ -226,7 +250,10 @@ namespace GeViLab.Backend
         {
             try
             {
-                ListObjectsV2Request request = new ListObjectsV2Request { BucketName = bucketName };
+                ListObjectsV2Request request = new ListObjectsV2Request
+                {
+                    BucketName = ConfigLoader.config.AWSS3Bucket
+                };
 
                 ListObjectsV2Response response;
                 do

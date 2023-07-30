@@ -11,11 +11,30 @@ namespace GeViLab.Backend
 {
     public class BackendAccess : MonoBehaviour
     {
+        private static BackendAccess instance;
+
+        public static BackendAccess Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<BackendAccess>();
+                    if (instance == null)
+                    {
+                        GameObject obj = new GameObject();
+                        obj.name = typeof(BackendAccess).Name;
+                        instance = obj.AddComponent<BackendAccess>();
+                    }
+                }
+                return instance;
+            }
+        }
         // private const string accessKey = "your-access-key";
         // private const string secretKey = "your-secret-key";
-        private static string accessKey;
-        private static string secretKey;
-        public static string bucketName;
+        // private static string accessKey;
+        // private static string secretKey;
+        // public static string bucketName;
         private static RegionEndpoint bucketRegion = RegionEndpoint.EUCentral1;
 
         public static IAmazonS3 s3Client;
@@ -26,14 +45,14 @@ namespace GeViLab.Backend
         // [SerializeField]
         // private static string storagePath;
 
-        void Start()
+        public static void Initialize()
         {
-            accessKey = ConfigLoader.config.AWSAccessKey;
-            secretKey = ConfigLoader.config.AWSSecretKey;
-            bucketName = ConfigLoader.config.AWSS3Bucket;
+            // accessKey = ConfigLoader.config.AWSAccessKey;
+            // secretKey = ConfigLoader.config.AWSSecretKey;
+            // bucketName = ConfigLoader.config.AWSS3Bucket;
             bucketRegion = RegionEndpoint.GetBySystemName(ConfigLoader.config.AWSS3Region);
 
-            s3Client = new AmazonS3Client(accessKey, secretKey, bucketRegion);
+            s3Client = new AmazonS3Client(ConfigLoader.config.AWSAccessKey, ConfigLoader.config.AWSSecretKey, bucketRegion);
             // storagePath = Path.Combine(Application.persistentDataPath, ConfigLoader.config.CacheFolder);
 
             // ReadObjectData().Wait(timeout);
@@ -85,7 +104,7 @@ namespace GeViLab.Backend
         public static async Task<bool> DownloadObjectFromBucketAsync(string objectName, string storagePath)
         {
             // Create a GetObject request
-            var request = new GetObjectRequest { BucketName = bucketName, Key = objectName, };
+            var request = new GetObjectRequest { BucketName = ConfigLoader.config.AWSS3Bucket, Key = objectName, };
 
             // Issue request and remember to dispose of the response
             Debug.Log($"Reading {request.Key} from {request.BucketName} ....");
@@ -121,7 +140,7 @@ namespace GeViLab.Backend
             try
             {
                 var filePath = Path.Combine(storagePath, objectName);
-                Debug.Log($"Uploading {filePath} to {bucketName} ....");
+                Debug.Log($"Uploading {filePath} to {ConfigLoader.config.AWSS3Bucket} ....");
                 var fileStream = new FileStream(
                     filePath,
                     FileMode.Open,
@@ -131,7 +150,7 @@ namespace GeViLab.Backend
 
                 var putRequest = new PutObjectRequest
                 {
-                    BucketName = bucketName,
+                    BucketName = ConfigLoader.config.AWSS3Bucket,
                     Key = Path.GetFileName(filePath),
                     InputStream = fileStream,
                     ContentType = contentType

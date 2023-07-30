@@ -6,11 +6,11 @@ using UnityEngine;
 public class Scenes : MonoBehaviour
 {
     private static Scenes instance;
-    private List<Scene> scenes;
+    private static List<Scene> scenes = null;
 
     private Scenes()
     {
-        scenes = new List<Scene>();
+        // scenes = new List<Scene>();
     }
 
     public static Scenes Instance
@@ -27,41 +27,38 @@ public class Scenes : MonoBehaviour
 
     public void AddScene(Scene scene)
     {
-        scenes.Add(scene);
+        if (scenes != null)
+            scenes.Add(scene);
     }
 
     public void RemoveScene(Scene scene)
     {
-        scenes.Remove(scene);
+        if (scenes != null)
+            scenes.Remove(scene);
     }
 
-    public List<Scene> GetScenes()
+    public static List<Scene> GetScenes()
     {
         return scenes;
     }
 
-    public void InitializeScenes(GameObject spherePrefab)
+    public static void InitializeScenes(GameObject spherePrefab)
     {
         foreach (Scene scene in scenes)
         {
             scene.Initialize(spherePrefab);
         }
     }
-    public void SyncScenes()
+    public static void SyncScenes()
     {
         foreach (Scene scene in scenes)
         {
             scene.Sync();
         }
     }
-    public void LoadScenes(string filePath)
+    public static bool LoadScenes(string filePath)
     {
-        // string filePath = Path.Combine("Assets", "Resources", fileName);
-        // string filePath = Path.Combine(Application.persistentDataPath, fileName);
-        // TextAsset textAsset = Resources.Load<TextAsset>(Path.GetFileNameWithoutExtension(filePath));
-        // if (textAsset != null)
-        // {
-        //     string json = textAsset.text;
+        
         if (File.Exists(filePath))
         {
             string json = File.ReadAllText(filePath);
@@ -78,16 +75,22 @@ public class Scenes : MonoBehaviour
             //         $"{scene.id} {scene.name} {scene.description} {scene.position} {scene.rotation} {scene.scale}"
             //     );
             // }
+            return true;
         }
         else
         {
             Debug.LogError("File not found: " + filePath);
         }
+        return false;
     }
 
-    public void SerializeScenesToJson(string filePath)
+    /// <summary>
+    /// Serializes the list of scenes to a JSON file at the specified file path.
+    /// </summary>
+    /// <param name="filePath">The file path where the JSON file will be saved.</param>
+    public static void SerializeScenesToJson(string filePath)
     {
-        SyncScenes();
+        SyncScenes(); // Sync the transform properties to the current object transformations before serializing
         // Debug.Log("Serializing " + scenes.Count + " scenes to " + filePath);
         string json = JsonConvert.SerializeObject(scenes, Formatting.Indented);
         File.WriteAllText(filePath, json);

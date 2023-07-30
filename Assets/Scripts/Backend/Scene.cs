@@ -6,24 +6,24 @@ public class Scene : MonoBehaviour
     public Guid id = Guid.NewGuid();
 
     // public Guid id {get; private set; } = Guid.NewGuid();
-    public string name = "SceneName";
+    public string name = "Default Scene";
 
     // public string name { get; private set; } = "SceneName";
-    public string description = "Scene Description";
+    public string description = "(No Description)";
 
     // public string description { get; private set; } = "Scene Description";
     public Vector3 position = Vector3.zero;
     public Vector3 rotation = Vector3.zero;
     public Vector3 scale = Vector3.one;
     public string imagePath;
-    private GameObject sphere;
+    private GameObject scene;
     private Texture2D image;
-    private bool isVisible;
+    // private bool isVisible;
 
-    public Scene()
-    {
+    // public Scene()
+    // {
         // id = Guid.NewGuid();
-    }
+    // }
 
     // public Scene(string name, string description, Vector3 position, Vector3 rotation, Vector3 scale)
     // {
@@ -55,34 +55,40 @@ public class Scene : MonoBehaviour
     //     imagePath = value;
     // }
 
-    public bool GetIsVisible()
-    {
-        return isVisible;
-    }
+    // public bool GetIsVisible()
+    // {
+    //     return isVisible;
+    // }
 
-    public void SetIsVisible(bool value)
-    {
-        isVisible = value;
-    }
+    // public void SetIsVisible(bool value)
+    // {
+    //     isVisible = value;
+    // }
 
-    public void ToggleVisibility()
-    {
-        isVisible = !isVisible;
-    }
+    // public void ToggleVisibility()
+    // {
+    //     isVisible = !isVisible;
+    // }
 
-    public async void Initialize(GameObject spherePrefab)
+    /// <summary>
+    /// Initializes the scene with the given scene prefab and sets its properties.
+    /// </summary>
+    /// <param name="scenePrefab">The prefab to instantiate.</param>
+    public async void Initialize(GameObject scenePrefab)
     {
-        // sphere = new GameObject().transform;
+        // scene = new GameObject().transform;
         // Instantiate the prefab at the origin (0, 0, 0) with no rotation
-        GameObject sphere = Instantiate(spherePrefab, position, Quaternion.Euler(rotation));
-        sphere.name = name;
-        // sphere.position = position;
-        // sphere.rotation = Quaternion.Euler(rotation);
-        sphere.transform.localScale = scale;
+        GameObject scene = Instantiate(scenePrefab, position, Quaternion.Euler(rotation));
+        scene.name = name;
+        // scene.position = position;
+        // scene.rotation = Quaternion.Euler(rotation);
+        scene.transform.localScale = scale;
         // TODO Get the image from the path (from local Cache or Backend)
-        Texture2D image = await GeViLab.Backend.FileCache.Instance.GetTextureFile(imagePath);
-        // Apply texture to Material of the sphere
-        sphere.GetComponent<MeshRenderer>().material.mainTexture = image;
+        image = await GeViLab.Backend.FileCache.Instance.GetTextureFile(imagePath);
+        Debug.Log("Image: " + image.width + "x" + image.height);
+        
+        // Apply texture to Material of the first MeshRenderer in a child
+        scene.GetComponentInChildren<MeshRenderer>().material.mainTexture = image;
     }
 
     public void Sync()
