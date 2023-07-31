@@ -374,8 +374,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54aaa04b05927d04cbbda231e122bd5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: {fileID: 1079258791931443598}
   origin: {fileID: 0}
+  content: {fileID: 1079258791931443598}
 --- !u!1 &7752038483431498217
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,8 +575,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7744203999809558722}
-        m_TargetAssemblyTypeName: FullscreenNote, Assembly-CSharp
-        m_MethodName: DeleteNote
+        m_TargetAssemblyTypeName: FullscreenAnnotation, Assembly-CSharp
+        m_MethodName: DeleteAnnotation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

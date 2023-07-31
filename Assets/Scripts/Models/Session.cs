@@ -5,24 +5,24 @@ using System.IO;
 using UnityEngine;
 
 [Serializable]
-public class Session_Thermo
+public class Session
 {
     public User user;
-    public Table[] tables;
+    public Questionaire questionair;
 
     public event EventHandler OnLogin;
     public event EventHandler OnLogout;
     public event EventHandler OnSaved;
 
-    protected static Session_Thermo instance;
+    protected static Session instance;
     #region Static Methods
-    public static Session_Thermo Instance()
+    public static Session Instance()
     {
         if(instance == null)
         {
-            instance = new Session_Thermo();
+            instance = new Session();
             instance.user = new User();
-            instance.tables = new Table[0];
+            instance.questionair = new Questionaire();
         }
         return instance;
     }
@@ -155,7 +155,7 @@ public class Session_Thermo
     public void Clear()
     {
         user = null;
-        tables = null;
+        questionair = null;
         Instance().OnLogout?.Invoke(Instance(), EventArgs.Empty);
     }
 
@@ -177,53 +177,10 @@ public class Session_Thermo
         return msg;
     }
 
-    public static Session_Thermo FromJson(string txt)
+    public static Session FromJson(string txt)
     {
-        instance = JsonUtility.FromJson<Session_Thermo>(txt);
+        instance = JsonUtility.FromJson<Session>(txt);
         return instance;
     }
     #endregion
-
-    public void AddTable(Table newTable)
-    {
-        int indexer;
-
-        // CheckForTable returns the index of a fitting table in the tables array in the out parameter indexer.
-        if (!CheckForTable(newTable, out indexer))
-        {
-            Debug.Log("Saving table " + newTable.name + " as new.");
-            Table[] temp = new Table[tables.Length + 1];
-            for (int i = 0; i < tables.Length; i++)
-            {
-                temp[i] = tables[i];
-            }
-            temp[tables.Length] = newTable;
-            tables = temp;
-        }
-        else
-        {
-            Debug.Log("Overriding table " + newTable.name);
-            tables[indexer] = newTable;
-        }
-    }
-
-    protected bool CheckForTable(Table target, out int indexer)
-    {
-        if(tables == null)
-        {
-            tables = new Table[0];
-            Debug.Log("Created new array for tables in session.");
-        }
-        for(int i = 0; i < tables.Length; i++)
-        {
-            if(tables[i].name == target.name 
-                && tables[i].user == target.user)
-            {
-                indexer = i;
-                return true;
-            }
-        }
-        indexer = 0;
-        return false;
-    }
 }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5395fc472137438df70852f363330, type: 3}
+  m_Name: Frage 6
+  m_EditorClassIdentifier: 
+  titel: 6
+  description: "Welche Aussagen sind f\xFCr den W\xE4rmetransport mittels \u201EW\xE4rmestrahlung\u201C
+    zustreffend?"
+  image: {fileID: 0}
+  correctOptions: 0100000003000000
+  options:
+  - "W\xE4rmestrahlung ist eine Form des W\xE4rmetransports der zwingend eines \xFCbertragenden
+    Stof-fes zwischen W\xE4rmequelle und W\xE4rmesenke bedarf. "
+  - "W\xE4rmestr\xF6mung oder Konvektion ist eine Form des W\xE4rmetransports, bei
+    der es zwingend ei-nes Stofftransportes bedarf. Dies ist technisch mit Fl\xFCssigkeiten
+    oder Gasen m\xF6glich."
+  - "Bei der W\xE4rmestrahlung wird elektromagnetische Strahlung durch feste optisch
+    dichte Stoffe hindurch \xFCbertragen. Vakuum behindert die elektromagnetische
+    Strahlung, weshalb es im Weltall sehr kalt ist."
+  - "W\xE4rmestrahlung ist elektromagnetische Strahlung, welche von allen \u201Ewarmen\u201C
+    Stoffen abge-strahlt und wiedrum von anderen Stoffen absorbiert wird. Hierf\xFCr
+    ist zwischen den Stoffen kein \xFCbertragendes Medium notwendig."

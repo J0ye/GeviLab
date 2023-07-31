@@ -20,18 +20,19 @@ public class XRController : MonoBehaviour
     public BooleanAction actionTrigger = new BooleanAction();
 
     [Header("UI Pointer Settings")]
-    public GraphicRaycaster graphicRaycaster;
-    public EventSystem eventSystem;
+    public AnimationCurve uiPointerLine = new AnimationCurve();
 
     protected LineRenderer lr;
     protected XRUIInteractable target; 
     protected RaycastHit hit;
     protected GameObject lrPlaceHolder;
+    protected AnimationCurve startPointerLine;
     protected bool actionTriggered;
 
     protected void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        startPointerLine = lr.widthCurve;
     }
 
     public void Update()
@@ -48,6 +49,7 @@ public class XRController : MonoBehaviour
                 try
                 {
                     //This part crashes if the an annotation is opened
+                    ChangeLineStyleFor3D();
                     target = temp;
                     StartCoroutine(PaintConnectionToTarget(lineRenderDuration));
                     target.SendMessage(nameof(XRUIInteractable.StartHover));
@@ -69,7 +71,9 @@ public class XRController : MonoBehaviour
             }
             else if(hit.collider.gameObject.TryGetComponent<Canvas>(out Canvas c))
             {
+                // Ray is interacting with inworld UI
                 target = temp;
+                ChangeLineStyleForUI();
                 PaintConnectionToPoint(hit.point);
             }
             else
@@ -80,15 +84,6 @@ public class XRController : MonoBehaviour
         else
         {
             SetTargetNull();
-        }
-    }
-
-    public void InteractWith2DUI()
-    {
-        // Kann das weg???
-        if(MakeRayCast(out hit))
-        {
-
         }
     }
 
@@ -106,7 +101,6 @@ public class XRController : MonoBehaviour
     }
 
     #region Line Renderer Logic
-
     public Vector3[] GetConnectionLineToTarget()
     {
         Vector3[] ret = new Vector3[lr.positionCount];
@@ -281,6 +275,7 @@ public class XRController : MonoBehaviour
 
     protected virtual void ResetLineRenderer()
     {
+        ChangeLineStyleFor3D();
         lr.positionCount = 2;
         lr.SetPosition(0, transform.position);
         lr.SetPosition(1, transform.position + transform.forward * cursorLength);
@@ -303,6 +298,16 @@ public class XRController : MonoBehaviour
         lrPlaceHolder.GetComponent<LineRendererRemover>().StartAnimation();
     }
     #endregion
+
+    protected void ChangeLineStyleForUI()
+    {
+        lr.widthCurve = uiPointerLine;
+    }
+
+    protected void ChangeLineStyleFor3D()
+    {
+        lr.widthCurve = startPointerLine;
+    }
 
     public void OnDrawGizmos()
     {

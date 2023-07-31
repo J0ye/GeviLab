@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 167313403}
   - component: {fileID: 167313402}
   m_Layer: 5
-  m_Name: Button Shutt Off (1)
+  m_Name: Button Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -547,7 +547,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 327773072}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: ReloadScene
         m_Mode: 1
@@ -3404,7 +3404,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 218558641}
         m_TargetAssemblyTypeName: VoiceControls, Assembly-CSharp
         m_MethodName: SetTransmissionState
         m_Mode: 0
@@ -4473,7 +4473,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 327773072}
         m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
         m_MethodName: CloseApplication
         m_Mode: 1
@@ -7715,6 +7715,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4246339698875137791, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246339698875137791, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246339698875137791, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4246339698875137791, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4533108991864448697, guid: 76da070eb6d54464a8952fd2b59b67e2, type: 3}
       propertyPath: m_LocalPosition.z
       value: 25.70218
@@ -8301,6 +8317,10 @@ PrefabInstance:
     - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
       propertyPath: lineCurve.m_Curve.Array.size
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.size
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
       propertyPath: lineCurve.m_Curve.Array.data[1].time
@@ -9563,6 +9583,14 @@ PrefabInstance:
       value: 1.3225186
       objectReference: {fileID: 0}
     - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[1].time
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
       propertyPath: lineCurve.m_Curve.Array.data[0].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
@@ -10315,6 +10343,14 @@ PrefabInstance:
       value: 0.33333334
       objectReference: {fileID: 0}
     - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[0].value
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[1].value
+      value: 0.008
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
       propertyPath: lineCurve.m_Curve.Array.data[10].outWeight
       value: 0.33333334
       objectReference: {fileID: 0}
@@ -10715,6 +10751,18 @@ PrefabInstance:
       value: 137
       objectReference: {fileID: 0}
     - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[0].inSlope
+      value: -0.002666666
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[1].inSlope
+      value: -0.017333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[2].inSlope
+      value: -0.032
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
       propertyPath: lineCurve.m_Curve.Array.data[10].tangentMode
       value: 137
       objectReference: {fileID: 0}
@@ -11074,6 +11122,46 @@ PrefabInstance:
       propertyPath: lineCurve.m_Curve.Array.data[99].tangentMode
       value: 137
       objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[0].outSlope
+      value: -0.002666666
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[1].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[1].outSlope
+      value: -0.017333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[2].outSlope
+      value: -0.032
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[0].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[1].outWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[0].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[1].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104067079558083546, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
+      propertyPath: uiPointerLine.m_Curve.Array.data[2].tangentMode
+      value: 34
+      objectReference: {fileID: 0}
     - target: {fileID: 5086867592325669657, guid: e37ee15b6ce7bad4598c99969b708eaa, type: 3}
       propertyPath: m_Name
       value: CameraRig
@@ -11322,7 +11410,7 @@ MonoBehaviour:
   m_ControllerNode: 5
   m_SelectUsage: 3
   m_ActivateUsage: 2
-  m_UIPressUsage: 2
+  m_UIPressUsage: 6
   m_AxisToPressThreshold: 0.1
   m_RotateAnchorLeft: 16
   m_RotateAnchorRight: 17

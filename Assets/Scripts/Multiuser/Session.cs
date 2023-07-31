@@ -23,10 +23,10 @@ public class AbstractNoteObject
     }
 }
 
-
+/*
 public class Session : MonoBehaviour
 {
-    public static Session instance { get; private set; }
+    private static Session instance;
 
     private List<AbstractNoteObject> notes = new List<AbstractNoteObject>();
 
@@ -44,12 +44,6 @@ public class Session : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public bool AddNoteToSession(GameObject newNote)
     {
         bool able;
@@ -60,4 +54,9 @@ public class Session : MonoBehaviour
         }
         return able;
     }
-}
+
+    public static Session Instance()
+    {
+        return instance;
+    }
+}*/

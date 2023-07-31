@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5395fc472137438df70852f363330, type: 3}
+  m_Name: Question1
+  m_EditorClassIdentifier: 
+  titel: Frage 1
+  description: "Welche Aussage sind f\xFCr den Begriff \"W\xE4rmespeicherung\" zutreffend?"
+  image: {fileID: 0}
+  correctOptions: 000000000200000004000000
+  options:
+  - "Energie wird in einen Stoff oder ein Medium mit spezifischer W\xE4rmekapazit\xE4t
+    gespeichert."
+  - "Gespeicherte W\xE4rme kann nicht verloren gehen."
+  - "D\xE4mmung um den Speicher vermeidet den Verlust gespeicherter Energie"
+  - "Die speicherbare Energiemenge pro Volumen ist direkt von der Dichte des Stoffes
+    abh\xE4ngig."
+  - "Speicher f\xFCr thermische Energie k\xF6nnen in \u201ESensible W\xE4rmespeicher\u201C,
+    \u201ELatentw\xE4rmespeicher\u201C und \u201EThermochemische W\xE4rmespeicher\u201C
+    bzw. \u201ESorptionsspeicher\u201C unterteilt werden."
