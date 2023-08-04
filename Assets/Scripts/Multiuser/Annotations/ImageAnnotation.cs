@@ -7,7 +7,7 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using DG.Tweening;
 
-public class ImageAnnotation : Annotation, IOnEventCallback
+public class ImageAnnotation : MediaAnnotation, IOnEventCallback
 {
     [Header ("Image Settings")]
     public Sprite content;

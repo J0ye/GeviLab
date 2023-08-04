@@ -5,7 +5,7 @@ using Photon.Pun;
 using TMPro;
 using DG.Tweening;
 
-public class Note : Annotation
+public class Note : MediaAnnotation
 {
     [Header("Note Settings")]
     public GameObject noteInputPrefab;

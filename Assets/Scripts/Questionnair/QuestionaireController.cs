@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class QuestionaireController : MonoBehaviour
 {
-    public StepCountManager stepCount;
     public List<QuestionController> questions = new List<QuestionController>();
     public bool closeOnStart = true;
 
@@ -14,8 +13,7 @@ public class QuestionaireController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(RegisterSaveAction());
-        stepCount.UpdateDisplay(questions.Count);
+        LoadInputFromSessionData();
         Session.Instance().ClearAllLoginEvents();
         Session.Instance().OnLogin += ReactToLogin;
     }
@@ -33,10 +31,8 @@ public class QuestionaireController : MonoBehaviour
 
     public void Save()
     {
-        Debug.Log("Saving");
         Questionaire questionaire = new Questionaire(0, questions);
         questionaire.SaveToSession();
-        Debug.Log(Session.Instance().ToJSON());
     }
     public void LoadInputFromSessionData()
     {
@@ -44,7 +40,6 @@ public class QuestionaireController : MonoBehaviour
         if (Session.CheckUser() && Session.Instance().questionair.questions.Length > 0)
         {
             Question[] fromMemory = Session.Instance().questionair.questions;
-            Debug.Log("Questions from Memory: " + fromMemory.Length);
             for (int i = 0; i < fromMemory.Length; i++)
             {
                 if (i < questions.Count)
@@ -71,7 +66,6 @@ public class QuestionaireController : MonoBehaviour
     public IEnumerator RegisterSaveAction()
     {
         yield return new WaitForSeconds(0.1f);
-        LoadInputFromSessionData();
         /*Debug.Log("Questions: " + questions.Count);
         foreach(QuestionController quest in questions)
         {
@@ -84,28 +78,46 @@ public class QuestionaireController : MonoBehaviour
         }*/
     }
 
+    /// <summary>
+    /// Display every child obejct that isnt a question, but the first question.
+    /// This allows extra elements like buttons to be opend and closed as well.
+    /// </summary>
     public void Open()
     {
-        questions[0].gameObject.SetActive(true);
-        questions[0].Open();
-        activeQuestion = 0;
+        // Open all children of questionaire
+        OpenAll();
+
+        // Close all questions but the first
+        foreach(QuestionController qc in questions)
+        {
+            if(qc == questions[0])
+            {
+                questions[0].gameObject.SetActive(true);
+                questions[0].Open();
+                activeQuestion = 0;
+            }
+            else
+            {
+                qc.gameObject.SetActive(false);
+            }
+        }
         state = true;
     }
 
     public void OpenAll()
     {
-        foreach(QuestionController qc in questions)
+        foreach (Transform child in transform)
         {
-            qc.gameObject.SetActive(true);
+            child.gameObject.SetActive(true);
         }
         state = true;
     }
 
     public void Close()
     {
-        foreach (QuestionController qc in questions)
+        foreach (Transform child in transform)
         {
-            qc.gameObject.SetActive(false);
+            child.gameObject.SetActive(false);
         }
         state = false;
     }

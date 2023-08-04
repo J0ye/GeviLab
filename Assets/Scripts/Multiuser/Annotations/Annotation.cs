@@ -8,43 +8,26 @@ public enum AnnotationType { Image, Note, Gallery, Basic};
 public class Annotation : MonoBehaviourPunCallbacks
 {
     public bool permanent = false;
-    public GameObject fullscreenPrefab;
-    [Header("XR Settings")]
-    public GameObject fullscreenPrefabXR;
-    public float xRPrefabDistance = 0.5f;
-    public float xRPrefabSize = 0.5f;
-    public float xRPrefabAnimationDuration = 0.5f;
-
-    [HideInInspector]
-    public bool isEditing = false;
 
     public virtual AnnotationType annotationType { get => AnnotationType.Basic; protected set => annotationType = value; }
 
     protected Material standardMat;
-
-    public void OnMouseDown()
-    {
-        if (!isEditing)
-        {
-            Open();
-        }
-    }
-
     public void SetDisplay(bool state)
     {
         gameObject.SetActive(state);
     }
 
+    public void OnMouseDown()
+    {
+        Open();
+    }
+
     public virtual void Open()
     {
-        GameObject newFullscreenAnnotation = Instantiate(fullscreenPrefab, Vector3.zero, Quaternion.identity);
-        GameState.instance.SetActivePlayerControls(false);
     }
 
     public virtual void OpenXR()
     {
-        GameObject newFullscreenAnnotation = Instantiate(fullscreenPrefabXR, GetPositionInFrontOfCamera(), Quaternion.identity);
-        GameState.instance.SetActivePlayerControls(false);
     }
 
     public void Highlight()
@@ -62,23 +45,6 @@ public class Annotation : MonoBehaviourPunCallbacks
     {
         photonView.RPC("DeleteAnnotationRemote", RpcTarget.Others);
         Destroy(gameObject);
-    }
-
-    public static Vector3 GetPositionInFrontOfCamera()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            return hit.point;
-        }
-
-        return Vector3.one;
-    }
-
-    public Vector3 GetPositionInFrontOfAnnotation()
-    {
-        return transform.position + (transform.forward * xRPrefabDistance);
     }
 
     /// <summary>

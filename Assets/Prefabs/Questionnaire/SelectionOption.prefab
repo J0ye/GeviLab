@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4505421133972716261}
   - component: {fileID: 8456098924445318706}
   - component: {fileID: 3114752890930910511}
-  - component: {fileID: 4854081926557273025}
+  - component: {fileID: 6478736611253654657}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -29,6 +29,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1620276116435196422}
   m_RootOrder: 1
@@ -76,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4854081926557273025
+--- !u!114 &6478736611253654657
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,10 +86,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 92273044407079420}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0340877f307470478a5d79ea15d822b, type: 3}
+  m_Script: {fileID: 11500000, guid: 71e9690dd3698404890ba461e06098c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  switchImage: {fileID: 21300000, guid: 30888cc9549a2e649b7d80af9c1cbbf1, type: 3}
+  switchImage: {fileID: 21300000, guid: b0c5768672fa35b41b19948814d0c0bb, type: 3}
 --- !u!1 &1620276116435196421
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,6 +119,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.15999998, y: 0.15999998, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1620276117336644912}
   - {fileID: 4505421133972716261}
@@ -186,7 +188,7 @@ MonoBehaviour:
   OnSelect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4854081926557273025}
+      - m_Target: {fileID: 6478736611253654657}
         m_TargetAssemblyTypeName: SwitchImage, Assembly-CSharp
         m_MethodName: Switch
         m_Mode: 1
@@ -226,6 +228,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1620276116435196422}
   m_RootOrder: 0
@@ -306,6 +309,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1620276116435196422}
   m_RootOrder: 2
@@ -365,8 +369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f91c7c9fcb68ec4c94f9ae255b63d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullscreenPrefab: {fileID: 7113256380835543938, guid: 211079eb4a7713d4cab6aa980823461b,
-    type: 3}
+  fullscreenPrefab: {fileID: 7113256380835543938, guid: 211079eb4a7713d4cab6aa980823461b, type: 3}
   setNativeSize: 1
   OnPress:
     m_PersistentCalls:

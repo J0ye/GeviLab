@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6359218293338116012}
   m_RootOrder: 4
@@ -103,6 +104,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6359218293338116012}
   m_RootOrder: 0
@@ -183,6 +185,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6359218293338116012}
   m_RootOrder: 3
@@ -314,6 +317,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6359218293338116012}
   m_RootOrder: 1
@@ -377,6 +381,7 @@ GameObject:
   - component: {fileID: 6359218293338116010}
   - component: {fileID: 6359218293338116011}
   - component: {fileID: 6359218293338116009}
+  - component: {fileID: 7823061506566207383}
   m_Layer: 5
   m_Name: Question
   m_TagString: Untagged
@@ -394,6 +399,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6359218292302208779}
   - {fileID: 6359218293301584171}
@@ -458,12 +464,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4e60ee6c1a7204b8667af4c2e32f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  optionPrefab: {fileID: 1620276116435196421, guid: db66af17004a6c04bb0526164a4cf978,
-    type: 3}
+  optionPrefab: {fileID: 1620276116435196421, guid: db66af17004a6c04bb0526164a4cf978, type: 3}
   content: {fileID: 11400000, guid: 5fade72029bcaae4fa955d137e4bdb90, type: 2}
   margin: 25
   animationDuration: 0.5
   spawnedOptions: []
+--- !u!114 &7823061506566207383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359218293338116013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &6359218293644097491
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +518,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6359218293338116012}
   m_RootOrder: 2
