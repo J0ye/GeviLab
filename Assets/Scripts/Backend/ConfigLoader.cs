@@ -28,15 +28,10 @@ namespace GeViLab.Backend
 
         public static Config config = null;
 
-        void Start()
+        public async Task<Config> LoadConfigAsync()
         {
             if (configFilePath == "")
                 configFilePath = Application.persistentDataPath;
-        }
-
-        public async Task<Config> LoadConfigAsync()
-        {
-            // Config config = null;
 
             try
             {

@@ -42,11 +42,11 @@ public class Scenes : MonoBehaviour
         return scenes;
     }
 
-    public static void InitializeScenes(GameObject spherePrefab)
+    public static void InitializeScenes(GameObject spherePrefab, GameObject itemPrefab)
     {
         foreach (Scene scene in scenes)
         {
-            scene.Initialize(spherePrefab);
+            scene.Initialize(spherePrefab, itemPrefab);
         }
     }
     public static void SyncScenes()

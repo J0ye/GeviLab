@@ -1,17 +1,28 @@
-// BEGIN: f8e9d6a6gjw3
 using System;
-
+using UnityEngine;
 public class Bridge
 {
     private Guid id;
-    private Scene startScene;
-    private Scene targetScene;
+    private string name;
+    private Guid startSceneId;
+    private Guid targetSceneId;
+    private Vector3 forwardDirection;
+    private Vector3 backwardDirection;
 
-    public Bridge(Scene startScene, Scene targetScene)
+    public Bridge(
+        string name,
+        Guid startSceneId,
+        Guid targetSceneId,
+        Vector3 forwardDirection,
+        Vector3 backwardDirection
+    )
     {
         id = Guid.NewGuid();
-        this.startScene = startScene;
-        this.targetScene = targetScene;
+        this.name = name;
+        this.startSceneId = startSceneId;
+        this.targetSceneId = targetSceneId;
+        this.forwardDirection = forwardDirection;
+        this.backwardDirection = backwardDirection;
     }
 
     public Guid GetId()
@@ -19,14 +30,28 @@ public class Bridge
         return id;
     }
 
-    public Scene GetStartScene()
+    public string GetName()
     {
-        return startScene;
+        return name;
     }
 
-    public Scene GetTargetScene()
+    public Guid GetStartSceneId()
     {
-        return targetScene;
+        return startSceneId;
+    }
+
+    public Guid GetTargetSceneId()
+    {
+        return targetSceneId;
+    }
+
+    public Vector3 GetForwardDirection()
+    {
+        return forwardDirection;
+    }
+
+    public Vector3 GetBackwardDirection()
+    {
+        return backwardDirection;
     }
 }
-

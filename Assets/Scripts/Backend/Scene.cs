@@ -16,6 +16,7 @@ public class Scene : MonoBehaviour
     public Vector3 rotation = Vector3.zero;
     public Vector3 scale = Vector3.one;
     public string imagePath;
+    public Item[] items;
     private GameObject scene;
     private Texture2D image;
     // private bool isVisible;
@@ -74,7 +75,7 @@ public class Scene : MonoBehaviour
     /// Initializes the scene with the given scene prefab and sets its properties.
     /// </summary>
     /// <param name="scenePrefab">The prefab to instantiate.</param>
-    public async void Initialize(GameObject scenePrefab)
+    public async void Initialize(GameObject scenePrefab, GameObject itemPrefab)
     {
         // scene = new GameObject().transform;
         // Instantiate the prefab at the origin (0, 0, 0) with no rotation
@@ -83,12 +84,15 @@ public class Scene : MonoBehaviour
         // scene.position = position;
         // scene.rotation = Quaternion.Euler(rotation);
         scene.transform.localScale = scale;
-        // TODO Get the image from the path (from local Cache or Backend)
+        // Get the image from the path (from local Cache or Backend)
         image = await GeViLab.Backend.FileCache.Instance.GetTextureFile(imagePath);
-        Debug.Log("Image: " + image.width + "x" + image.height);
-        
+        // Debug.Log("Image: " + image.width + "x" + image.height);
         // Apply texture to Material of the first MeshRenderer in a child
         scene.GetComponentInChildren<MeshRenderer>().material.mainTexture = image;
+        foreach (Item item in items)
+        {
+            item.Initialize(itemPrefab, scene.transform);
+        }
     }
 
     public void Sync()

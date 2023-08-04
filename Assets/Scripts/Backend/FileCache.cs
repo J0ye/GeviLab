@@ -182,6 +182,13 @@ namespace GeViLab.Backend
         {
             // Save the Texture2D to a file
             var bytes = texture.EncodeToPNG();
+
+            // Create the directory resp. all missing directories (!) if they do not exist
+            var dir = Path.GetDirectoryName(GetLocalPath(key));
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
             File.WriteAllBytes(GetLocalPath(key), bytes);
         }
 

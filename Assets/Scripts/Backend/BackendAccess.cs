@@ -47,23 +47,9 @@ namespace GeViLab.Backend
 
         public static void Initialize()
         {
-            // accessKey = ConfigLoader.config.AWSAccessKey;
-            // secretKey = ConfigLoader.config.AWSSecretKey;
-            // bucketName = ConfigLoader.config.AWSS3Bucket;
             bucketRegion = RegionEndpoint.GetBySystemName(ConfigLoader.config.AWSS3Region);
 
             s3Client = new AmazonS3Client(ConfigLoader.config.AWSAccessKey, ConfigLoader.config.AWSSecretKey, bucketRegion);
-            // storagePath = Path.Combine(Application.persistentDataPath, ConfigLoader.config.CacheFolder);
-
-            // ReadObjectData().Wait(timeout);
-            // DownloadObjectFromBucketAsync(
-            //         s3Client,
-            //         bucketName,
-            //         "Screenshot 2023-03-24 112335.png",
-            //         storagePath
-            //     )
-            //     .Wait(timeout);
-            // UploadFileAsync("test.png", "image/png").Wait(timeout);
         }
 
         // static async Task ReadObjectData()
@@ -71,7 +57,7 @@ namespace GeViLab.Backend
         //     try
         //     {
         //         /// <summary>
-        //         /// Represents a request to retrieve an object from an Amazon S3 bucket.
+        //         /// Represents a request to retrieve a text object from an Amazon S3 bucket.
         //         /// </summary>
         //         GetObjectRequest request = new GetObjectRequest
         //         {
@@ -101,6 +87,7 @@ namespace GeViLab.Backend
         //     }
         // }
 
+        // DownloadObjectFromBucketAsync(s3Client, bucketName,"Screenshot 2023-03-24 112335.png",storagePath).Wait(timeout);
         public static async Task<bool> DownloadObjectFromBucketAsync(string objectName, string storagePath)
         {
             // Create a GetObject request
@@ -135,6 +122,7 @@ namespace GeViLab.Backend
             }
         }
 
+        // UploadFileAsync("test.png", "image/png").Wait(timeout);
         public static async Task<bool> UploadFileAsync(string storagePath, string objectName, string contentType)
         {
             try

@@ -10,8 +10,8 @@ namespace GeViLab.Backend
         public ConfigLoader configLoader;
         public ConfigLoader.Config config;
 
-        // public Scenes scenes;
         public GameObject spherePrefab;
+        public GameObject itemPrefab;
 
         async void Start()
         {
@@ -78,7 +78,7 @@ namespace GeViLab.Backend
 
             BackendAccess.Initialize();
             
-            Scenes.InitializeScenes(spherePrefab);
+            Scenes.InitializeScenes(spherePrefab, itemPrefab);
         }
     }
 }
