@@ -1,32 +1,32 @@
 using System;
 using UnityEngine;
 
-public class Scene : MonoBehaviour
+public class Location : MonoBehaviour
 {
     public Guid id = Guid.NewGuid();
 
     // public Guid id {get; private set; } = Guid.NewGuid();
-    public string name = "Default Scene";
+    public string name = "Default Location";
 
-    // public string name { get; private set; } = "SceneName";
+    // public string name { get; private set; } = "LocationName";
     public string description = "(No Description)";
 
-    // public string description { get; private set; } = "Scene Description";
+    // public string description { get; private set; } = "Location Description";
     public Vector3 position = Vector3.zero;
     public Vector3 rotation = Vector3.zero;
     public Vector3 scale = Vector3.one;
     public string imagePath;
     public Item[] items;
-    private GameObject scene;
+    private GameObject location;
     private Texture2D image;
     // private bool isVisible;
 
-    // public Scene()
+    // public Location()
     // {
         // id = Guid.NewGuid();
     // }
 
-    // public Scene(string name, string description, Vector3 position, Vector3 rotation, Vector3 scale)
+    // public Location(string name, string description, Vector3 position, Vector3 rotation, Vector3 scale)
     // {
     //     this.id = Guid.NewGuid();
     //     this.name = name;
@@ -72,26 +72,26 @@ public class Scene : MonoBehaviour
     // }
 
     /// <summary>
-    /// Initializes the scene with the given scene prefab and sets its properties.
+    /// Initializes the location with the given location prefab and sets its properties.
     /// </summary>
-    /// <param name="scenePrefab">The prefab to instantiate.</param>
-    public async void Initialize(GameObject scenePrefab, GameObject itemPrefab)
+    /// <param name="locationPrefab">The prefab to instantiate.</param>
+    public async void Initialize(GameObject locationPrefab, GameObject itemPrefab)
     {
-        // scene = new GameObject().transform;
+        // location = new GameObject().transform;
         // Instantiate the prefab at the origin (0, 0, 0) with no rotation
-        GameObject scene = Instantiate(scenePrefab, position, Quaternion.Euler(rotation));
-        scene.name = name;
-        // scene.position = position;
-        // scene.rotation = Quaternion.Euler(rotation);
-        scene.transform.localScale = scale;
+        GameObject location = Instantiate(locationPrefab, position, Quaternion.Euler(rotation));
+        location.name = name;
+        // location.position = position;
+        // location.rotation = Quaternion.Euler(rotation);
+        location.transform.localScale = scale;
         // Get the image from the path (from local Cache or Backend)
         image = await GeViLab.Backend.FileCache.Instance.GetTextureFile(imagePath);
         // Debug.Log("Image: " + image.width + "x" + image.height);
         // Apply texture to Material of the first MeshRenderer in a child
-        scene.GetComponentInChildren<MeshRenderer>().material.mainTexture = image;
+        location.GetComponentInChildren<MeshRenderer>().material.mainTexture = image;
         foreach (Item item in items)
         {
-            item.Initialize(itemPrefab, scene.transform);
+            item.Initialize(itemPrefab, location.transform);
         }
     }
 

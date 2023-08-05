@@ -27,19 +27,15 @@ namespace GeViLab.Backend
 
             FileCache fileCache = (FileCache)target;
 
+            if (fileCache.PublicMetadata == null)
+            {
+                GUILayout.Label("No metadata available");
+                return;
+            }
             foreach (var item in fileCache.PublicMetadata)
             {
                 GUILayout.Label($"{item.Key}: {item.Value}");
             }
-            // if (metadata != null)
-            // {
-            //     foreach (KeyValuePair<string, DateTime> pair in metadata)
-            //     {
-            //         EditorGUILayout.LabelField(pair.Key, pair.Value.ToString());
-            //     }
-
-            //     serializedObject.ApplyModifiedProperties();
-            // }
         }
     }
 }

@@ -4,23 +4,23 @@ public class Bridge
 {
     private Guid id;
     private string name;
-    private Guid startSceneId;
-    private Guid targetSceneId;
+    private Guid startLocationId;
+    private Guid targetLocationId;
     private Vector3 forwardDirection;
     private Vector3 backwardDirection;
 
     public Bridge(
         string name,
-        Guid startSceneId,
-        Guid targetSceneId,
+        Guid startLocationId,
+        Guid targetLocationId,
         Vector3 forwardDirection,
         Vector3 backwardDirection
     )
     {
         id = Guid.NewGuid();
         this.name = name;
-        this.startSceneId = startSceneId;
-        this.targetSceneId = targetSceneId;
+        this.startLocationId = startLocationId;
+        this.targetLocationId = targetLocationId;
         this.forwardDirection = forwardDirection;
         this.backwardDirection = backwardDirection;
     }
@@ -35,14 +35,14 @@ public class Bridge
         return name;
     }
 
-    public Guid GetStartSceneId()
+    public Guid GetStartLocationId()
     {
-        return startSceneId;
+        return startLocationId;
     }
 
-    public Guid GetTargetSceneId()
+    public Guid GetTargetLocationId()
     {
-        return targetSceneId;
+        return targetLocationId;
     }
 
     public Vector3 GetForwardDirection()

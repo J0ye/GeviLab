@@ -22,8 +22,8 @@ namespace GeViLab.Backend
             public string AWSS3Bucket;
             public string AWSS3Region;
             public string CacheFolder;
-            public string SceneFilePath;
-            public string SceneFileName;
+            public string LocationFilePath;
+            public string LocationFileName;
         }
 
         public static Config config = null;
@@ -71,8 +71,8 @@ namespace GeViLab.Backend
                 AWSS3Bucket = "ENTER BUCKET NAME HERE",
                 AWSS3Region = "eu-central-1",
                 CacheFolder = "cache",
-                SceneFilePath = "",
-                SceneFileName = "TestScenes.json"
+                LocationFilePath = "",
+                LocationFileName = "TestLocations.json"
             };
 
             // Serialize the Config object to JSON
@@ -95,8 +95,8 @@ namespace GeViLab.Backend
             Debug.Log("Bucket Name: " + config.AWSS3Bucket);
             Debug.Log("S3 Region: " + config.AWSS3Region);
             Debug.Log("CacheFolder: " + config.CacheFolder);
-            Debug.Log("SceneFilePath: " + config.SceneFilePath);
-            Debug.Log("SceneFileName: " + config.SceneFileName);
+            Debug.Log("LocationFilePath: " + config.LocationFilePath);
+            Debug.Log("LocationFileName: " + config.LocationFileName);
         }
     }
 }

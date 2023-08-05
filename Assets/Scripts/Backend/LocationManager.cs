@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GeViLab.Backend
 {
-    public class BackendSceneManager : MonoBehaviour
+    public class LocationManager : MonoBehaviour
     {
         public ConfigLoader configLoader;
         public ConfigLoader.Config config;
@@ -32,6 +32,12 @@ namespace GeViLab.Backend
             }
             else
             {
+                if (config.CacheFolder == null || config.CacheFolder == "")
+                    config.CacheFolder = "cache";
+                if (config.LocationFilePath == null)
+                    config.LocationFilePath = "projects";
+                if (config.LocationFileName == null || config.LocationFileName == "")
+                    config.LocationFileName = "Default.project";
                 configLoader.logConfig();
             }
 
@@ -51,22 +57,41 @@ namespace GeViLab.Backend
 #endif
             }
 
-            // Load scene configuration from file
-            // scenes = Scenes.Instance;
-            // scenes.LoadScenes(Path.Combine(Application.persistentDataPath,config.SceneFilePath, config.SceneFileName));
+            // Load location configuration from backend
+            // BackendAccess.DownloadObjectFromBucketAsync(
+            //     config.AWSS3BucketName,
+            //     config.AWSS3LocationFileName,
+            //     Path.Combine(
+            //         config.LocationFilePath,
+            //         config.LocationFileName
+            //     )
+            // );
+
+            // Load location configuration from file
+            // OpenFileDialog openFileDialog = new OpenFileDialog();
+            // openFileDialog.Filter = "Project files (*.project)|*.project";
+            // openFileDialog.Title = "Select a Project file (JSON)";
+
+            // if (openFileDialog.ShowDialog() == DialogResult.OK)
+            // {
+            //     string selectedFilePath = openFileDialog.FileName;
+            //     // Do something with the selected file path
+            // }
+
             if (
-                !Scenes.LoadScenes(
+                !Locations.LoadLocationsLocal(
                     Path.Combine(
                         Application.persistentDataPath,
-                        config.SceneFilePath,
-                        config.SceneFileName
+                        config.CacheFolder,
+                        config.LocationFilePath,
+                        config.LocationFileName
                     )
                 )
             )
             {
-                bool LoadScenesFailed = UnityEditor.EditorUtility.DisplayDialog(
+                bool LoadLocationsFailed = UnityEditor.EditorUtility.DisplayDialog(
                     "Error",
-                    "Loading scenes failed!",
+                    "Loading locations failed!",
                     "Abort"
                 );
 #if UNITY_EDITOR
@@ -77,8 +102,8 @@ namespace GeViLab.Backend
             }
 
             BackendAccess.Initialize();
-            
-            Scenes.InitializeScenes(spherePrefab, itemPrefab);
+
+            Locations.InitializeLocations(spherePrefab, itemPrefab);
         }
     }
 }
