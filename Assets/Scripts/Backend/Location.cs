@@ -17,13 +17,16 @@ public class Location : MonoBehaviour
     public Vector3 scale = Vector3.one;
     public string imagePath;
     public Item[] items;
+    public Bridge[] bridges;
     private GameObject location;
     private Texture2D image;
+
     // private bool isVisible;
+    public GameObject locationGameObject;
 
     // public Location()
     // {
-        // id = Guid.NewGuid();
+    // id = Guid.NewGuid();
     // }
 
     // public Location(string name, string description, Vector3 position, Vector3 rotation, Vector3 scale)
@@ -75,23 +78,36 @@ public class Location : MonoBehaviour
     /// Initializes the location with the given location prefab and sets its properties.
     /// </summary>
     /// <param name="locationPrefab">The prefab to instantiate.</param>
-    public async void Initialize(GameObject locationPrefab, GameObject itemPrefab)
+    public async void Initialize(
+        GameObject locationPrefab,
+        GameObject itemPrefab,
+        GameObject bridgePrefab
+    )
     {
-        // location = new GameObject().transform;
         // Instantiate the prefab at the origin (0, 0, 0) with no rotation
-        GameObject location = Instantiate(locationPrefab, position, Quaternion.Euler(rotation));
-        location.name = name;
-        // location.position = position;
-        // location.rotation = Quaternion.Euler(rotation);
-        location.transform.localScale = scale;
+        locationGameObject = Instantiate(locationPrefab, position, Quaternion.Euler(rotation));
+        locationGameObject.name = name;
+        // locationGameObject.position = position;
+        // locationGameObject.rotation = Quaternion.Euler(rotation);
+        locationGameObject.transform.localScale = scale;
         // Get the image from the path (from local Cache or Backend)
         image = await GeViLab.Backend.FileCache.Instance.GetTextureFile(imagePath);
         // Debug.Log("Image: " + image.width + "x" + image.height);
         // Apply texture to Material of the first MeshRenderer in a child
-        location.GetComponentInChildren<MeshRenderer>().material.mainTexture = image;
-        foreach (Item item in items)
+        locationGameObject.GetComponentInChildren<MeshRenderer>().material.mainTexture = image;
+        if (items != null)
         {
-            item.Initialize(itemPrefab, location.transform);
+            foreach (Item item in items)
+            {
+                item.Initialize(itemPrefab, locationGameObject.transform, 5f);
+            }
+        }
+        if (bridges != null)
+        {
+            foreach (Bridge bridge in bridges)
+            {
+                bridge.Initialize(bridgePrefab, locationGameObject.transform, 5f);
+            }
         }
     }
 

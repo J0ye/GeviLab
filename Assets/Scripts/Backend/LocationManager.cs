@@ -12,6 +12,7 @@ namespace GeViLab.Backend
 
         public GameObject spherePrefab;
         public GameObject itemPrefab;
+        public GameObject bridgePrefab;
 
         async void Start()
         {
@@ -103,7 +104,7 @@ namespace GeViLab.Backend
 
             BackendAccess.Initialize();
 
-            Locations.InitializeLocations(spherePrefab, itemPrefab);
+                Locations.InitializeLocations(spherePrefab, itemPrefab, bridgePrefab);
         }
     }
 }

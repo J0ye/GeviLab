@@ -22,7 +22,7 @@ namespace GeViLab.Backend
 
             foreach (Location location in Locations.GetLocations())
             {
-                GUILayout.Label(location.name + ":" + location.description);
+                GUILayout.Label(location.name + ":" + location.description);                
             }
 
             GUILayout.Space(10);

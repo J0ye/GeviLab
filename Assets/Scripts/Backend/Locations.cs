@@ -8,11 +8,6 @@ public class Locations : MonoBehaviour
     private static Locations instance;
     private static List<Location> locations = null;
 
-    private Locations()
-    {
-        // locations = new List<Location>();
-    }
-
     public static Locations Instance
     {
         get
@@ -42,11 +37,11 @@ public class Locations : MonoBehaviour
         return locations;
     }
 
-    public static void InitializeLocations(GameObject spherePrefab, GameObject itemPrefab)
+    public static void InitializeLocations(GameObject spherePrefab, GameObject itemPrefab, GameObject bridgePrefab)
     {
         foreach (Location location in locations)
         {
-            location.Initialize(spherePrefab, itemPrefab);
+            location.Initialize(spherePrefab, itemPrefab, bridgePrefab);
         }
     }
     public static void SyncLocations()

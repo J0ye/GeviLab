@@ -1,28 +1,37 @@
 using System;
 using UnityEngine;
-public class Bridge
+using TMPro;
+
+public class Bridge : MonoBehaviour
 {
     private Guid id;
     private string name;
-    private Guid startLocationId;
+    private BridgeType type;
     private Guid targetLocationId;
-    private Vector3 forwardDirection;
-    private Vector3 backwardDirection;
+    private float startDirection;
+    private float targetDirection;
+    private string targetDescription;
+    private GameObject bridgeGameObject;
+    private bool active;
 
     public Bridge(
         string name,
-        Guid startLocationId,
+        BridgeType type,
         Guid targetLocationId,
-        Vector3 forwardDirection,
-        Vector3 backwardDirection
+        float startDirection,
+        float targetDirection,
+        string targetDescription,
+        bool active = true
     )
     {
-        id = Guid.NewGuid();
+        this.id = Guid.NewGuid();
         this.name = name;
-        this.startLocationId = startLocationId;
+        this.type = type;
         this.targetLocationId = targetLocationId;
-        this.forwardDirection = forwardDirection;
-        this.backwardDirection = backwardDirection;
+        this.startDirection = startDirection;
+        this.targetDirection = targetDirection;
+        this.targetDescription = targetDescription;
+        this.active = active;
     }
 
     public Guid GetId()
@@ -35,9 +44,9 @@ public class Bridge
         return name;
     }
 
-    public Guid GetStartLocationId()
+    public BridgeType GetType()
     {
-        return startLocationId;
+        return type;
     }
 
     public Guid GetTargetLocationId()
@@ -45,13 +54,44 @@ public class Bridge
         return targetLocationId;
     }
 
-    public Vector3 GetForwardDirection()
+    public float GetStartDirection()
     {
-        return forwardDirection;
+        return startDirection;
     }
 
-    public Vector3 GetBackwardDirection()
+    public float GetTargetDirection()
     {
-        return backwardDirection;
+        return targetDirection;
     }
+    public string GetTargetDescription()
+    {
+        return targetDescription;
+    }
+public bool GetActive()
+    {
+        return active;
+    }
+    public void Initialize(GameObject bridgePrefab, Transform parent, float sphereRadius = 5f)
+    {
+        PolarCoordinates startLatLon = new PolarCoordinates(0.5f,startDirection,-0.25f);
+        Vector3 position = startLatLon.ToCartesianCoordinates(sphereRadius);
+        Vector3 direction = position - Vector3.zero;
+        Quaternion rotation = Quaternion.LookRotation(direction,Vector3.up);
+        bridgeGameObject = Instantiate(bridgePrefab, parent, true);
+        bridgeGameObject.transform.localPosition = position;
+        bridgeGameObject.transform.localRotation = rotation;
+        bridgeGameObject.name = name;
+        bridgeGameObject.GetComponentInChildren<TMP_Text>().text = targetDescription;
+        bridgeGameObject.SetActive(active);
+    }
+}
+
+/// <summary>
+/// Enum of possible types of bridges.
+/// </summary>
+public enum BridgeType
+{
+    Forward,
+    Backward,
+    Other
 }

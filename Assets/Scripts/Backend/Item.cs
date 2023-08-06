@@ -25,7 +25,8 @@ public class Item : MonoBehaviour
     
     public bool Active { get; set; }
     public bool IsSelected { get; set; }
-    public float sphereRadius { get; set; } = 5f;
+
+    private GameObject itemGameObject;
 
     public Item(Guid id, string name, ItemType type, PolarCoordinates latLon)
     {
@@ -34,17 +35,17 @@ public class Item : MonoBehaviour
         Type = type;
         LatLon = latLon;
     }
-    public async void Initialize(GameObject itemPrefab, Transform parent)
+    public void Initialize(GameObject itemPrefab, Transform parent, float sphereRadius = 5f)
     {
         Vector3 position = LatLon.ToCartesianCoordinates(sphereRadius); 
         Vector3 direction = position - Vector3.zero;
         Quaternion rotation = Quaternion.LookRotation(direction);
-        GameObject item = Instantiate(itemPrefab,parent, true);
-        item.transform.localPosition = position;
-        item.transform.localRotation = rotation;
-        item.name = Name;   
-        item.GetComponentInChildren<TMP_Text>().text = Name;
-        item.SetActive(Active);
+        itemGameObject = Instantiate(itemPrefab,parent, true);
+        itemGameObject.transform.localPosition = position;
+        itemGameObject.transform.localRotation = rotation;
+        itemGameObject.name = Name;   
+        itemGameObject.GetComponentInChildren<TMP_Text>().text = Name;
+        itemGameObject.SetActive(Active);
     }
 }
 
