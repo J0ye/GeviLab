@@ -29,16 +29,11 @@ public class NetworkPointerControlsXR : NetworkPointerControls
                 Ray ray = new Ray(transform.position, transform.forward);
                 if (activationTrigger.IsActivated && Physics.Raycast(ray, out hit, layers))
                 {
-                    SetLineEnd(hit.point);
                     if (actionTrigger.IsActivated)
                     {
                         AddPointOfInterest(hit);
                     }
-
-                    if (Input.mouseScrollDelta != Vector2.zero)
-                    {
-                        ScalePointOfIntereset(Input.mouseScrollDelta.y);
-                    }
+                    SetLineEnd(hit.point);
                 }
                 else if (xRController == null)
                 {
@@ -47,7 +42,7 @@ public class NetworkPointerControlsXR : NetworkPointerControls
             }
             catch (Exception e)
             {
-                Debug.LogWarning("There was an Error in the Pointer Conrol Class. Error: " + e);
+                Debug.LogWarning("There was an Error in the Pointer Control Class. Error: " + e);
             }
         }
     }
@@ -59,7 +54,6 @@ public class NetworkPointerControlsXR : NetworkPointerControls
         line.SetPosition(0, transform.position);
         line.SetPosition(1, position);
 
-        //this.BroadcastRPC("SetLineEnd", NetworkAvatarControls.instance.avatarID, position);
         photonView.RPC("SetLineEnd", RpcTarget.All, NetworkAvatarControls.instance.avatarID, position);
     }
 }

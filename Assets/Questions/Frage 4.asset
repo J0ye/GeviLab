@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3d5395fc472137438df70852f363330, type: 3}
+  m_Name: Frage 4
+  m_EditorClassIdentifier: 
+  titel: Frage 4
+  description: "Welche Aussagen sind f\xFCr den W\xE4rmetransport mittels \u201EW\xE4rmeleitung\u201C
+    zustreffend?"
+  image: {fileID: 0}
+  correctOptions: 0100000002000000
+  options:
+  - "W\xE4rmeleitung ist eine Form des W\xE4rmetransports, bei der es zwingend eines
+    Stofftrans-portes bedarf."
+  - "W\xE4rmeleitung kann grunds\xE4tzlich in festen, fl\xFCssigen und gasf\xF6rmigen
+    Stoffen stattfinden. Die Teilchen bleiben dabei an ihrer urspr\xFCnglichen Position
+    bzw. der Stoff muss nicht transpor-tiert werden. "
+  - "Bei der W\xE4rmeleitung wird die W\xE4rme durch St\xF6\xDFe von w\xE4rmeren
+    Teilchen an benachbarte k\xE4l-tere Teilchen \xFCbertragen."

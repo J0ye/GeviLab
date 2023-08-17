@@ -21,6 +21,8 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI statusOutput;
     public List<int> playerIDs = new List<int>();
     public List<string> players = new List<string>();
+    // Placeholder for logins without password input. Should not be changed.
+    private string noInputPassword = "PasswordToThisUserIsMe"; 
 
     private void Awake()
     {
@@ -42,7 +44,6 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
         {
             WriteStatus("Not able to connect");
             Debug.LogError("Not able to connect");
-
         }
     }
 
@@ -65,6 +66,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = PlayerPrefsName.GetPlayerName();
         WriteStatus("Nickname: " + PhotonNetwork.NickName);
         PhotonNetwork.JoinLobby();
+        CreateOrLoadUserSessionData();
     }
 
     public override void OnJoinedLobby()
@@ -114,6 +116,19 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
             case Educator.roleName:
                 GameState.instance.SetRole(new Educator());
                 break;
+        }
+    }
+
+    private void CreateOrLoadUserSessionData()
+    {
+        LoginManager lm;
+        if(TryGetComponent<LoginManager>(out lm))
+        {
+            if(!lm.Login(PhotonNetwork.NickName, noInputPassword))
+            {
+                lm.CreateNewUser(PhotonNetwork.NickName, noInputPassword);
+                lm.Login(PhotonNetwork.NickName, noInputPassword);
+            }
         }
     }
 

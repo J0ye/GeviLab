@@ -1,3 +1,4 @@
+using DG.Tweening;
 using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
@@ -8,7 +9,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class VideoAnnotation : Annotation, IOnEventCallback
+public class VideoAnnotation : MediaAnnotation, IOnEventCallback
 {
     #region PUN Event
     public override void OnEnable()
@@ -37,10 +38,18 @@ public class VideoAnnotation : Annotation, IOnEventCallback
         }
     }
     #endregion
-    /// <summary>
-    /// Path to the video.
-    /// </summary>
+    [Tooltip("The path to the video file as a string.")]
     public string content;
+    [Tooltip("Used for permanent video annotations. Link target video clip here.")]
+    public VideoClip contentClip;
+
+    private void Awake()
+    {
+        if(permanent && contentClip != null)
+        {
+            ChangeVideo(VideoClipToByteArray(contentClip), gameObject);
+        }
+    }
 
     public static void SpawnVideoAndSend(byte[] data)
     {
@@ -63,7 +72,25 @@ public class VideoAnnotation : Annotation, IOnEventCallback
     {
         // Create new video via network
         GameObject newVideo = PhotonNetwork.Instantiate("VideoPrefab", GetPositionInFrontOfCamera(), Quaternion.identity);
+        VideoAnnotation newVideoAnnotation = newVideo.GetComponent<VideoAnnotation>();
         ChangeVideo(data, newVideo);
+        //Remove event listener of tharget image annotation. Videos will not be changed twice.
+        PhotonNetwork.RemoveCallbackTarget(newVideoAnnotation);
+    }
+
+    /// <summary>
+    /// Just a debug functiopn to force functions calls without network interaction.
+    /// </summary>
+    public static void InjectedSpawn()
+    {
+        GameObject videoPlayerPrefab = Resources.Load<GameObject>("VideoPrefab");
+        // Instantiate a new video player GameObject
+        GameObject videoPlayerObject = Instantiate(videoPlayerPrefab, GetPositionInFrontOfCamera(), Quaternion.identity);
+        // Get VideoPlayer component to the new GameObject
+        VideoPlayer videoPlayer = videoPlayerObject.GetComponent<VideoPlayer>();
+
+        VideoClip tempClip = Resources.Load<VideoClip>("TestVideo"); ;
+        ChangeVideo(VideoClipToByteArray(tempClip), videoPlayerObject);
     }
 
     public static void ChangeVideo(byte[] data, GameObject target)
@@ -109,8 +136,6 @@ public class VideoAnnotation : Annotation, IOnEventCallback
         videoPlayer.Prepare();
 
         VideoAnnotation targetAnnotation = target.GetComponent<VideoAnnotation>();
-        //Remove event listener of tharget image annotation. Images will not be changed twice.
-        PhotonNetwork.RemoveCallbackTarget(targetAnnotation);
     }
 
     public static void SendVideoFileAndVector(object[] eventData)
@@ -121,18 +146,6 @@ public class VideoAnnotation : Annotation, IOnEventCallback
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All };
         SendOptions sendOptions = new SendOptions { Reliability = true };
         PhotonNetwork.RaiseEvent(customEventCode, eventData, raiseEventOptions, sendOptions);
-    }
-
-    public static void InjectedSpawn()
-    {
-        GameObject videoPlayerPrefab = Resources.Load<GameObject>("VideoPrefab");
-        // Instantiate a new video player GameObject
-        GameObject videoPlayerObject = Instantiate(videoPlayerPrefab, GetPositionInFrontOfCamera(), Quaternion.identity);
-        // Get VideoPlayer component to the new GameObject
-        VideoPlayer videoPlayer = videoPlayerObject.GetComponent<VideoPlayer>();
-
-        VideoClip tempClip = Resources.Load<VideoClip>("TestVideo");;
-        ChangeVideo(VideoClipToByteArray(tempClip, 24f), videoPlayerObject);
     }
 
     /// <summary>
@@ -147,9 +160,30 @@ public class VideoAnnotation : Annotation, IOnEventCallback
         fv.SetUpVideo();
         fv.origin = this;
         GameState.instance.SetActivePlayerControls(false);
+
+        if (permanent)
+        {
+            SetStateForDeleteInteractors(newFullscreenVideo, false);
+        }
+    }
+    public override void OpenXR()
+    {
+        GameObject newFullscreenVideo = Instantiate(fullscreenPrefabXR, GetPositionInFrontOfAnnotation(), Quaternion.identity);
+        newFullscreenVideo.transform.DOScale(newFullscreenVideo.transform.localScale.x * xRPrefabSize, xRPrefabAnimationDuration);
+        FullscreenVideo fv = newFullscreenVideo.GetComponent<FullscreenVideo>();
+        // Set the video path
+        fv.content.url = content;
+        fv.SetUpVideo();
+        fv.origin = this;
+        GameState.instance.SetActivePlayerControls(false);
+
+        if (permanent)
+        {
+            SetStateForDeleteInteractors(newFullscreenVideo, false);
+        }
     }
 
-    public static byte[] VideoClipToByteArray(VideoClip vc, float frameRate)
+    public static byte[] VideoClipToByteArray(VideoClip vc)
     {
         byte[] data = File.ReadAllBytes(vc.originalPath);
         return data;

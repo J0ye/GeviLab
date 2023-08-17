@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Zinnia.Action;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -17,32 +19,37 @@ public class XRController : MonoBehaviour
 
     public BooleanAction actionTrigger = new BooleanAction();
 
+    [Header("UI Pointer Settings")]
+    public AnimationCurve uiPointerLine = new AnimationCurve();
+
     protected LineRenderer lr;
     protected XRUIInteractable target; 
     protected RaycastHit hit;
     protected GameObject lrPlaceHolder;
+    protected AnimationCurve startPointerLine;
     protected bool actionTriggered;
 
     protected void Awake()
     {
         lr = GetComponent<LineRenderer>();
+        startPointerLine = lr.widthCurve;
     }
 
     public void Update()
     {
-        InteractWithUI();
+        InteractWith3DUI();
     }
 
-    public void InteractWithUI()
+    public void InteractWith3DUI()
     {
-        Ray ray = new Ray(transform.position, transform.forward);
-        if (Physics.Raycast(ray, out hit, layers))
+        if (MakeRayCast(out hit))
         {
             if (hit.collider.gameObject.TryGetComponent<XRUIInteractable>(out XRUIInteractable temp))
             {
                 try
                 {
                     //This part crashes if the an annotation is opened
+                    ChangeLineStyleFor3D();
                     target = temp;
                     StartCoroutine(PaintConnectionToTarget(lineRenderDuration));
                     target.SendMessage(nameof(XRUIInteractable.StartHover));
@@ -62,6 +69,13 @@ public class XRController : MonoBehaviour
                     Debug.Log("XRInteractor crashed because " + e);
                 }
             }
+            else if(hit.collider.gameObject.TryGetComponent<Canvas>(out Canvas c))
+            {
+                // Ray is interacting with inworld UI
+                target = temp;
+                ChangeLineStyleForUI();
+                PaintConnectionToPoint(hit.point);
+            }
             else
             {
                 SetTargetNull();
@@ -72,8 +86,21 @@ public class XRController : MonoBehaviour
             SetTargetNull();
         }
     }
-    #region Line Renderer Logic
 
+    protected bool MakeRayCast(out RaycastHit hitResult)
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit temp;
+        if (Physics.Raycast(ray, out temp, layers))
+        {
+            hitResult = temp;
+            return true;
+        }
+        hitResult = temp;
+        return false;
+    }
+
+    #region Line Renderer Logic
     public Vector3[] GetConnectionLineToTarget()
     {
         Vector3[] ret = new Vector3[lr.positionCount];
@@ -135,6 +162,13 @@ public class XRController : MonoBehaviour
     {
         lr.positionCount = linePositionCount;
         lr.SetPositions(GetConnectionLineToTarget());
+    }
+
+    protected void PaintConnectionToPoint(Vector3 point)
+    {
+        lr.positionCount = 2;
+        lr.SetPosition(0, transform.position);
+        lr.SetPosition(1, point);
     }
 
     protected IEnumerator PaintConnectionToTarget(float duration)
@@ -241,6 +275,7 @@ public class XRController : MonoBehaviour
 
     protected virtual void ResetLineRenderer()
     {
+        ChangeLineStyleFor3D();
         lr.positionCount = 2;
         lr.SetPosition(0, transform.position);
         lr.SetPosition(1, transform.position + transform.forward * cursorLength);
@@ -263,6 +298,16 @@ public class XRController : MonoBehaviour
         lrPlaceHolder.GetComponent<LineRendererRemover>().StartAnimation();
     }
     #endregion
+
+    protected void ChangeLineStyleForUI()
+    {
+        lr.widthCurve = uiPointerLine;
+    }
+
+    protected void ChangeLineStyleFor3D()
+    {
+        lr.widthCurve = startPointerLine;
+    }
 
     public void OnDrawGizmos()
     {
