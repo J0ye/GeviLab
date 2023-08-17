@@ -61,17 +61,10 @@ public class Session
         }
         string id = GetUserIDAsValidFileName();
         DirectoryInfo directory = Directory.CreateDirectory(Application.persistentDataPath + GetSessionFolderName());
-        if (Instance().user != null)
-        {
-            string filename = GetUserIDAsFileName(directory.FullName);
-            if(!File.Exists(filename))
-            {
-                File.Create(filename);
-            }
-            Debug.Log("Saving session data to: " + filename);
-            File.WriteAllText(filename, Instance().ToJSON());
-            Instance().OnSaved?.Invoke(Instance(), EventArgs.Empty);
-        }
+        string filename = GetUserIDAsFileName(directory.FullName);
+        // Writes json to file. Creates new file if needed
+        File.WriteAllText(filename, Instance().ToJSON());
+        Instance().OnSaved?.Invoke(Instance(), EventArgs.Empty);
     }
 
     /// <summary>
@@ -125,7 +118,7 @@ public class Session
             ret = fulldirectoryName + @"/" + MakeValidFileName(Instance().user.id.ToString()) + ".json";
             return ret;
         }
-        return MakeValidFileName(Instance().user.id.ToString());
+        return ret;
     }
 
     /// <summary>

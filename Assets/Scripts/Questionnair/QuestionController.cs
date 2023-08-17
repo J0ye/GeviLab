@@ -62,7 +62,6 @@ public class QuestionController : MonoBehaviour
 
     public void LoadInputFromSession(Question question)
     {
-        Debug.Log("Loading input for: " + titel.text);
         for(int i = 0; i < question.selections.Length; i++)
         {
             if(i < spawnedOptions.Count)
@@ -70,7 +69,6 @@ public class QuestionController : MonoBehaviour
                 if(question.selections[i])
                 {
                     spawnedOptions[i].ExecuteOnSelection();
-                    Debug.Log(titel.text + " gets a selected option");
                 }
             }
         }

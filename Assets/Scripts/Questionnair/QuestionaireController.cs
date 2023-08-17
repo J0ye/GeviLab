@@ -16,6 +16,7 @@ public class QuestionaireController : MonoBehaviour
         LoadInputFromSessionData();
         Session.Instance().ClearAllLoginEvents();
         Session.Instance().OnLogin += ReactToLogin;
+        RegisterSaveAction();
     }
 
     public void ChangeDisplayState()
@@ -32,7 +33,7 @@ public class QuestionaireController : MonoBehaviour
     public void Save()
     {
         Questionaire questionaire = new Questionaire(0, questions);
-        questionaire.SaveToSession();
+        questionaire.SaveToSessionAndWrite();
     }
     public void LoadInputFromSessionData()
     {
@@ -60,22 +61,18 @@ public class QuestionaireController : MonoBehaviour
 
     /// <summary>
     /// Creates listener for the select event of selectable options.
-    /// Has a delay because the seleactable option are getting created at the same time.
+    /// Has a delay because the selectable option are getting created at the same time.
     /// </summary>
     /// <returns></returns>
-    public IEnumerator RegisterSaveAction()
+    public void RegisterSaveAction()
     {
-        yield return new WaitForSeconds(0.1f);
-        /*Debug.Log("Questions: " + questions.Count);
         foreach(QuestionController quest in questions)
         {
-            Debug.Log("Options: " + quest.spawnedOptions.Count);
             foreach (SelectionOption so in quest.spawnedOptions)
             {
                 so.OnSelect.AddListener(() => Save());
-                Debug.Log("Registered save on: " + so.name);
             }
-        }*/
+        }
     }
 
     /// <summary>
@@ -192,5 +189,11 @@ public class Questionaire
     public void SaveToSession()
     {
         Session.Instance().questionair = this;
+    }
+
+    public void SaveToSessionAndWrite()
+    {
+        Session.Instance().questionair = this;
+        Session.SaveSessionData();
     }
 }
