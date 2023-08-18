@@ -2766,6 +2766,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2814707934472348734, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173729825675700996, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173729825739808946, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173729826491230215, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173729826496268429, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173729826798670129, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173729826812528579, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173729826861886352, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173729826984713844, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
+      propertyPath: margin
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bc84bac5ea396e40af84e688864685b, type: 3}
 --- !u!224 &466411216 stripped
@@ -11742,9 +11778,9 @@ MonoBehaviour:
   OnOpenXR:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1065848087}
-        m_TargetAssemblyTypeName: QuestionaireController, Assembly-CSharp
-        m_MethodName: Open
+      - m_Target: {fileID: 327773072}
+        m_TargetAssemblyTypeName: MenuManagerWithXRConvert, Assembly-CSharp
+        m_MethodName: ConvertToXRUI
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11754,9 +11790,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 327773072}
-        m_TargetAssemblyTypeName: MenuManagerWithXRConvert, Assembly-CSharp
-        m_MethodName: ConvertToXRUI
+      - m_Target: {fileID: 1065848087}
+        m_TargetAssemblyTypeName: QuestionaireController, Assembly-CSharp
+        m_MethodName: Open
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

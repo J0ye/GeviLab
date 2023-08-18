@@ -31,19 +31,6 @@ public class QuestionController : MonoBehaviour
         LoadContent();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Open();
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Close();
-        }
-    }
-
     public void Open()
     {
         Vector3 startpos = rt.position;
@@ -51,7 +38,7 @@ public class QuestionController : MonoBehaviour
         rt.position = offsetPos;
         gameObject.SetActive(true);
         CancelActiveTween();
-        activeTween = rt.DOMoveX(0 + Screen.width/2, animationDuration);
+        activeTween = rt.DOLocalMoveX(0, animationDuration);
     }
 
     public void Close()

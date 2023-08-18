@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+/*
 public class AbstractNoteObject
 {
     public Note note;
@@ -21,7 +21,7 @@ public class AbstractNoteObject
             scale = target.transform.localScale;
         }
     }
-}
+}*/
 
 /*
 public class Session : MonoBehaviour
