@@ -46,6 +46,10 @@ public class GameState : MonoBehaviour
 
         playerCamera.TryGetComponent<POVCamera>(out pov);
         playerCamera.TryGetComponent<NetworkPointerControls>(out pointerControls);
+    }
+
+    private void Start()
+    {
         if (Application.platform == RuntimePlatform.Android || forceVRState)
         {
             SetStateToVR();
@@ -58,11 +62,6 @@ public class GameState : MonoBehaviour
         // Deactivate controls because no connection yet
         videoPlayerUIDesktop.SetActive(false);
         videoPlayerUIXR.SetActive(false);
-    }
-
-    private void Start()
-    {
-        //ConncectionManager.instance.OnEnterRoom.AddListener(() => SetActivePlayerControls());
     }
 
     public void SetStateToVR()

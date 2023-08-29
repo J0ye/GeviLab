@@ -9,7 +9,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class VideoAnnotation : Annotation, IOnEventCallback
+public class VideoAnnotation : MediaAnnotation, IOnEventCallback
 {
     #region PUN Event
     public override void OnEnable()

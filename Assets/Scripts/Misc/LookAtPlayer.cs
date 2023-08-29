@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LookAtPlayer : MonoBehaviour
 {
-    public string lookFor = "Player";
+    public string lookFor = "MainCamera";
     public GameObject player;
     public bool lookAway = false;
 

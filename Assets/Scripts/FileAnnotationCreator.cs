@@ -7,7 +7,6 @@ using B83.Win32;
 
 public class FileAnnotationCreator : MonoBehaviour
 {
-    private List<string> log = new List<string>();
 
     void OnEnable()
     {
@@ -49,6 +48,7 @@ public class FileAnnotationCreator : MonoBehaviour
             string extension = Path.GetExtension(path).ToLower();
             if (extension == ".png" || extension == ".jpg" || extension == ".jpeg")
             {
+                LogCreator.instance.AddLog("Loading image");
                 byte[] imageData = File.ReadAllBytes(path);
                 ImageAnnotation.SpawnImageWithStaticPosition(imageData);
             }

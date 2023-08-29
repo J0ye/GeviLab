@@ -10,7 +10,7 @@ public class LogCreator : MonoBehaviour
 
     private List<string> log = new List<string>();
 
-    public void Start()
+    public void Awake()
     {
         if(instance == null)
         {
