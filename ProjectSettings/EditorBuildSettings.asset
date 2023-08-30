@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Network.unity
     guid: 4dbc57baa0aa82d43b42f49793da323e
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Windturbine.unity
     guid: c567964e3357c854b991a3ac0276d8e9
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Windturbine Testscene.unity
     guid: 07df4d5ba33771a47b465a2f43cc9f3b
   m_configObjects:
