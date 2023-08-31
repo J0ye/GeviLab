@@ -105,7 +105,7 @@ public class GameState : MonoBehaviour
 
     public void SetActivePlayerControls(bool val)
     {
-        bool withAuthority = val && roleState.playerAuthority; // Only activate player ui if user has authority
+        bool withAuthority = val && roleState.playerAuthority && NetworkAvatarControls.instance.currentEnvironment.usePlayerUIInOrigin; // Only activate player ui if user has authority and the environment needs the player
         if(isVR)
         {
             videoPlayerUIXR.SetActive(withAuthority); // enable Player controls in VR 

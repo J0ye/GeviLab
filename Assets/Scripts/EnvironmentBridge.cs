@@ -22,6 +22,7 @@ public class EnvironmentBridge : MonoBehaviour
     /// List of every envrionmentbridge. If this is null, then there are no envrionements
     /// </summary>
     public static Dictionary<string, EnvironmentBridge> environments;
+
     /// <summary>
     /// Represents the unique name of this environment. Used to ask Master for position.
     /// designation = gameobject name + world position.

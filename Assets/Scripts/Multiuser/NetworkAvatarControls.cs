@@ -16,6 +16,10 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
     public int avatarID = -1;
     [Header("Spawn location")]
     public EnvironmentBridge startEnvironment;
+    /// <summary>
+    /// Reference to the envrionment the avatar is currently in. Changes every time the vatar moves
+    /// </summary>
+    public EnvironmentBridge currentEnvironment;
     // Start is called before the first frame update
     void Awake()
     {
@@ -27,6 +31,7 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         {
             Destroy(this);
         }
+        currentEnvironment = startEnvironment;
     }
 
     /// <summary>
@@ -98,13 +103,12 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
         {
             // Skip sending rpc. Directly move avatar
-            MoveAvatarToEnvironment(EnvironmentBridge.environments[name].GetPositionInEnvironment());
+            MoveAvatarToEnvironment(EnvironmentBridge.environments[name].GetPositionInEnvironment(), EnvironmentBridge.environments[name]);
         }
         else
         {
             // Request master to move avatar
             photonView.RPC(nameof(RequestMoveAvatar), RpcTarget.MasterClient, name, PhotonNetwork.LocalPlayer);
-            LogCreator.instance.AddLog("Requested move to " + name);
         }
     }
 
@@ -124,7 +128,7 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
                 {
                     // Client knows target environment
                     Vector3 newEnvPos = EnvironmentBridge.environments[name].GetPositionInEnvironment();
-                    photonView.RPC(nameof(MoveAvatarToEnvironment), requestSender, newEnvPos);
+                    photonView.RPC(nameof(MoveAvatarToEnvironment), requestSender, newEnvPos, EnvironmentBridge.environments[name]);
                 }
                 else
                 {
@@ -146,10 +150,11 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
     /// </summary>
     /// <param name="pos">Free position</param>
     [PunRPC]
-    public void MoveAvatarToEnvironment(Vector3 pos)
+    public void MoveAvatarToEnvironment(Vector3 pos, EnvironmentBridge targetEnvironment)
     {
-        LogCreator.instance.AddLog("Recieved rpc to move avatar to environment");
         myAvatar.transform.position = pos;
+        currentEnvironment = targetEnvironment;
+        print("moving avatar");
     }
     #endregion
 }
