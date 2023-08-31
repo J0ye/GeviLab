@@ -54,6 +54,6 @@ public class NetworkPointerControlsXR : NetworkPointerControls
         line.SetPosition(0, transform.position);
         line.SetPosition(1, position);
 
-        photonView.RPC("SetLineEnd", RpcTarget.All, NetworkAvatarControls.instance.avatarID, position);
+        photonView.RPC(nameof(SetLineEnd), RpcTarget.All, NetworkAvatarControls.instance.avatarID, position);
     }
 }

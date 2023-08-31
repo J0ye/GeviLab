@@ -103,7 +103,7 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
         if(PhotonNetwork.IsMasterClient)
         {
             // Skip sending rpc. Directly move avatar
-            MoveAvatarToEnvironment(EnvironmentBridge.environments[name].GetPositionInEnvironment(), EnvironmentBridge.environments[name]);
+            MoveAvatarToEnvironment(EnvironmentBridge.environments[name].GetPositionInEnvironment(), name);
         }
         else
         {
@@ -128,7 +128,7 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
                 {
                     // Client knows target environment
                     Vector3 newEnvPos = EnvironmentBridge.environments[name].GetPositionInEnvironment();
-                    photonView.RPC(nameof(MoveAvatarToEnvironment), requestSender, newEnvPos, EnvironmentBridge.environments[name]);
+                    photonView.RPC(nameof(MoveAvatarToEnvironment), requestSender, newEnvPos, name);
                 }
                 else
                 {
@@ -150,8 +150,9 @@ public class NetworkAvatarControls : MonoBehaviourPunCallbacks
     /// </summary>
     /// <param name="pos">Free position</param>
     [PunRPC]
-    public void MoveAvatarToEnvironment(Vector3 pos, EnvironmentBridge targetEnvironment)
+    public void MoveAvatarToEnvironment(Vector3 pos, string targetEnvironmentName)
     {
+        EnvironmentBridge targetEnvironment = EnvironmentBridge.environments[targetEnvironmentName];
         myAvatar.transform.position = pos;
         currentEnvironment = targetEnvironment;
         print("moving avatar");
