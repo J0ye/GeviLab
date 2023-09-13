@@ -101,6 +101,17 @@ public class EnvironmentBridge : MonoBehaviour
 
     protected void MoveUser(Vector3 targetPos)
     {
+        // Calculate the direction vector from the target position to the origin
+        Vector3 directionToOrigin = playerAvatar.transform.position - targetPos;
+
+        // Calculate the rotation needed to face the back towards the origin
+        Quaternion rotationToFaceOrigin = Quaternion.LookRotation(directionToOrigin);
+
+        // Apply the rotation to both avatars
+        playerAvatar.transform.rotation = rotationToFaceOrigin;
+        playerXRAvatar.transform.rotation = rotationToFaceOrigin;
+
+        // Apply new position
         playerAvatar.transform.position = targetPos;
         playerXRAvatar.transform.position = targetPos;
     }
