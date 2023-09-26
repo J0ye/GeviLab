@@ -153,6 +153,7 @@ public class ConncectionManager : MonoBehaviourPunCallbacks
         string temp = "Room name: " + PhotonNetwork.CurrentRoom.Name;
         temp += "; Nickname: " + PhotonNetwork.NickName;
         temp += "; Players: " + PhotonNetwork.CurrentRoom.PlayerCount;
+        if (PhotonNetwork.IsMasterClient) temp += "; I am MasterClient.";
         WriteStatus(temp);
     }
 

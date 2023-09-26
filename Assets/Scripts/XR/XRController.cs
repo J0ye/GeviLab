@@ -51,7 +51,8 @@ public class XRController : MonoBehaviour
                     //This part crashes if the an annotation is opened
                     ChangeLineStyleFor3D();
                     target = temp;
-                    StartCoroutine(PaintConnectionToTarget(lineRenderDuration));
+                    //StartCoroutine(PaintConnectionToTarget(lineRenderDuration));
+                    PaintConnectionToTarget();
                     target.SendMessage(nameof(XRUIInteractable.StartHover));
 
                     if (actionTrigger.IsActivated && !actionTriggered)
@@ -71,7 +72,7 @@ public class XRController : MonoBehaviour
             }
             else if(hit.collider.gameObject.TryGetComponent<Canvas>(out Canvas c))
             {
-                // Ray is interacting with inworld UI
+                // Ray is interacting with in-world UI
                 target = temp;
                 ChangeLineStyleForUI();
                 PaintConnectionToPoint(hit.point);

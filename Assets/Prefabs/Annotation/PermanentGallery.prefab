@@ -118,7 +118,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
