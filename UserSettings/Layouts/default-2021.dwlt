@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Inspector
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 57
+  controlID: 51
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 58
+  controlID: 52
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -295,8 +295,8 @@ MonoBehaviour:
     y: 0
     width: 428
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
@@ -428,7 +428,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6ccafeff26cbfeff94d5feff0e2affffa632ffff5c33ffffd03dffff044bffff3453ffffec53ffff605effff8c78ffff4a79ffffc083ffffbca2ffffd4e3ffff22fbfffff4ffffff3e6c000028dc00008cdc000032e10000782d0100027e0100667e01000c830100
+      m_ExpandedIDs: 22fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -710,9 +710,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 41.13971, y: -20.84552, z: 37.210434}
+    m_Target: {x: 38.183285, y: -32.69392, z: 15.373428}
     speed: 2
-    m_Value: {x: 41.13971, y: -20.84552, z: 37.210434}
+    m_Value: {x: 38.183285, y: -32.69392, z: 15.373428}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -759,13 +759,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.52177364, y: -0.35218486, z: 0.24972862, w: -0.7358118}
+    m_Target: {x: 0.04964027, y: -0.9503758, z: 0.21483271, w: 0.21962836}
     speed: 2
-    m_Value: {x: -0.5217566, y: -0.35217336, z: 0.24972047, w: -0.7357878}
+    m_Value: {x: -0.049638584, y: 0.9503435, z: -0.2148254, w: -0.2196209}
   m_Size:
-    m_Target: 12.878628
+    m_Target: 44.14429
     speed: 2
-    m_Value: 12.878628
+    m_Value: 44.14429
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1315,22 +1315,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Resources
+  - Assets
   m_LastFoldersGridSize: 96
   m_LastProjectPath: D:\Unity Projects\GeviLab
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 19}
-    m_SelectedIDs: a2860000
-    m_LastClickedID: 34466
-    m_ExpandedIDs: 00000000708600007286000000ca9a3b
+    scrollPos: {x: 0, y: 44}
+    m_SelectedIDs: 74860000
+    m_LastClickedID: 34420
+    m_ExpandedIDs: 00000000748600007686000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1358,7 +1358,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000007086000072860000
+    m_ExpandedIDs: 000000007486000076860000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1385,8 +1385,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000b255000008560000345e0000145b000004560000a89f0000e06400003c65000038660000466600000000000068760000ee6e0000
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: c6230000b255000008560000345e0000145b000004560000a89f0000e06400003c65000038660000466600000000000068760000ee6e0000e4860000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1410,7 +1410,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 54}
     m_GridSize: 96
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 114
