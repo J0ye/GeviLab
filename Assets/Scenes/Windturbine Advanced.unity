@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bde9dc75d963984cbb2b3b0bfb45d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  writeStatusToConsole: 1
+  writeStatusToConsole: 0
   OnEnterRoom:
     m_PersistentCalls:
       m_Calls:
@@ -3051,7 +3051,7 @@ MonoBehaviour:
   videoPlayerUIXR: {fileID: 785217732}
   cameraRig: {fileID: 1002811130646344684}
   menu: {fileID: 327773071}
-  forceVRState: 0
+  forceVRState: 1
   logOutput: 
 --- !u!4 &790300381
 Transform:
@@ -5629,6 +5629,10 @@ PrefabInstance:
     - target: {fileID: 7363337086574766222, guid: ff21f98ff3c95694c9a2eed993cda513, type: 3}
       propertyPath: m_Name
       value: TQV Test Questionnaire Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7363337086574766222, guid: ff21f98ff3c95694c9a2eed993cda513, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff21f98ff3c95694c9a2eed993cda513, type: 3}
@@ -15352,7 +15356,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -17127,7 +17131,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -17297,7 +17301,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -17865,7 +17869,7 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7631026330809676253}
+      - m_Target: {fileID: 7439927388891586465}
         m_TargetAssemblyTypeName: EnvironmentBridge, Assembly-CSharp
         m_MethodName: MoveToOrigin
         m_Mode: 1
@@ -26157,7 +26161,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -28097,7 +28101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destination: {fileID: 0}
   destinationNVPC: {fileID: 0}
-  usePlayerUIInOrigin: 1
+  usePlayerUIInOrigin: 0
   playerAvatar: {fileID: 0}
   playerXRAvatar: {fileID: 0}
   xBounds: {x: 0, y: 0}
@@ -29695,7 +29699,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7439927388655136041}
-  m_LocalRotation: {x: -0.03981329, y: -0.7059858, z: 0.70598435, w: -0.039813507}
+  m_LocalRotation: {x: -0.70709234, y: 0.0046332027, z: -0.004633456, w: -0.7070909}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
@@ -29704,7 +29708,7 @@ RectTransform:
   - {fileID: 7439927389093326806}
   m_Father: {fileID: 7439927388773121221}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 186.455}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 360.751}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -30075,7 +30079,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -30517,8 +30521,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7439927388773121223}
-  m_LocalRotation: {x: -0, y: -0.986878, z: -0, w: 0.16146785}
-  m_LocalPosition: {x: 20.411676, y: 0, z: 68.53177}
+  m_LocalRotation: {x: -0, y: 0.18509202, z: -0, w: 0.9827212}
+  m_LocalPosition: {x: 20.374788, y: 0, z: 66.99546}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30530,7 +30534,7 @@ Transform:
   - {fileID: 7439927388655136046}
   m_Father: {fileID: 7777619213041139091}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: -161.416, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 21.333, z: 0}
 --- !u!1 &7439927388773121223
 GameObject:
   m_ObjectHideFlags: 0
@@ -31706,7 +31710,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -31987,7 +31991,7 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7631026330809676253}
+      - m_Target: {fileID: 7439927388949211784}
         m_TargetAssemblyTypeName: EnvironmentBridge, Assembly-CSharp
         m_MethodName: MoveToOrigin
         m_Mode: 1
@@ -32990,7 +32994,7 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7631026330809676253}
+      - m_Target: {fileID: 7631026330712280600}
         m_TargetAssemblyTypeName: EnvironmentBridge, Assembly-CSharp
         m_MethodName: MoveToOrigin
         m_Mode: 1
@@ -34444,7 +34448,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -34744,7 +34748,7 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7631026330809676253}
+      - m_Target: {fileID: 7439927389168725639}
         m_TargetAssemblyTypeName: EnvironmentBridge, Assembly-CSharp
         m_MethodName: MoveToOrigin
         m_Mode: 1
@@ -34972,7 +34976,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -35225,7 +35229,7 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7631026330809676253}
+      - m_Target: {fileID: 7439927388773121220}
         m_TargetAssemblyTypeName: EnvironmentBridge, Assembly-CSharp
         m_MethodName: MoveToOrigin
         m_Mode: 1
@@ -36575,7 +36579,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -37397,7 +37401,7 @@ MonoBehaviour:
   OnInteract:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7631026330809676253}
+      - m_Target: {fileID: 7439927389215411489}
         m_TargetAssemblyTypeName: EnvironmentBridge, Assembly-CSharp
         m_MethodName: MoveToOrigin
         m_Mode: 1
@@ -38078,7 +38082,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0
@@ -38950,7 +38954,7 @@ MonoBehaviour:
   permanent: 1
   fullscreenPrefab: {fileID: 9029379354109942769, guid: a28e4022be108fe4b8ebd49b77124704, type: 3}
   fullscreenPrefabXR: {fileID: 5288592288943240012, guid: 62a2b6e02a60d37418546c1acc8aeb48, type: 3}
-  xRPrefabDistance: 0.5
+  xRPrefabDistance: -0.5
   xRPrefabSize: 0.5
   xRPrefabAnimationDuration: 0.5
   isEditing: 0

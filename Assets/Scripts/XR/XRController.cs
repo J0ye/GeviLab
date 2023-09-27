@@ -79,7 +79,6 @@ public class XRController : MonoBehaviour
             }
             else
             {
-                print(hit);
                 SetTargetNull();
             }
         }

@@ -109,7 +109,7 @@ public class EnvironmentBridge : MonoBehaviour
 
         // Apply the rotation to both avatars
         playerAvatar.transform.rotation = rotationToFaceOrigin;
-        playerXRAvatar.transform.rotation = rotationToFaceOrigin;
+        //playerXRAvatar.transform.rotation = rotationToFaceOrigin;
 
         // Apply new position
         playerAvatar.transform.position = targetPos;

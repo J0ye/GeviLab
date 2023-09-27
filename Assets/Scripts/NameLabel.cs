@@ -6,10 +6,12 @@ using Photon.Pun;
 
 public class NameLabel : MonoBehaviourPun
 {
+    public bool writeDebugToConsole = false;
     private TMP_Text label;
     // Start is called before the first frame update
     void Awake()
     {
+        print("1");
         SetLabelReference();
     }
 
@@ -17,6 +19,7 @@ public class NameLabel : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
+            Print("Send request to sync name");
             LogCreator.instance.AddLog("Name: " + PhotonNetwork.NickName);
             // The local player can set their name directly.
             SetLabelValue(PhotonNetwork.NickName);
@@ -29,6 +32,8 @@ public class NameLabel : MonoBehaviourPun
     public void SyncPlayerName(string playerName)
     {
         SetLabelValue(playerName);
+        LogCreator.instance.AddLog(playerName + " connected to session.");
+        Print("Set name of " + gameObject.name + " to " + playerName);
     }
 
 
@@ -38,6 +43,11 @@ public class NameLabel : MonoBehaviourPun
         if(label)
         {
             label.text = newValue;
+            Print("New label is " + newValue);
+        }
+        else
+        {
+            Print("Error: No label");
         }
     }
 
@@ -45,7 +55,19 @@ public class NameLabel : MonoBehaviourPun
     {
         foreach (Transform child in transform)
         {
-            child.TryGetComponent<TMP_Text>(out label);
+            if(child.TryGetComponent<TMP_Text>(out label))
+            {
+                Print("Set label to " + label.ToString());
+                return;
+            }
+        }
+    }
+
+    protected void Print(string t)
+    {
+        if(writeDebugToConsole)
+        {
+            Debug.Log(t);
         }
     }
 }
