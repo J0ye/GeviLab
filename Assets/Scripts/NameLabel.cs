@@ -11,7 +11,6 @@ public class NameLabel : MonoBehaviourPun
     // Start is called before the first frame update
     void Awake()
     {
-        print("1");
         SetLabelReference();
     }
 

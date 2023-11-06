@@ -22,7 +22,7 @@ public class QuestionController : MonoBehaviour
     protected Text description;
     protected Image image;
     
-    void Awake()
+    void Start()
     {
         rt = GetComponent<RectTransform>();
         titel = transform.GetChild(0).GetComponent<Text>();
