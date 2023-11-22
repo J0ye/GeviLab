@@ -7,11 +7,12 @@ public class QuestionaireController : MonoBehaviour
 {
     public List<QuestionController> questions = new List<QuestionController>();
     public bool closeOnStart = true;
+    public bool doAnimation = true;
 
     protected int activeQuestion = 0;
     protected bool state = false;
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         LoadInputFromSessionData();
         Session.Instance().ClearAllLoginEvents();
@@ -30,7 +31,7 @@ public class QuestionaireController : MonoBehaviour
         }
     }
 
-    public void Save()
+    public virtual void Save()
     {
         Questionaire questionaire = new Questionaire(0, questions);
         questionaire.SaveToSessionAndWrite();
@@ -90,7 +91,7 @@ public class QuestionaireController : MonoBehaviour
             if(qc == questions[0])
             {
                 questions[0].gameObject.SetActive(true);
-                questions[0].Open();
+                questions[0].Open(doAnimation);
                 activeQuestion = 0;
             }
             else
@@ -124,10 +125,10 @@ public class QuestionaireController : MonoBehaviour
         Save();
         if (activeQuestion < questions.Count-1)
         {
-            questions[activeQuestion].Close();
+            questions[activeQuestion].Close(doAnimation);
             activeQuestion++;
             activeQuestion = Mathf.Clamp(activeQuestion, 0, questions.Count - 1);
-            questions[activeQuestion].Open();
+            questions[activeQuestion].Open(doAnimation);
         }
     }
 
@@ -136,10 +137,10 @@ public class QuestionaireController : MonoBehaviour
         Save();
         if (activeQuestion > 0)
         {
-            questions[activeQuestion].Close();
+            questions[activeQuestion].Close(doAnimation);
             activeQuestion--;
             activeQuestion = Mathf.Clamp(activeQuestion, 0, questions.Count-1);
-            questions[activeQuestion].Open();
+            questions[activeQuestion].Open(doAnimation);
         }
     }
 }

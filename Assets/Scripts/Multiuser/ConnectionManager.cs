@@ -11,9 +11,9 @@ using System.Linq;
 /// <summary>
 /// Controls connecting and sessions. Does not care for any player specific functions
 /// </summary>
-public class ConncectionManager : MonoBehaviourPunCallbacks
+public class ConnectionManager : MonoBehaviourPunCallbacks
 {
-    public static ConncectionManager instance;
+    public static ConnectionManager instance;
     public bool writeStatusToConsole;
 
     public UnityEvent OnEnterRoom = new UnityEvent();

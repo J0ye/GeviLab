@@ -40,11 +40,35 @@ public class QuestionController : MonoBehaviour
         CancelActiveTween();
         activeTween = rt.DOLocalMoveX(0, animationDuration);
     }
+    public void Open(bool doAnimation)
+    {
+        if(doAnimation)
+        {
+            Open();
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            CancelActiveTween();
+        }
+    }
 
     public void Close()
     {
         CancelActiveTween();
         StartCoroutine(AsynClose());
+    }
+
+    public void Close(bool doAnimation)
+    {
+        if(doAnimation)
+        {
+            Close();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void LoadInputFromSession(Question question)

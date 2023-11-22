@@ -381,7 +381,6 @@ GameObject:
   - component: {fileID: 6359218293338116010}
   - component: {fileID: 6359218293338116011}
   - component: {fileID: 6359218293338116009}
-  - component: {fileID: 7823061506566207383}
   m_Layer: 5
   m_Name: Question
   m_TagString: Untagged
@@ -469,27 +468,6 @@ MonoBehaviour:
   margin: 25
   animationDuration: 0.5
   spawnedOptions: []
---- !u!114 &7823061506566207383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6359218293338116013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls: []
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!1 &6359218293644097491
 GameObject:
   m_ObjectHideFlags: 0

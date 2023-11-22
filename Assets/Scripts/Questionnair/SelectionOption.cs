@@ -16,6 +16,7 @@ public class SelectionOption : ImageColorSwitch, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        print("pointer happend");
         ExecuteOnSelection();
     }
 
