@@ -35,7 +35,7 @@ public class NetworkPointerControlsXR : NetworkPointerControls
                     }
                     SetLineEnd(hit.point);
                 }
-                else if (xRController == null)
+                else if (!activationTrigger.IsActivated)
                 {
                     ResetLineRenderer();
                 }
