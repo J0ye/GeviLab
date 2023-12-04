@@ -16,10 +16,6 @@ public class GameState : MonoBehaviour
 
     public static GameState instance;
 
-    [Space]
-    [Tooltip("This member is not used as a parameter, but rather to display speical informations about the State")]
-    public string logOutput = "";
-
     public Role roleState { get; private set; }
     public bool setStateByPlayer { get; private set; }
     public bool isVR { get; private set; }
@@ -91,6 +87,7 @@ public class GameState : MonoBehaviour
     public void SetActiveVideoPlayerControls(bool val)
     {
         bool withAuthority = val && roleState.playerAuthority; // Only activate player ui if user has authority
+        if(val) LogCreator.instance.AddLog("Role " + roleState.GetRoleName() +  " has authority: " + roleState.playerAuthority);
         if (isVR)
         {
             videoPlayerUIXR.SetActive(withAuthority); // enable Player controls in VR 
@@ -173,12 +170,15 @@ public class GameState : MonoBehaviour
                 {
                     case 0:
                         temp.OnInteract.AddListener(target.JumpBackward);
+                        LogCreator.instance.AddLog("Added backwards for " + target.transform.parent.name);
                         break;
                     case 1:
                         temp.OnInteract.AddListener(target.Pause);
+                        LogCreator.instance.AddLog("Added pause for " + target.transform.parent.name);
                         break;
                     case 2:
                         temp.OnInteract.AddListener(target.JumpForward);
+                        LogCreator.instance.AddLog("Added forward for " + target.transform.parent.name);
                         break;
                     default:
                         // Do nothing?
@@ -194,12 +194,6 @@ public class GameState : MonoBehaviour
         playerCamera.SetActive(!isVR);
         cameraRig.SetActive(isVR);
         SetActivePlayerControls(true);
-        WriteToLogOutput("Programm is displayed in VR: " + isVR);
-    }
-
-    private void WriteToLogOutput(string txt)
-    {
-        logOutput = txt;
     }
 
     #region Role logic
@@ -226,7 +220,7 @@ public class GameState : MonoBehaviour
         OnSwitchRole.Invoke();
         UpdateAccess();
         SetActivePlayerControls(true);
-        WriteToLogOutput("Role: " + roleState.ToString());
+        LogCreator.instance.AddLog("Role: " + roleState.ToString());
     }
     #endregion
 }
