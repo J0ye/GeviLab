@@ -62,7 +62,6 @@ public class NetworkVideoPlayerControls : MonoBehaviourPunCallbacks
         if (vp == null) return;
 
         if(PhotonNetwork.IsMasterClient) photonView.RPC("Pause", RpcTarget.OthersBuffered);
-
         if (vp.isPlaying)
         {
             vp.Pause();

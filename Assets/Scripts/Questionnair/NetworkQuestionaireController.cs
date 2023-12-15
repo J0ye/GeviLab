@@ -73,9 +73,10 @@ public class NetworkQuestionaireController : QuestionaireController
         int count = 0;
         foreach(Answer a in answerGiven)
         {
-            if(a.giverID == value.giverID && a.question == value.question)
+            if(a.giverID == value.giverID && a.question == value.question && a.giverName == value.giverName)
             {
                 // Found existing entry
+                Debug.Log("<color=red>Rewrite at " + count + " given answer for: </color>" + value.giverName);
                 answerGiven[count] = value; // Rewrite entry
                 WriteAnswersGiven();
 

@@ -165,20 +165,17 @@ public class GameState : MonoBehaviour
             XRUIInteractable temp;
             if(child.TryGetComponent<XRUIInteractable>(out temp))
             {
-                temp.OnInteract.RemoveAllListeners();
+                temp.OnInteract.RemoveAllListeners();print("After clear " + temp.OnInteract.GetPersistentEventCount());
                 switch (index)
                 {
                     case 0:
-                        temp.OnInteract.AddListener(target.JumpBackward);
-                        LogCreator.instance.AddLog("Added backwards for " + target.transform.parent.name);
+                        temp.OnInteract.AddListener(target.JumpBackward);print("Added backwards for environment " + target.transform.parent.name + " to " + temp.name);
                         break;
                     case 1:
                         temp.OnInteract.AddListener(target.Pause);
-                        LogCreator.instance.AddLog("Added pause for " + target.transform.parent.name);
                         break;
                     case 2:
                         temp.OnInteract.AddListener(target.JumpForward);
-                        LogCreator.instance.AddLog("Added forward for " + target.transform.parent.name);
                         break;
                     default:
                         // Do nothing?

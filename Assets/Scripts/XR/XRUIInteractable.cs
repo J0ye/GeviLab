@@ -36,7 +36,7 @@ public class XRUIInteractable : MonoBehaviour
     public void Interact()
     {
         OnInteract.Invoke();
-        if(highlightDuration > 0)
+        if (highlightDuration > 0)
         {
             transform.DOPunchScale(new Vector3(highlightStrength, highlightStrength, highlightStrength), highlightDuration);
         }

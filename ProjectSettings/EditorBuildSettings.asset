@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/VROffline.unity
-    guid: 22857147c644878438e32ece3a8a03cd
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Scenes/Name Screen.unity
     guid: 56dfbd02b73846645a1bd8af47a3db99
@@ -18,8 +18,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Windturbine.unity
     guid: c567964e3357c854b991a3ac0276d8e9
   - enabled: 0
-    path: Assets/Scenes/Windturbine Testscene.unity
-    guid: 07df4d5ba33771a47b465a2f43cc9f3b
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Scenes/Windturbine Advanced.unity
     guid: b8894b98f0dbc2c4696def31bd481002

@@ -73,7 +73,7 @@ public class Note : MediaAnnotation
         GameObject newFullscreenNote = Instantiate(fullscreenPrefabXR, GetPositionInFrontOfAnnotation(), Quaternion.identity);
         newFullscreenNote.transform.DOScale(newFullscreenNote.transform.localScale.x * xRPrefabSize, xRPrefabAnimationDuration);
         FullscreenNote fn = newFullscreenNote.GetComponent<FullscreenNote>();
-        fn.content.text = titel + "\n" + text;
+        fn.content.text = "<style=\"H1\">" + titel + "</style><br>" + text;
         fn.origin = this;
         GameState.instance.SetActivePlayerControls(false);
 
